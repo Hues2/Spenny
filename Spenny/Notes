@@ -1,0 +1,8 @@
+NOTES:
+
+- User can set monthly income
+- This monthly income is the amount that the user will start with at the start of each month
+- User can input monthly direct debits, which wil be automatically deducted at the start of each month from the "monthly income"
+- User can set a "Savings Goal" at the start of each month
+- At the end of the month, if money is left over, then this will be counted as the "saved amount"
+- Depending on the "Savings Goal" amd the actual "savings amount", the number will be green (if saved money (+)) or red (no savings (-)) depending on the 2 values
