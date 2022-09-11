@@ -13,9 +13,9 @@ struct AppView: View {
             HomeView()
                 .tabItem {
                     Label {
-                        Text("Home")
+                        Text("Track")
                     } icon: {
-                        Image(systemName: "house")
+                        Image(systemName: "dollarsign.square.fill")
                     }
 
                 }
