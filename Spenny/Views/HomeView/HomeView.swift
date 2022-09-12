@@ -11,9 +11,11 @@ import UIKit
 struct HomeView: View {
     
     @StateObject var vm: HomeViewModel
+    @Binding var showModal: Bool
     
     
     init(showModal: Binding<Bool>){
+        self._showModal = showModal
         self._vm = StateObject(wrappedValue: HomeViewModel(showModal: showModal))
     }
         
@@ -91,6 +93,12 @@ extension HomeView{
             .buttonStyle(SpennyButtonStyle())
             
             Spacer()
+            
+            if showModal{
+                Spacer()
+                    .frame(height: 300)
+            }
+            
         }
     }
 

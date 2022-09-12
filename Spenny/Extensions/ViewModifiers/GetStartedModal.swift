@@ -8,7 +8,6 @@
 import SwiftUI
 
 
-
 struct GetStartedModalViewModifier: ViewModifier{
     @Binding var showModal: Bool
     
@@ -30,30 +29,75 @@ struct GetStartedModalViewModifier: ViewModifier{
 
 struct GetStartedModal: View{
     @Binding var showModal: Bool
+    @State private var offset = CGFloat.zero
     
     var body: some View{
         VStack{
-            HStack{
-                Spacer()
-                Image(systemName: "x.circle")
-                    .foregroundColor(.accentColor)
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            showModal.toggle()
-                        }
-                    }
-                    .padding()
-            }
+            // MARK: Button Row
+            buttonRow
+            
             Spacer()
         }
         .frame(height: UIScreen.main.bounds.height / 2)
         .frame(maxWidth: .infinity)
+        .overlay(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Color.accentColor)
+                .frame(width: 30, height: 5)
+                .padding(3)
+            , alignment: .top
+        )
         .background(
-            
+            Color.startedModalBackgroundColor
                 .cornerRadius(10)
                 .ignoresSafeArea()
+                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: -2)
         )
+        .offset(x: 0, y: showModal ? offset : .zero)
+        .gesture(
+            DragGesture()
+                .onChanged({ gesture in
+                    offset = gesture.translation.height
+                    print("\n \(offset) \n")
+                    
+                })
+                .onEnded({ gesture in
+                    if gesture.translation.height > 150{
+                        dismissModal()
+                    }
+                })
+        )
+        
     }
+    
+    func dismissModal(){
+        withAnimation(.easeInOut) {
+            showModal.toggle()
+        }
+    }
+}
+
+
+extension GetStartedModal{
+    
+    private var buttonRow: some View{
+        HStack{
+            
+            Spacer()
+            
+            Button {
+                dismissModal()
+            } label: {
+                Image(systemName: "x.circle")
+                    .font(.title2)
+                    .foregroundColor(.accentColor)
+                    .padding()
+            }
+            .buttonStyle(SpennyButtonStyle())
+
+        }
+    }
+    
 }
 
 
