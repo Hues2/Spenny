@@ -86,16 +86,21 @@ extension GetStartedModal{
     }
     
     private var monthlyIncomeField: some View{
-        VStack(alignment: .leading, spacing: 5) {
-            Text("Monthly Income:")
-                .font(.caption)
-                .fontWeight(.semibold)
-            TextField("E.g. £1250.00", text: $vm.monthlyIncome)
-                .keyboardType(.decimalPad)
+        GroupBox{
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Monthly Income:")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.accentColor)
+                TextField("E.g. £1250.00", text: $vm.monthlyIncome)
+                    .keyboardType(.decimalPad)
+            }
         }
         .frame(maxWidth: .infinity)
-        .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
         .padding()
+        .clipped()
+        .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
+        
     }
     
     
