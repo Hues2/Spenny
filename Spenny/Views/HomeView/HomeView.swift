@@ -18,7 +18,7 @@ struct HomeView: View {
         self._showModal = showModal
         self._vm = StateObject(wrappedValue: HomeViewModel(showModal: showModal))
     }
-        
+    
     var body: some View {
         NavigationView {
             if vm.showInitialProgressView{
@@ -32,7 +32,7 @@ struct HomeView: View {
                  Check if the data is nil
                  if vm.data != nil{
                  } else{
-                    getStarted
+                 getStarted
                  }
                  */
                 getStarted
@@ -40,7 +40,7 @@ struct HomeView: View {
             }
             
             
-
+            
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -64,33 +64,42 @@ extension HomeView{
         VStack{
             
             Spacer()
-            
-            Text("SPENNY")
-                .font(.largeTitle)
-                .fontWeight(.black)
-                .foregroundColor(.accentColor)
-            
-            Button {
-                withAnimation(.spring()) {
-                    vm.showModal = true
+
+            Rectangle()
+                .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+                .frame(height: 75)
+                .frame(maxWidth: .infinity)
+                .mask {
+                    Text("SPENNY")
+                        .font(.largeTitle)
+                        .fontWeight(.black)
                 }
-                
-                
-            } label: {
-                Text("Get Started")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [.teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
-                    )
-                    .cornerRadius(15)
-                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
-                    .padding()
+            
+            
+            if !showModal{
+                Button {
+                    withAnimation(.spring()) {
+                        vm.showModal = true
+                    }
+                    
+                } label: {
+                    Text("Get Started")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                        )
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
+                        .padding()
+                }
+                .transition(.scale)
+                .animation(.easeInOut, value: showModal)
+                .buttonStyle(SpennyButtonStyle())
             }
-            .buttonStyle(SpennyButtonStyle())
             
             Spacer()
             
@@ -101,6 +110,6 @@ extension HomeView{
             
         }
     }
-
+    
     
 }
