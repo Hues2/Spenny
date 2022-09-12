@@ -18,3 +18,11 @@ APP DESIGN:
     that represents the amount over or under the goal
 
 - Second view will be a list with all of the previous months
+
+
+APP TODO:
+
+- On home screen, show a progressview
+- In the init of the view model, it will try to get the data
+- If it gets data, then display it
+- If it can't get the data, then set it to nil, and stop showing the progressview, and show the get started button

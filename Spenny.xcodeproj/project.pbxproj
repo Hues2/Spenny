@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */; };
 		2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE505DF28CE85DA00809A73 /* SpennyApp.swift */; };
 		2EE505E428CE85DC00809A73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE505E328CE85DC00809A73 /* Assets.xcassets */; };
 		2EE505E728CE85DC00809A73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE505E628CE85DC00809A73 /* Preview Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonStyle.swift; sourceTree = "<group>"; };
 		2EE505DC28CE85DA00809A73 /* Spenny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spenny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE505DF28CE85DA00809A73 /* SpennyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyApp.swift; sourceTree = "<group>"; };
 		2EE505E328CE85DC00809A73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +40,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E0E8A2628CF74D0006C0252 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2E0E8A2928CF74F9006C0252 /* ViewModifiers */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2E0E8A2728CF74D6006C0252 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2E0E8A2828CF74E3006C0252 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2E0E8A2928CF74F9006C0252 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		2EE505D328CE85DA00809A73 = {
 			isa = PBXGroup;
 			children = (
@@ -57,8 +89,11 @@
 		2EE505DE28CE85DA00809A73 /* Spenny */ = {
 			isa = PBXGroup;
 			children = (
+				2E0E8A2828CF74E3006C0252 /* Utilities */,
 				2EE505EF28CE868000809A73 /* App */,
+				2E0E8A2728CF74D6006C0252 /* Models */,
 				2EE505F028CE868700809A73 /* Views */,
+				2E0E8A2628CF74D0006C0252 /* Extensions */,
 				2EE505E328CE85DC00809A73 /* Assets.xcassets */,
 				2EE505E528CE85DC00809A73 /* Preview Content */,
 				2EE505F628CE88FE00809A73 /* Notes */,
@@ -171,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */,
 				2EE505F328CE871200809A73 /* HomeView.swift in Sources */,
 				2EE505EE28CE865900809A73 /* AppView.swift in Sources */,
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,

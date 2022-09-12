@@ -9,19 +9,29 @@ import SwiftUI
 import UIKit
 
 struct HomeView: View {
+    
+    @StateObject var vm = HomeViewModel()
         
     var body: some View {
         NavigationView {
-            VStack{
-                //MARK: - Header
-                header
+            if vm.showInitialProgressView{
                 
+                // MARK: Initial ProgressView
+                loadingView
                 
+            } else{
                 
-                Spacer()
+                /*
+                 Check if the data is nil
+                 if vm.data != nil{
+                 } else{
+                    getStarted
+                 }
+                 */
+                getStarted
+                
             }
-            .navigationTitle("Spenny")
-            .navigationBarTitleDisplayMode(.inline)
+            
             
 
         }
@@ -32,47 +42,48 @@ struct HomeView: View {
 
 extension HomeView{
     
-    private var header: some View{
-        GroupBox {
-            VStack(alignment: .center, spacing: 15){
-                
-                //MARK: - Remaining Amount
-                remainingAmount
-                
-                //MARK: - Add Savings Goal Button
-                savingsGoal
-            }
-        }
-        .padding()
-    }
-    
-    
-    
-    private var savingsGoal: some View{
-        // If there is no savings goal, then show the button
-            Button {
-                print("\n Show modal to add savings goal \n")
-            } label: {
-                HStack(spacing: 2){
-                    Image(systemName: "plus.circle")
-                    Text("Savings Goal")
-                }
-                .font(.caption)
-                .foregroundColor(.accentColor)
-            }
-    }
-    
-    private var remainingAmount: some View{
-        HStack{
+    private var loadingView: some View{
+        VStack{
             Spacer()
-            Text("£306.51")
+            
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+            
+            Spacer()
+        }
+    }
+    
+    private var getStarted: some View{
+        VStack{
+            
+            Spacer()
+            
+            Text("SPENNY")
                 .font(.largeTitle)
                 .fontWeight(.black)
                 .foregroundColor(.accentColor)
+            
+            Button {
+                print("\n Get started pressed! \n")
+            } label: {
+                Text("Get Started")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(
+                        Color.teal
+                    )
+                    .cornerRadius(15)
+            }
+            .buttonStyle(SpennyButtonStyle())
+
+            
             Spacer()
         }
-        .padding()
     }
+
+    
 }
 
 
