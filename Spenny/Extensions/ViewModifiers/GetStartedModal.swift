@@ -65,7 +65,7 @@ struct GetStartedModal: View{
                     
                 })
                 .onEnded({ gesture in
-                    if gesture.translation.height > 150{
+                    if gesture.translation.height > 125{
                         dismissModal()
                     } else{
                         withAnimation {
