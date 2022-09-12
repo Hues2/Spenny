@@ -71,13 +71,15 @@ extension HomeView{
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding()
+                    .frame(maxWidth: .infinity)
                     .background(
-                        Color.teal
+                        LinearGradient(gradient: Gradient(colors: [.teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
                     )
                     .cornerRadius(15)
+                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
+                    .padding()
             }
             .buttonStyle(SpennyButtonStyle())
-
             
             Spacer()
         }
