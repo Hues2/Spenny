@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AppView: View {
+    @StateObject var dataManager = DataManager()
+    
+    // This showModal is here, as the modal has to go over the tab bar
     @State var showModal: Bool = false
     
     var body: some View {
@@ -23,11 +26,5 @@ struct AppView: View {
                 }
         }
         .withGetStartedModal(showModal: $showModal)
-    }
-}
-
-struct AppView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppView()
     }
 }

@@ -26,3 +26,6 @@ APP TODO:
 - In the init of the view model, it will try to get the data
 - If it gets data, then display it
 - If it can't get the data, then set it to nil, and stop showing the progressview, and show the get started button
+- In init of data manager, try to get the data from core data
+- Pass the data manager down through dependency injection
+

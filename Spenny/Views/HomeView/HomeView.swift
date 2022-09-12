@@ -65,49 +65,59 @@ extension HomeView{
             
             Spacer()
 
-            Rectangle()
-                .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
-                .frame(height: 75)
-                .frame(maxWidth: .infinity)
-                .mask {
-                    Text("SPENNY")
-                        .font(.largeTitle)
-                        .fontWeight(.black)
-                }
+            //MARK: - Logo
+            logo
             
-            
-            if !showModal{
-                Button {
-                    withAnimation(.spring()) {
-                        vm.showModal = true
-                    }
-                    
-                } label: {
-                    Text("Get Started")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
-                        )
-                        .cornerRadius(15)
-                        .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
-                        .padding()
-                }
-                .transition(.scale)
-                .animation(.easeInOut, value: showModal)
-                .buttonStyle(SpennyButtonStyle())
-            }
-            
+            //MARK: - Get Started Button
+            getStartedButton
+                        
             Spacer()
             
+            // This moves the logo up, when the modal appears
             if showModal{
                 Spacer()
                     .frame(height: 300)
             }
             
+        }
+    }
+    
+    private var logo: some View{
+        Rectangle()
+            .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+            .frame(height: 75)
+            .frame(maxWidth: .infinity)
+            .mask {
+                Text("SPENNY")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+            }
+    }
+    
+    @ViewBuilder private var getStartedButton: some View{
+        if !showModal{
+            Button {
+                withAnimation(.spring()) {
+                    vm.showModal = true
+                }
+                
+            } label: {
+                Text("Get Started")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(15)
+                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
+                    .padding()
+            }
+            .transition(.scale)
+            .animation(.easeInOut, value: showModal)
+            .buttonStyle(SpennyButtonStyle())
         }
     }
     

@@ -10,6 +10,7 @@
 		2E04DE7F28CFBA990013D866 /* SpennyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE7E28CFBA990013D866 /* SpennyData.swift */; };
 		2E04DE8328CFC5420013D866 /* ModalDragGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8228CFC5420013D866 /* ModalDragGesture.swift */; };
 		2E04DE8528CFC6E40013D866 /* ModalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8428CFC6E40013D866 /* ModalModifiers.swift */; };
+		2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8728CFD30B0013D866 /* DataManager.swift */; };
 		2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */; };
 		2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */; };
 		2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */; };
@@ -27,6 +28,7 @@
 		2E04DE7E28CFBA990013D866 /* SpennyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpennyData.swift; path = Spenny/SpennyData.swift; sourceTree = SOURCE_ROOT; };
 		2E04DE8228CFC5420013D866 /* ModalDragGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDragGesture.swift; sourceTree = "<group>"; };
 		2E04DE8428CFC6E40013D866 /* ModalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalModifiers.swift; sourceTree = "<group>"; };
+		2E04DE8728CFD30B0013D866 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonStyle.swift; sourceTree = "<group>"; };
 		2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedModal.swift; sourceTree = "<group>"; };
 		2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E04DE8628CFD2F10013D866 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2E04DE8728CFD30B0013D866 /* DataManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		2E0E8A2628CF74D0006C0252 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 			children = (
 				2EE505EF28CE868000809A73 /* App */,
 				2E0E8A2828CF74E3006C0252 /* Utilities */,
+				2E04DE8628CFD2F10013D866 /* Services */,
 				2E0E8A2728CF74D6006C0252 /* Models */,
 				2EE505F028CE868700809A73 /* Views */,
 				2E0E8A2628CF74D0006C0252 /* Extensions */,
@@ -225,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */,
+				2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */,
 				2E04DE7F28CFBA990013D866 /* SpennyData.swift in Sources */,
 				2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */,
 				2EE505F328CE871200809A73 /* HomeView.swift in Sources */,
