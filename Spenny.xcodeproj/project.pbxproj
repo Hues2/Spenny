@@ -11,6 +11,8 @@
 		2E04DE8328CFC5420013D866 /* ModalDragGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8228CFC5420013D866 /* ModalDragGesture.swift */; };
 		2E04DE8528CFC6E40013D866 /* ModalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8428CFC6E40013D866 /* ModalModifiers.swift */; };
 		2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8728CFD30B0013D866 /* DataManager.swift */; };
+		2E04DE8B28CFD6E10013D866 /* ModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8A28CFD6E10013D866 /* ModalViewModel.swift */; };
+		2E04DE8E28CFE1190013D866 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04DE8D28CFE1190013D866 /* UIApplication.swift */; };
 		2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */; };
 		2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */; };
 		2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */; };
@@ -29,6 +31,8 @@
 		2E04DE8228CFC5420013D866 /* ModalDragGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDragGesture.swift; sourceTree = "<group>"; };
 		2E04DE8428CFC6E40013D866 /* ModalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalModifiers.swift; sourceTree = "<group>"; };
 		2E04DE8728CFD30B0013D866 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		2E04DE8A28CFD6E10013D866 /* ModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewModel.swift; sourceTree = "<group>"; };
+		2E04DE8D28CFE1190013D866 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonStyle.swift; sourceTree = "<group>"; };
 		2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedModal.swift; sourceTree = "<group>"; };
 		2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
@@ -62,11 +66,28 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		2E04DE8928CFD6CA0013D866 /* GetStartedModal */ = {
+			isa = PBXGroup;
+			children = (
+				2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */,
+				2E04DE8A28CFD6E10013D866 /* ModalViewModel.swift */,
+			);
+			path = GetStartedModal;
+			sourceTree = "<group>";
+		};
+		2E04DE8C28CFDAB30013D866 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2E0E8A2628CF74D0006C0252 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				2E0E8A2928CF74F9006C0252 /* ViewModifiers */,
 				2EB90C5628CF8696004F158E /* Color.swift */,
+				2E04DE8D28CFE1190013D866 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -91,7 +112,7 @@
 		2E0E8A2928CF74F9006C0252 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
-				2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */,
+				2E04DE8928CFD6CA0013D866 /* GetStartedModal */,
 				2E04DE8228CFC5420013D866 /* ModalDragGesture.swift */,
 				2E04DE8428CFC6E40013D866 /* ModalModifiers.swift */,
 			);
@@ -150,6 +171,7 @@
 		2EE505F028CE868700809A73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2E04DE8C28CFDAB30013D866 /* Components */,
 				2EE505F128CE870100809A73 /* HomeView */,
 			);
 			path = Views;
@@ -236,12 +258,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */,
+				2E04DE8B28CFD6E10013D866 /* ModalViewModel.swift in Sources */,
 				2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */,
 				2E04DE7F28CFBA990013D866 /* SpennyData.swift in Sources */,
 				2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */,
 				2EE505F328CE871200809A73 /* HomeView.swift in Sources */,
 				2EE505EE28CE865900809A73 /* AppView.swift in Sources */,
 				2E04DE8328CFC5420013D866 /* ModalDragGesture.swift in Sources */,
+				2E04DE8E28CFE1190013D866 /* UIApplication.swift in Sources */,
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,
 				2EB90C5728CF8696004F158E /* Color.swift in Sources */,
 				2EE505F528CE88A500809A73 /* HomeViewModel.swift in Sources */,

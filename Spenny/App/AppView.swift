@@ -25,6 +25,6 @@ struct AppView: View {
 
                 }
         }
-        .withGetStartedModal(showModal: $showModal)
+        .withGetStartedModal(dataManager: dataManager, showModal: $showModal)
     }
 }
