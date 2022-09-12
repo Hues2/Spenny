@@ -11,8 +11,10 @@ import SwiftUI
 class HomeViewModel: ObservableObject{
     
     @Published var showInitialProgressView: Bool = true
+    @Binding var showModal: Bool
     
-    init(){
+    init(showModal: Binding<Bool>){
+        self._showModal = showModal
         // Get the remaining amount from core data
         
         

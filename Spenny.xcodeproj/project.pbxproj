@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */; };
+		2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */; };
+		2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */; };
 		2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE505DF28CE85DA00809A73 /* SpennyApp.swift */; };
 		2EE505E428CE85DC00809A73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE505E328CE85DC00809A73 /* Assets.xcassets */; };
 		2EE505E728CE85DC00809A73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE505E628CE85DC00809A73 /* Preview Assets.xcassets */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonStyle.swift; sourceTree = "<group>"; };
+		2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedModal.swift; sourceTree = "<group>"; };
+		2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		2EE505DC28CE85DA00809A73 /* Spenny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spenny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE505DF28CE85DA00809A73 /* SpennyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyApp.swift; sourceTree = "<group>"; };
 		2EE505E328CE85DC00809A73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */,
+				2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -66,6 +71,7 @@
 		2E0E8A2928CF74F9006C0252 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -89,8 +95,8 @@
 		2EE505DE28CE85DA00809A73 /* Spenny */ = {
 			isa = PBXGroup;
 			children = (
-				2E0E8A2828CF74E3006C0252 /* Utilities */,
 				2EE505EF28CE868000809A73 /* App */,
+				2E0E8A2828CF74E3006C0252 /* Utilities */,
 				2E0E8A2728CF74D6006C0252 /* Models */,
 				2EE505F028CE868700809A73 /* Views */,
 				2E0E8A2628CF74D0006C0252 /* Extensions */,
@@ -206,11 +212,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */,
 				2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */,
 				2EE505F328CE871200809A73 /* HomeView.swift in Sources */,
 				2EE505EE28CE865900809A73 /* AppView.swift in Sources */,
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,
 				2EE505F528CE88A500809A73 /* HomeViewModel.swift in Sources */,
+				2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +347,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Spenny/Preview Content\"";
-				DEVELOPMENT_TEAM = UD7DDMT4QH;
+				DEVELOPMENT_TEAM = FSYW7H5XB9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -352,7 +360,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.greg-ross-spenny.Spenny";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.greg-ross-spenny-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -368,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Spenny/Preview Content\"";
-				DEVELOPMENT_TEAM = UD7DDMT4QH;
+				DEVELOPMENT_TEAM = FSYW7H5XB9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -381,7 +389,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.greg-ross-spenny.Spenny";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.greg-ross-spenny-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

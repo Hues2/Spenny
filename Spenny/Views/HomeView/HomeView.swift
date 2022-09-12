@@ -10,7 +10,12 @@ import UIKit
 
 struct HomeView: View {
     
-    @StateObject var vm = HomeViewModel()
+    @StateObject var vm: HomeViewModel
+    
+    
+    init(showModal: Binding<Bool>){
+        self._vm = StateObject(wrappedValue: HomeViewModel(showModal: showModal))
+    }
         
     var body: some View {
         NavigationView {
@@ -64,7 +69,11 @@ extension HomeView{
                 .foregroundColor(.accentColor)
             
             Button {
-                print("\n Get started pressed! \n")
+                withAnimation(.spring()) {
+                    vm.showModal = true
+                }
+                
+                
             } label: {
                 Text("Get Started")
                     .font(.headline)
@@ -86,11 +95,4 @@ extension HomeView{
     }
 
     
-}
-
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
 }

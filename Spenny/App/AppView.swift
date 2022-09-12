@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AppView: View {
+    @State var showModal: Bool = false
+    
     var body: some View {
         TabView {
-            HomeView()
+            HomeView(showModal: $showModal)
                 .tabItem {
                     Label {
                         Text("Track")
@@ -20,6 +22,7 @@ struct AppView: View {
 
                 }
         }
+        .withGetStartedModal(showModal: $showModal)
     }
 }
 
