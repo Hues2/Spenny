@@ -57,13 +57,20 @@ struct GetStartedModal: View{
         .gesture(
             DragGesture()
                 .onChanged({ gesture in
-                    offset = gesture.translation.height
                     print("\n \(offset) \n")
+                    if gesture.translation.height > 0{
+                        offset = gesture.translation.height
+                    }
+                    
                     
                 })
                 .onEnded({ gesture in
                     if gesture.translation.height > 150{
                         dismissModal()
+                    } else{
+                        withAnimation {
+                            offset = .zero
+                        }
                     }
                 })
         )
