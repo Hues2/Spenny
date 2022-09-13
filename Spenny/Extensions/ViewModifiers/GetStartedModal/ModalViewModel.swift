@@ -10,6 +10,7 @@ import Combine
 
 class ModalViewModel: ObservableObject{
     @Published var monthlyIncome: String = ""
+    @Published var savingsGoal: String = ""
     
     
     let dataManager: DataManager

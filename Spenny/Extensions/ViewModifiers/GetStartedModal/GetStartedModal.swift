@@ -40,15 +40,17 @@ struct GetStartedModal: View{
     }
     
     var body: some View{
-        VStack(alignment: .center){
+        VStack(alignment: .center, spacing: 0){
             // MARK: Button Row
             buttonRow
+                .padding(.bottom, 5)
             
             //MARK: - Monthly Income
             monthlyIncomeField
+                .padding(.bottom, 5)
             
             //MARK: - Savings Goal
-            
+            savingsGoal
             
             //MARK: - Optional Direct Debits
             
@@ -86,21 +88,11 @@ extension GetStartedModal{
     }
     
     private var monthlyIncomeField: some View{
-        GroupBox{
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Monthly Income:")
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.accentColor)
-                TextField("E.g. £1250.00", text: $vm.monthlyIncome)
-                    .keyboardType(.decimalPad)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .clipped()
-        .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
-        
+        ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.monthlyIncome)
+    }
+    
+    private var savingsGoal: some View{
+        ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.savingsGoal)
     }
     
     
