@@ -54,3 +54,9 @@ WORKING ON NOW:
     - The component will have a delete and save button next to the textfields, so that when the user is done adding all the info thet can save that Transaction
     - When the save button is clicked it will add it to the list of transactions or direct debits (depeneding on the isDirectDebit bool in the component)
     
+    - An empty list will be above the add direct debit text
+    - When the add direct debit text is pressed, the view below it (AddTransaction) will appear
+    - The text will then dissapear, so that the user cant make the addTransaction view dissappear
+    - Once the user clicks the save or delete button, the Transaction will be added to the list (in this case, to the list of direct debits), and then it will appear in the list
+    - All the data in the add transaction view will be wiped aand then it will be taken off the screen
+    - And then the add direct debit text will appear again

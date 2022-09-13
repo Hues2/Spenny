@@ -136,7 +136,8 @@ extension GetStartedModal{
                 .fontWeight(.bold)
                 .withSpennyButtonLabelStyle()
         }
-        .buttonStyle(SpennyButtonStyle() )
+        .buttonStyle(SpennyButtonStyle())
+        .padding(.top, 10)
 
     }
     
