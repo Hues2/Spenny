@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct SpennyData{
+struct SpennyData: Codable{
     var monthlyIncome: Double
     var savingsGoal: Double
-    var directDebits: [Double]?
+    var directDebits: [Transaction]
+    var transactions: [Transaction]
 }
