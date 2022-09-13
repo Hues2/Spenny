@@ -101,11 +101,11 @@ extension GetStartedModal{
     }
     
     private var monthlyIncomeField: some View{
-        ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.monthlyIncome)
+        ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.dataManager.monthlyIncome)
     }
     
     private var savingsGoalField: some View{
-        ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.savingsGoal)
+        ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.dataManager.savingsGoal)
     }
     
     @ViewBuilder private var addDirectDebitText: some View{
@@ -130,7 +130,7 @@ extension GetStartedModal{
     
     private var listOfDirectDebits: some View{
         VStack{
-            ForEach(vm.directDebits){ directDebit in
+            ForEach(vm.dataManager.directDebits){ directDebit in
                 Text("DIRECT DEBIT CARD WILL APPEAR HERE")
             }
         }
@@ -138,7 +138,7 @@ extension GetStartedModal{
     
     @ViewBuilder private var addDirectDebitsField: some View{
         if isAddingDirectDebit{
-            AddTransaction(directDebit: $vm.directDebit, selectedTransactionType: $vm.selectedTransactionType, addDirectDebit: vm.addDirectDebit, isAddingDirectDebit: $isAddingDirectDebit, modalViewModel: vm)
+            AddTransaction(dataManager: vm.dataManager, isAddingDirectDebit: $isAddingDirectDebit, isDirectDebit: true)
         }
     }
     
