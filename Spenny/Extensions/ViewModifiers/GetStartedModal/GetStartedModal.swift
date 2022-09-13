@@ -104,6 +104,10 @@ extension GetStartedModal{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.savingsGoal)
     }
     
+    private var directDebits: some View{
+        
+    }
+    
     private var saveToCoreDataButton: some View{
         Button {
             print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
@@ -112,12 +116,11 @@ extension GetStartedModal{
                 .fontWeight(.bold)
                 .withSpennyButtonLabelStyle()
         }
-        .buttonStyle(SpennyButtonStyle())
+        .buttonStyle(SpennyButtonStyle() )
 
     }
     
-    
-    
+
     //MARK: - Functionality
     private func dismissModal(){
         withAnimation(.easeInOut) {
