@@ -94,6 +94,7 @@
 		2E04DE8C28CFDAB30013D866 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2E136DD028D136E000D07778 /* AddTransactions */,
 				2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */,
 				2E08DC8728D0A3B700431470 /* AddTransaction.swift */,
 				2E722A7428D0D01100ADA295 /* AddedDirectDebit.swift */,
@@ -141,6 +142,13 @@
 				2EB744FB28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		2E136DD028D136E000D07778 /* AddTransactions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddTransactions;
 			sourceTree = "<group>";
 		};
 		2EE505D328CE85DA00809A73 = {

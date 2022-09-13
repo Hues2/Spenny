@@ -17,4 +17,5 @@ class DataManager: ObservableObject{
         
     }
     
+    
 }

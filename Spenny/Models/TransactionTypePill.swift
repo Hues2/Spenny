@@ -10,7 +10,6 @@ import SwiftUI
 struct TransactionTypePill: View {
     let transactionType: TransactionType
     @Binding var selectedTransactionType: TransactionType
-    @State var isSelected: Bool = false
     
     var body: some View {
         HStack{
@@ -29,7 +28,7 @@ struct TransactionTypePill: View {
         .shadow(color: (.black.opacity(0.3)), radius: 3)
         .overlay(
             RoundedRectangle(cornerRadius: 30)
-                .stroke(transactionType == selectedTransactionType ? .black : .clear)
+                .stroke(transactionType == selectedTransactionType ? Color.primary : .clear, lineWidth: 2)
         )
         .padding(2)
         .onTapGesture {

@@ -13,7 +13,7 @@ struct Transaction: Codable, Identifiable{
     var title: String
     var amount: String
     var date: String
-    var icon: String
-    var transaction: TransactionType
+    var transactionType: TransactionType
+    var isDirectDebit: Bool
     
 }

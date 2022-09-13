@@ -9,15 +9,18 @@ import SwiftUI
 
 struct AddTransaction: View {
     
-    @State var transaction: Transaction = Transaction(title: "", amount: "", date: "", icon: "", transaction: TransactionType(iconName: "", title: "", colorHex: ""))
+    @State var transaction: Transaction = Transaction(title: "", amount: "", date: "Insert Date", transactionType: TransactionType(iconName: "", title: "", colorHex: ""), isDirectDebit: true)
+    @Binding var directDebit: Transaction
     @Binding var selectedTransactionType: TransactionType
-    var isDirectDebit: Bool
+    let addDirectDebit: ((@escaping () -> ()) -> ())
+    
+    @Binding var isAddingDirectDebit: Bool
     
     
     var body: some View {
         GroupBox{
             VStack(alignment: .leading, spacing: 5) {
-                Text("\(isDirectDebit ? "Add Direct Debit" : "Add Transaction"):")
+                Text("\(transaction.isDirectDebit ? "Add Direct Debit" : "Add Transaction"):")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.accentColor)
@@ -31,6 +34,10 @@ struct AddTransaction: View {
             
             // MARK: Transaction Types
             transactionTypeScrollView
+            
+            //MARK: - Add Direct Debit Button
+            addDirectDebitButton
+            
             
         }
         .frame(maxWidth: .infinity)
@@ -52,6 +59,35 @@ extension AddTransaction{
                 }
             }
         }
+    }
+    
+    @ViewBuilder private var addDirectDebitButton: some View{
+        if !transaction.title.isEmpty && !transaction.amount.isEmpty && !transaction.date.isEmpty && !selectedTransactionType.title.isEmpty && !selectedTransactionType.iconName.isEmpty
+            && !selectedTransactionType.colorHex.isEmpty {
+            
+            Button {
+                
+                transaction.transactionType = selectedTransactionType
+                directDebit = transaction
+                
+                addDirectDebit{
+                    // Reset the transaction, incase the user wants to add another direct debit
+                    
+                    self.transaction = Transaction(title: "", amount: "", date: "Insert Date", transactionType: TransactionType(iconName: "", title: "", colorHex: ""), isDirectDebit: true)
+                    directDebit = transaction
+                    selectedTransactionType = transaction.transactionType
+                    
+                    withAnimation {
+                        isAddingDirectDebit = false
+                    }
+                    
+                }
+            } label: {
+                Text("Add")
+                    .withSpennyButtonLabelStyle()
+            }
+        }
+        
     }
     
 }

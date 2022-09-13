@@ -47,8 +47,6 @@ struct GetStartedModal: View{
             buttonRow
                 .padding(.bottom, 5)
             
-            
-            
             ScrollView{
                 //MARK: Monthly Income Field
                 monthlyIncomeField
@@ -74,9 +72,7 @@ struct GetStartedModal: View{
         }
         .addModalModifiers(showModal: $showModal, offset: $offset, dismissModal: dismissModal)
         
-        
     }
-    
 }
 
 
@@ -141,7 +137,7 @@ extension GetStartedModal{
     
     @ViewBuilder private var addDirectDebitsField: some View{
         if isAddingDirectDebit{
-            AddTransaction(selectedTransactionType: $vm.selectedTransactionType , isDirectDebit: true)
+            AddTransaction(directDebit: $vm.directDebit, selectedTransactionType: $vm.selectedTransactionType, addDirectDebit: vm.addDirectDebit, isAddingDirectDebit: $isAddingDirectDebit)
         }
     }
     
