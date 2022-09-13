@@ -15,7 +15,7 @@ struct ModalModifiers: ViewModifier{
     
     func body(content: Content) -> some View {
         content
-            .frame(height: UIScreen.main.bounds.height / 2)
+            .frame(height: UIScreen.main.bounds.height / 1.5)
             .frame(maxWidth: .infinity)
             .onTapGesture {
                 print("\n tapped modal \n")

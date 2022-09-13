@@ -19,6 +19,8 @@
 		2E0E8A2B28CF751D006C0252 /* SpennyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */; };
 		2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */; };
 		2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */; };
+		2E722A7528D0D01100ADA295 /* AddedDirectDebit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E722A7428D0D01100ADA295 /* AddedDirectDebit.swift */; };
+		2E722A7728D0D65A00ADA295 /* TransactionTypePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */; };
 		2EB744FA28D06BFC005FFBA4 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */; };
 		2EB744FC28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB744FB28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift */; };
 		2EB90C5728CF8696004F158E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB90C5628CF8696004F158E /* Color.swift */; };
@@ -44,6 +46,8 @@
 		2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonStyle.swift; sourceTree = "<group>"; };
 		2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedModal.swift; sourceTree = "<group>"; };
 		2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
+		2E722A7428D0D01100ADA295 /* AddedDirectDebit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddedDirectDebit.swift; path = Spenny/Models/AddedDirectDebit.swift; sourceTree = SOURCE_ROOT; };
+		2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransactionTypePill.swift; path = Spenny/Models/TransactionTypePill.swift; sourceTree = SOURCE_ROOT; };
 		2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModalTextField.swift; path = Spenny/Extensions/ModalTextField.swift; sourceTree = SOURCE_ROOT; };
 		2EB744FB28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonLabelModifier.swift; sourceTree = "<group>"; };
 		2EB90C5628CF8696004F158E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 			children = (
 				2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */,
 				2E08DC8728D0A3B700431470 /* AddTransaction.swift */,
+				2E722A7428D0D01100ADA295 /* AddedDirectDebit.swift */,
+				2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -273,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */,
+				2E722A7728D0D65A00ADA295 /* TransactionTypePill.swift in Sources */,
 				2E04DE8B28CFD6E10013D866 /* ModalViewModel.swift in Sources */,
 				2EB744FC28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift in Sources */,
 				2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */,
@@ -286,6 +293,7 @@
 				2E08DC8628D09CD500431470 /* TransactionType.swift in Sources */,
 				2E04DE8328CFC5420013D866 /* ModalDragGesture.swift in Sources */,
 				2E04DE8E28CFE1190013D866 /* UIApplication.swift in Sources */,
+				2E722A7528D0D01100ADA295 /* AddedDirectDebit.swift in Sources */,
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,
 				2EB90C5728CF8696004F158E /* Color.swift in Sources */,
 				2EE505F528CE88A500809A73 /* HomeViewModel.swift in Sources */,

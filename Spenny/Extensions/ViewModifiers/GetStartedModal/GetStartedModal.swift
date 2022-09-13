@@ -33,6 +33,7 @@ struct GetStartedModal: View{
     
     @Binding var showModal: Bool
     @State private var offset = CGFloat.zero
+    @State var isAddingDirectDebit: Bool = false
     
     init(dataManager: DataManager, showModal: Binding<Bool>){
         self._vm = StateObject(wrappedValue: ModalViewModel(dataManager: dataManager))
@@ -45,28 +46,30 @@ struct GetStartedModal: View{
             // MARK: Button Row
             buttonRow
                 .padding(.bottom, 5)
-                
-                
+            
+            
             
             ScrollView{
-            //MARK: Monthly Income Field
-            monthlyIncomeField
-                .padding(.bottom, 5)
-            
-            //MARK: Savings Goal Field
+                //MARK: Monthly Income Field
+                monthlyIncomeField
+                    .padding(.bottom, 5)
+                
+                
+                //MARK: Savings Goal Field
                 savingsGoalField
                 
-            // MARK: Add Direct Debit Button Text
-                addDirectDebitButton
-            
-            //MARK: Optional Direct Debits Field
+                // MARK: List Of Added Direct Debits
                 
-//                addDirectDebitsField
-            
-            // MARK: Save Info Button
-            saveToCoreDataButton
-            
-            Spacer()
+                
+                // MARK: Add Direct Debit Button Text
+                addDirectDebitText
+                
+                //MARK: Optional Direct Debits Field
+                addDirectDebitsField
+                
+                
+                // MARK: Save Info Button
+                saveToCoreDataButton
             }
         }
         .addModalModifiers(showModal: $showModal, offset: $offset, dismissModal: dismissModal)
@@ -108,29 +111,45 @@ extension GetStartedModal{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.savingsGoal)
     }
     
-    private var addDirectDebitButton: some View{
-        HStack(spacing: 3){
-            Image(systemName: "plus.circle")
-            Text("Add a direct debit")
-                .fontWeight(.light)
-            Spacer()
+    @ViewBuilder private var addDirectDebitText: some View{
+        if !isAddingDirectDebit{
+            HStack(spacing: 3){
+                Image(systemName: "plus.circle")
+                Text("Add a direct debit")
+                    .fontWeight(.light)
+                Spacer()
+            }
+            .font(.subheadline)
+            .foregroundColor(.accentColor)
+            .containerShape(Rectangle())
+            .onTapGesture {
+                withAnimation {
+                    isAddingDirectDebit = true
+                }
+            }
+            .padding(.horizontal)
         }
-        .font(.subheadline)
-        .foregroundColor(.accentColor)
-        .containerShape(Rectangle())
-        .onTapGesture {
-            print("\n show add transaction view \n")
-        }
-        .padding(.horizontal)
     }
     
-    private var addDirectDebitsField: some View{
-        AddTransaction(isDirectDebit: true)
+    private var listOfDirectDebits: some View{
+        VStack{
+            ForEach(vm.directDebits){ directDebit in
+                Text("DIRECT DEBIT CARD WILL APPEAR HERE")
+            }
+        }
+    }
+    
+    @ViewBuilder private var addDirectDebitsField: some View{
+        if isAddingDirectDebit{
+            AddTransaction(isDirectDebit: true)
+        }
     }
     
     private var saveToCoreDataButton: some View{
+        
         Button {
             print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
+            
         } label: {
             Text("Save")
                 .fontWeight(.bold)
@@ -138,10 +157,11 @@ extension GetStartedModal{
         }
         .buttonStyle(SpennyButtonStyle())
         .padding(.top, 10)
-
+        
+        
     }
     
-
+    
     //MARK: - Functionality
     private func dismissModal(){
         withAnimation(.easeInOut) {

@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct SpennyData: Codable{
+struct SpennyData: Codable, Identifiable{
+    var id: UUID = UUID()
     var monthlyIncome: Double
     var savingsGoal: Double
     var directDebits: [Transaction]

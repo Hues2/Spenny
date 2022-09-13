@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 
-enum TransactionType: Codable{
-    case FOOD, PHONE, SPOTIFY, CAR, RENT, OTHER
+struct TransactionType: Codable{
+    var iconName: String
+    var title: String
+    var colorName: String
 }
-

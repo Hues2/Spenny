@@ -76,7 +76,8 @@ extension HomeView{
             // This moves the logo up, when the modal appears
             if showModal{
                 Spacer()
-                    .frame(height: 300)
+//                    .frame(height: 380)
+                    .frame(height: UIScreen.main.bounds.height / 1.9)
             }
             
         }
