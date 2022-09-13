@@ -54,10 +54,14 @@ struct GetStartedModal: View{
                 .padding(.bottom, 5)
             
             //MARK: Savings Goal Field
-            savingsGoal
+                savingsGoalField
+                
+            // MARK: Add Direct Debit Button Text
+                addDirectDebitButton
             
             //MARK: Optional Direct Debits Field
-            
+                
+//                addDirectDebitsField
             
             // MARK: Save Info Button
             saveToCoreDataButton
@@ -100,12 +104,28 @@ extension GetStartedModal{
         ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.monthlyIncome)
     }
     
-    private var savingsGoal: some View{
+    private var savingsGoalField: some View{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.savingsGoal)
     }
     
-    private var directDebits: some View{
-        
+    private var addDirectDebitButton: some View{
+        HStack(spacing: 3){
+            Image(systemName: "plus.circle")
+            Text("Add a direct debit")
+                .fontWeight(.light)
+            Spacer()
+        }
+        .font(.subheadline)
+        .foregroundColor(.accentColor)
+        .containerShape(Rectangle())
+        .onTapGesture {
+            print("\n show add transaction view \n")
+        }
+        .padding(.horizontal)
+    }
+    
+    private var addDirectDebitsField: some View{
+        AddTransaction(isDirectDebit: true)
     }
     
     private var saveToCoreDataButton: some View{

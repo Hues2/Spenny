@@ -44,3 +44,13 @@ APP TODO:
     
 - When user adds a direct debit or a payment, add a horizontal scrollview with these types with their icon and name inside a color pill shape
 
+
+
+
+
+WORKING ON NOW:
+    
+    - Make reusable component, which will be used to add a transaction or direct debit
+    - The component will have a delete and save button next to the textfields, so that when the user is done adding all the info thet can save that Transaction
+    - When the save button is clicked it will add it to the list of transactions or direct debits (depeneding on the isDirectDebit bool in the component)
+    

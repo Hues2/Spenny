@@ -10,6 +10,6 @@ import SwiftUI
 
 
 enum TransactionType: Codable{
-    case Food, Phone, Spotify, Car, Rent
+    case FOOD, PHONE, SPOTIFY, CAR, RENT, OTHER
 }
 

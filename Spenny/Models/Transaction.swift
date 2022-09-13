@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 struct Transaction: Codable{
-    let title: String
-    let value: Double
-    let date: String
-    let icon: String
-    let transaction: TransactionType
+    var title: String
+    var amount: String
+    var date: String
+    var icon: String
+    var transaction: TransactionType
     
 }
