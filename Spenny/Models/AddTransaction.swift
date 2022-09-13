@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddTransaction: View {
     
-//    @State var transaction: Transaction = Transaction(title: "", amount: "", date: "", icon: "", transaction: )
+    @State var transaction: Transaction = Transaction(title: "", amount: "", date: "", icon: "", transaction: TransactionType(iconName: "", title: "", colorHex: ""))
     var isDirectDebit: Bool
     
     
@@ -20,13 +20,16 @@ struct AddTransaction: View {
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.accentColor)
-//                TextField("E.g. Car Insurance", text: $transaction.title)
+                TextField("E.g. Car Insurance", text: $transaction.title)
                 
                 Divider()
                 
-//                TextField("E.g. £313.18", text: $transaction.amount)
+                TextField("E.g. £313.18", text: $transaction.amount)
                     .keyboardType(.decimalPad)
             }
+            
+            // MARK: Transaction Types
+            transactionTypeScrollView
             
         }
         .frame(maxWidth: .infinity)
@@ -43,7 +46,9 @@ extension AddTransaction{
     private var transactionTypeScrollView: some View{
         ScrollView(.horizontal ,showsIndicators: false) {
             HStack{
-                
+                ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
+                    TransactionTypePill(transactionType: transactionType)
+                }
             }
         }
     }

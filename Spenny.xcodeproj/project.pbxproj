@@ -24,6 +24,7 @@
 		2EB744FA28D06BFC005FFBA4 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */; };
 		2EB744FC28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB744FB28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift */; };
 		2EB90C5728CF8696004F158E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB90C5628CF8696004F158E /* Color.swift */; };
+		2ED9924728D0DD5B00E55406 /* ListOfTransactionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9924628D0DD5B00E55406 /* ListOfTransactionTypes.swift */; };
 		2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE505DF28CE85DA00809A73 /* SpennyApp.swift */; };
 		2EE505E428CE85DC00809A73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE505E328CE85DC00809A73 /* Assets.xcassets */; };
 		2EE505E728CE85DC00809A73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE505E628CE85DC00809A73 /* Preview Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModalTextField.swift; path = Spenny/Extensions/ModalTextField.swift; sourceTree = SOURCE_ROOT; };
 		2EB744FB28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonLabelModifier.swift; sourceTree = "<group>"; };
 		2EB90C5628CF8696004F158E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		2ED9924628D0DD5B00E55406 /* ListOfTransactionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfTransactionTypes.swift; sourceTree = "<group>"; };
 		2EE505DC28CE85DA00809A73 /* Spenny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spenny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE505DF28CE85DA00809A73 /* SpennyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyApp.swift; sourceTree = "<group>"; };
 		2EE505E328CE85DC00809A73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */,
 				2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */,
+				2ED9924628D0DD5B00E55406 /* ListOfTransactionTypes.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				2E04DE8B28CFD6E10013D866 /* ModalViewModel.swift in Sources */,
 				2EB744FC28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift in Sources */,
 				2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */,
+				2ED9924728D0DD5B00E55406 /* ListOfTransactionTypes.swift in Sources */,
 				2E08DC8828D0A3B700431470 /* AddTransaction.swift in Sources */,
 				2EB744FA28D06BFC005FFBA4 /* ModalTextField.swift in Sources */,
 				2E04DE7F28CFBA990013D866 /* SpennyData.swift in Sources */,

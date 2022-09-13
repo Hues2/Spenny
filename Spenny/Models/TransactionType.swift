@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 
-struct TransactionType: Codable{
+struct TransactionType: Codable, Identifiable{
+    var id: UUID = UUID()
     var iconName: String
     var title: String
     var colorHex: String
