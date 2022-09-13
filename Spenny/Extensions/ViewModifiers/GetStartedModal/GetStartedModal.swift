@@ -94,7 +94,6 @@ extension GetStartedModal{
             .padding(5)
         }
         .contentShape(Rectangle())
-        .addModalDragGesture(offset: $offset, dismissModal: dismissModal)
     }
     
     private var monthlyIncomeField: some View{
@@ -113,6 +112,7 @@ extension GetStartedModal{
                 .fontWeight(.bold)
                 .withSpennyButtonLabelStyle()
         }
+        .buttonStyle(SpennyButtonStyle())
 
     }
     

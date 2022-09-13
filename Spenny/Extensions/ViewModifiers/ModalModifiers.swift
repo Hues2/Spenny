@@ -35,7 +35,7 @@ struct ModalModifiers: ViewModifier{
                     .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: -2)
             )
             .offset(x: 0, y: showModal ? offset : .zero)
-//            .addModalDragGesture(offset: $offset, dismissModal: dismissModal)
+            .addModalDragGesture(offset: $offset, dismissModal: dismissModal)
     }
 }
 
