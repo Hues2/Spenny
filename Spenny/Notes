@@ -49,7 +49,10 @@ APP TODO:
 
 
 WORKING ON NOW:
-    
+
+    - Make static list of possible transaction types, to make the scrollview
+    - On tap of a transaction type pill, that will be the selected transaction type for the Transaction (Direct Debit) that will be saved in the direct debits list
+
     - Make reusable component, which will be used to add a transaction or direct debit
     - The component will have a delete and save button next to the textfields, so that when the user is done adding all the info thet can save that Transaction
     - When the save button is clicked it will add it to the list of transactions or direct debits (depeneding on the isDirectDebit bool in the component)

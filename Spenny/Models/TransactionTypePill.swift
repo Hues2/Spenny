@@ -20,14 +20,14 @@ struct TransactionTypePill: View {
         .foregroundColor(.white)
         .padding()
         .background(
-            Color.green
+            Color(hex: transactionType.colorHex)
         )
         .cornerRadius(25)
     }
 }
 
 struct TransactionTypePill_Previews: PreviewProvider {
-    static var transactionType = TransactionType(iconName: "house.fill", title: "Rent", colorName: "blue")
+    static var transactionType = TransactionType(iconName: "house.fill", title: "Rent", colorHex: "#00C17C")
     static var previews: some View {
         TransactionTypePill(transactionType: transactionType)
     }

@@ -12,5 +12,5 @@ import SwiftUI
 struct TransactionType: Codable{
     var iconName: String
     var title: String
-    var colorName: String
+    var colorHex: String
 }
