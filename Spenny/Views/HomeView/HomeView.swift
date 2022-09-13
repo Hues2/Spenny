@@ -103,17 +103,8 @@ extension HomeView{
                 
             } label: {
                 Text("Get Started")
-                    .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
-                    )
-                    .cornerRadius(15)
-                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
-                    .padding()
+                    .withSpennyButtonLabelStyle()
             }
             .transition(.scale)
             .animation(.easeInOut, value: showModal)

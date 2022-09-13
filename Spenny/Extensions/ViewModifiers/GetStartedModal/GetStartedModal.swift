@@ -40,33 +40,41 @@ struct GetStartedModal: View{
     }
     
     var body: some View{
+        
         VStack(alignment: .center, spacing: 0){
             // MARK: Button Row
             buttonRow
                 .padding(.bottom, 5)
+                
+                
             
-            //MARK: - Monthly Income
+            ScrollView{
+            //MARK: Monthly Income Field
             monthlyIncomeField
                 .padding(.bottom, 5)
             
-            //MARK: - Savings Goal
+            //MARK: Savings Goal Field
             savingsGoal
             
-            //MARK: - Optional Direct Debits
+            //MARK: Optional Direct Debits Field
+            
+            
+            // MARK: Save Info Button
+            saveToCoreDataButton
             
             Spacer()
+            }
         }
         .addModalModifiers(showModal: $showModal, offset: $offset, dismissModal: dismissModal)
-        .onTapGesture {
-            UIApplication.shared.dismissKeyboard()
-        }
+        
+        
     }
     
 }
 
 
 extension GetStartedModal{
-    //MARK: - Views
+    //MARK: Views
     private var buttonRow: some View{
         HStack{
             
@@ -85,6 +93,8 @@ extension GetStartedModal{
             }
             .padding(5)
         }
+        .contentShape(Rectangle())
+        .addModalDragGesture(offset: $offset, dismissModal: dismissModal)
     }
     
     private var monthlyIncomeField: some View{
@@ -93,6 +103,17 @@ extension GetStartedModal{
     
     private var savingsGoal: some View{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.savingsGoal)
+    }
+    
+    private var saveToCoreDataButton: some View{
+        Button {
+            print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
+        } label: {
+            Text("Save")
+                .fontWeight(.bold)
+                .withSpennyButtonLabelStyle()
+        }
+
     }
     
     
