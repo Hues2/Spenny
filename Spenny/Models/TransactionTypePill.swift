@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TransactionTypePill: View {
     let transactionType: TransactionType
+    @Binding var selectedTransactionType: TransactionType
+    @State var isSelected: Bool = false
     
     var body: some View {
         HStack{
@@ -18,17 +20,22 @@ struct TransactionTypePill: View {
         }
         .font(.headline)
         .foregroundColor(.white)
-        .padding()
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
         .background(
             Color(hex: transactionType.colorHex)
         )
-        .cornerRadius(25)
-    }
-}
-
-struct TransactionTypePill_Previews: PreviewProvider {
-    static var transactionType = TransactionType(iconName: "house.fill", title: "Rent", colorHex: "#00C17C")
-    static var previews: some View {
-        TransactionTypePill(transactionType: transactionType)
+        .cornerRadius(30)
+        .shadow(color: (.black.opacity(0.3)), radius: 3)
+        .overlay(
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(transactionType == selectedTransactionType ? .black : .clear)
+        )
+        .padding(2)
+        .onTapGesture {
+            withAnimation {
+                selectedTransactionType = transactionType
+            }
+        }
     }
 }

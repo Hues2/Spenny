@@ -10,6 +10,7 @@ import SwiftUI
 struct AddTransaction: View {
     
     @State var transaction: Transaction = Transaction(title: "", amount: "", date: "", icon: "", transaction: TransactionType(iconName: "", title: "", colorHex: ""))
+    @Binding var selectedTransactionType: TransactionType
     var isDirectDebit: Bool
     
     
@@ -47,7 +48,7 @@ extension AddTransaction{
         ScrollView(.horizontal ,showsIndicators: false) {
             HStack{
                 ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
-                    TransactionTypePill(transactionType: transactionType)
+                    TransactionTypePill(transactionType: transactionType, selectedTransactionType: $selectedTransactionType)
                 }
             }
         }

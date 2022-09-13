@@ -14,6 +14,8 @@ class ModalViewModel: ObservableObject{
     @Published var directDebits: [Transaction] = []
     private let transactions: [Transaction] = [] // --> This will be empty when the user enters their data for the first time
     
+    @Published var selectedTransactionType: TransactionType = TransactionType(iconName: "", title: "", colorHex: "")
+    
     
     let dataManager: DataManager
     

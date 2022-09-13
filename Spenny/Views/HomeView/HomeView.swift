@@ -21,12 +21,12 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            if vm.showInitialProgressView{
-                
-                // MARK: Initial ProgressView
-                loadingView
-                
-            } else{
+//            if vm.showInitialProgressView{
+//
+//                // MARK: Initial ProgressView
+//                loadingView
+//
+//            } else{
                 
                 /*
                  Check if the data is nil
@@ -37,7 +37,7 @@ struct HomeView: View {
                  */
                 getStarted
                 
-            }
+//            }
             
             
             

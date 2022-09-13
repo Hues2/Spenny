@@ -141,7 +141,7 @@ extension GetStartedModal{
     
     @ViewBuilder private var addDirectDebitsField: some View{
         if isAddingDirectDebit{
-            AddTransaction(isDirectDebit: true)
+            AddTransaction(selectedTransactionType: $vm.selectedTransactionType , isDirectDebit: true)
         }
     }
     
