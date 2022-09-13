@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddTransaction: View {
+
     
     @State var transaction: Transaction = Transaction(title: "", amount: "", date: "Insert Date", transactionType: TransactionType(iconName: "", title: "", colorHex: ""), isDirectDebit: true)
     @Binding var directDebit: Transaction
@@ -16,6 +17,8 @@ struct AddTransaction: View {
     
     @Binding var isAddingDirectDebit: Bool
     
+    let modalViewModel: ModalViewModel
+
     
     var body: some View {
         GroupBox{

@@ -43,7 +43,7 @@
 		2E04DE8D28CFE1190013D866 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		2E08DC8328D09CC300431470 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		2E08DC8528D09CD500431470 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
-		2E08DC8728D0A3B700431470 /* AddTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddTransaction.swift; path = Spenny/Models/AddTransaction.swift; sourceTree = SOURCE_ROOT; };
+		2E08DC8728D0A3B700431470 /* AddTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddTransaction.swift; path = Spenny/Views/Components/AddTransaction.swift; sourceTree = SOURCE_ROOT; };
 		2E0E8A2A28CF751D006C0252 /* SpennyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpennyButtonStyle.swift; sourceTree = "<group>"; };
 		2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedModal.swift; sourceTree = "<group>"; };
 		2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
@@ -94,9 +94,8 @@
 		2E04DE8C28CFDAB30013D866 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				2E136DD028D136E000D07778 /* AddTransactions */,
-				2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */,
 				2E08DC8728D0A3B700431470 /* AddTransaction.swift */,
+				2EB744F928D06BFC005FFBA4 /* ModalTextField.swift */,
 				2E722A7428D0D01100ADA295 /* AddedDirectDebit.swift */,
 				2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */,
 			);
@@ -142,13 +141,6 @@
 				2EB744FB28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift */,
 			);
 			path = ViewModifiers;
-			sourceTree = "<group>";
-		};
-		2E136DD028D136E000D07778 /* AddTransactions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AddTransactions;
 			sourceTree = "<group>";
 		};
 		2EE505D328CE85DA00809A73 = {

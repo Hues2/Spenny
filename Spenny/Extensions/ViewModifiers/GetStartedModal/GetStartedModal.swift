@@ -77,6 +77,7 @@ struct GetStartedModal: View{
 
 
 extension GetStartedModal{
+    
     //MARK: Views
     private var buttonRow: some View{
         HStack{
@@ -137,7 +138,7 @@ extension GetStartedModal{
     
     @ViewBuilder private var addDirectDebitsField: some View{
         if isAddingDirectDebit{
-            AddTransaction(directDebit: $vm.directDebit, selectedTransactionType: $vm.selectedTransactionType, addDirectDebit: vm.addDirectDebit, isAddingDirectDebit: $isAddingDirectDebit)
+            AddTransaction(directDebit: $vm.directDebit, selectedTransactionType: $vm.selectedTransactionType, addDirectDebit: vm.addDirectDebit, isAddingDirectDebit: $isAddingDirectDebit, modalViewModel: vm)
         }
     }
     
