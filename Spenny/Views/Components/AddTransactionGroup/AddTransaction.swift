@@ -10,14 +10,11 @@ import SwiftUI
 struct AddTransaction: View {
     
     @StateObject private var vm: AddTransactionViewModel
-    @Binding var isAddingDirectDebit: Bool
     let isDirectDebit: Bool
-    @FocusState private var isAmountFocused: Bool
     
 
     init(dataManager: DataManager, isAddingDirectDebit: Binding<Bool>, isDirectDebit: Bool) {
-        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isDirectDebit: isDirectDebit))
-        self._isAddingDirectDebit = isAddingDirectDebit
+        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isDirectDebit: isDirectDebit, isAddingTransaction: isAddingDirectDebit))
         self.isDirectDebit = isDirectDebit
     }
 
@@ -31,6 +28,7 @@ struct AddTransaction: View {
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.accentColor)
+                
                 
                 // MARK: TextFields
                 textFields
@@ -57,11 +55,12 @@ extension AddTransaction{
     private var textFields: some View{
         VStack{
             TextField("E.g. Car Insurance", text: $vm.transaction.title)
+                .lineLimit(1)
             
             Divider()
             
             TextField("E.g. £313.18", value: $vm.amount, format: .number)
-                .focused($isAmountFocused)
+                .lineLimit(1)
                 .keyboardType(.decimalPad)
         }
         .padding(.top, 10)
@@ -80,7 +79,6 @@ extension AddTransaction{
     
     @ViewBuilder private var addDirectDebitButton: some View{
             Button {
-                isAmountFocused = false
                 vm.addTransaction()
             } label: {
                 Text("Add")

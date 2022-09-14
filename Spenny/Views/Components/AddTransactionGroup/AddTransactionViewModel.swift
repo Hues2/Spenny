@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Combine
 
 class AddTransactionViewModel: ObservableObject{
@@ -15,14 +16,16 @@ class AddTransactionViewModel: ObservableObject{
     @Published var amount: Double? = nil
     private var isDirectDebit: Bool
     
+    @Binding var isAddingTransaction: Bool
     
     
     
     private var dataManager: DataManager
     
-    init(dataManager: DataManager, isDirectDebit: Bool){
+    init(dataManager: DataManager, isDirectDebit: Bool, isAddingTransaction: Binding<Bool>){
         self.dataManager = dataManager
         self.isDirectDebit = isDirectDebit// For the transaction type, as long as there is an icon, there will definitely be a title and hexColor too
+        self._isAddingTransaction = isAddingTransaction
     }
     
     
@@ -53,5 +56,9 @@ class AddTransactionViewModel: ObservableObject{
         selectedTransactionType = TransactionType(iconName: "", title: "", colorHex: "")
         amount = nil
         isDirectDebit = false
+        withAnimation {
+            isAddingTransaction = false
+        }
+        
     }
 }
