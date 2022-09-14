@@ -33,6 +33,7 @@ struct AddTransaction: View {
                 // MARK: Date Picker
                 datePicker
                 
+                
                 // MARK: Transaction Types
                 transactionTypeScrollView
 
@@ -43,7 +44,6 @@ struct AddTransaction: View {
         .clipped()
         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
         .padding()
-        
     }
 }
 
@@ -104,10 +104,12 @@ extension AddTransaction{
                 .fontWeight(.semibold)
                 .foregroundColor(.accentColor)
             
-            DatePicker("", selection: $vm.date, displayedComponents: .date)
+            DatePicker("", selection: $vm.date, displayedComponents: [.date])
+                .datePickerStyle(.wheel)
                 .labelsHidden()
         }
-        .padding(.top, 15)
+        
+        .padding(.vertical)
     }
     
     private var transactionTypeScrollView: some View{
@@ -119,17 +121,6 @@ extension AddTransaction{
             }
         }
         .padding(.top, 20)
-    }
-    
-    @ViewBuilder private var addDirectDebitButton: some View{
-        if vm.transactionIsValid(){
-            Button {
-                vm.addTransaction()
-            } label: {
-                Text("Add")
-                    .withSpennyButtonLabelStyle()
-            }
-        }
     }
     
 }
