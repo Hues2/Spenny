@@ -14,7 +14,7 @@ struct ModalTextField: View {
     
     var body: some View {
         GroupBox{
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 10) {
                 Text("\(title):")
                     .font(.title3)
                     .fontWeight(.semibold)

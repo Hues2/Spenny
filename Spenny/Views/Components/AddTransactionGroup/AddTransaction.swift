@@ -10,6 +10,7 @@ import SwiftUI
 struct AddTransaction: View {
 
     @StateObject private var vm: AddTransactionViewModel
+    @Namespace var namespace
     
     init(dataManager: DataManager, isAddingTransaction: Binding<Bool>) {
         self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isAddingTransaction: isAddingTransaction))
@@ -33,7 +34,6 @@ struct AddTransaction: View {
                 // MARK: Date Picker
                 datePicker
                 
-                
                 // MARK: Transaction Types
                 transactionTypeScrollView
                 
@@ -41,7 +41,6 @@ struct AddTransaction: View {
                 addTransactionButton
 
             }
-            
         }
         .frame(maxWidth: .infinity)
         .clipped()
@@ -77,29 +76,102 @@ extension AddTransaction{
     }
     
     private var isDirectDebitToggle: some View{
-        HStack{
-            Text("Direct Debit:")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.accentColor)
-            
-            Toggle(isOn: $vm.isDirectDebit) {
-                Text("")
+        VStack(alignment: .center){
+            HStack{
+                standardTransactionOption
+                
+                Spacer()
+                
+                directDebitOption
             }
         }
-        .padding(.top, 50)
+        .padding(.top, 40)
+    }
+    
+    private var standardTransactionOption: some View{
+        Text("Standard Transaction")
+            .font(.body)
+            .fontWeight(.bold)
+            .foregroundColor(vm.isDirectDebit ? .accentColor : .white)
+            .opacity(vm.isDirectDebit ? 0.3 : 1)
+            .padding(.vertical, 5)
+            .padding(.horizontal, 10)
+            .background(
+                ZStack{
+                    if !vm.isDirectDebit{
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                            )
+                            .matchedGeometryEffect(id: "optionBackground", in: namespace)
+                    }
+                }
+                
+            )
+            .cornerRadius(15)
+            .onTapGesture {
+                withAnimation {
+                    vm.isDirectDebit = false
+                }
+            }
+    }
+    
+    private var directDebitOption: some View{
+        Text("Direct Debit")
+            .font(.body)
+            .fontWeight(.bold)
+            .foregroundColor(vm.isDirectDebit ? .white : .accentColor)
+            .opacity(vm.isDirectDebit ? 1 : 0.3)
+            .padding(.vertical, 5)
+            .padding(.horizontal, 10)
+            .background(
+                ZStack{
+
+                    if vm.isDirectDebit{
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                            )
+                            .matchedGeometryEffect(id: "optionBackground", in: namespace)
+                    }
+                }
+            )
+            .cornerRadius(15)
+            .onTapGesture {
+                withAnimation {
+                    vm.isDirectDebit = true
+                }
+            }
     }
     
     private var textFields: some View{
         VStack{
-            TextField("E.g. Car Insurance", text: $vm.transaction.title)
-                .lineLimit(1)
+            VStack(alignment: .leading){
+                Text("Transaction Title:")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.accentColor)
+                
+                TextField("Transaction Title", text: $vm.transaction.title, prompt: Text("E.g. Car Insurance"))
+                    .lineLimit(1)
+                
+                Divider()
+            }
             
-            Divider()
             
-            TextField("E.g. £313.18", value: $vm.amount, format: .number)
-                .lineLimit(1)
-                .keyboardType(.decimalPad)
+            VStack(alignment: .leading){
+                Text("Transaction Amount:")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.accentColor)
+                
+                TextField("E.g. £313.18", value: $vm.amount, format: .number)
+                    .lineLimit(1)
+                    .keyboardType(.decimalPad)
+                
+                Divider()
+            }
+            .padding(.top, 10)
         }
         .padding(.top, 20)
     }
@@ -121,7 +193,7 @@ extension AddTransaction{
     
     private var transactionTypeScrollView: some View{
         VStack(alignment: .leading){
-            Text("Transaction Date:")
+            Text("Transaction Type:")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.accentColor)
