@@ -12,45 +12,73 @@ struct AddTransaction: View {
     @StateObject private var vm: AddTransactionViewModel
     let isDirectDebit: Bool
     
-
+    
     init(dataManager: DataManager, isAddingDirectDebit: Binding<Bool>, isDirectDebit: Bool) {
         self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isDirectDebit: isDirectDebit, isAddingTransaction: isAddingDirectDebit))
         self.isDirectDebit = isDirectDebit
     }
-
+    
     
     var body: some View {
         GroupBox{
             
             VStack(alignment: .leading, spacing: 5) {
                 
-                Text("\(isDirectDebit ? "Add Direct Debit" : "Add Transaction"):")
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.accentColor)
-                
+                // MARK: Add Transaction Header
+                header
                 
                 // MARK: TextFields
                 textFields
                 
                 // MARK: Transaction Types
                 transactionTypeScrollView
-                
-                //MARK: - Add Direct Debit Button
-                addDirectDebitButton
-            }
 
+            }
+            
         }
         .frame(maxWidth: .infinity)
-        .padding()
         .clipped()
         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
+        .padding()
+        
     }
 }
 
 
 
 extension AddTransaction{
+    
+    private var header: some View{
+        HStack{
+            Text("\(isDirectDebit ? "Add Direct Debit" : "Add Transaction"):")
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(.accentColor)
+            
+            Spacer()
+            
+            HStack(spacing: 10){
+                
+                Button {
+                    vm.cancelTransaction()
+                } label: {
+                    Image(systemName: "trash.square.fill")
+                        .font(.title2)
+                        .foregroundColor(.red)
+                }
+                
+                if vm.transactionIsValid(){
+                    Button {
+                        vm.addTransaction()
+                    } label: {
+                        Image(systemName: "checkmark.square.fill")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                    }
+                }
+            }
+        }
+    }
     
     private var textFields: some View{
         VStack{
@@ -78,12 +106,14 @@ extension AddTransaction{
     }
     
     @ViewBuilder private var addDirectDebitButton: some View{
+        if vm.transactionIsValid(){
             Button {
                 vm.addTransaction()
             } label: {
                 Text("Add")
                     .withSpennyButtonLabelStyle()
             }
+        }
     }
     
 }
