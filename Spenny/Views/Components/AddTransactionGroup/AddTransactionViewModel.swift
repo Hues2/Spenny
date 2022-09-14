@@ -15,6 +15,7 @@ class AddTransactionViewModel: ObservableObject{
     @Published var selectedTransactionType: TransactionType = TransactionType(iconName: "", title: "", colorHex: "")
     @Published var amount: Double? = nil
     private var isDirectDebit: Bool
+    @Published var date = Date()
     
     @Binding var isAddingTransaction: Bool
     
@@ -30,16 +31,16 @@ class AddTransactionViewModel: ObservableObject{
     
     
     
-    
-    
     // MARK: Add Transaction
     func addTransaction(){
         guard let amount = amount, transactionIsValid() else { return }
         
         // Configure the transaction with the correct values
         transaction.amount = amount
+        transaction.date = dateString()
         transaction.transactionType = selectedTransactionType
         transaction.isDirectDebit = isDirectDebit
+        
         
         DispatchQueue.main.async {
             self.dataManager.addTransaction(transaction: self.transaction)
@@ -66,5 +67,11 @@ class AddTransactionViewModel: ObservableObject{
             isAddingTransaction = false
         }
         
+    }
+    
+    private func dateString() -> String{
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter.string(from: self.date)
     }
 }

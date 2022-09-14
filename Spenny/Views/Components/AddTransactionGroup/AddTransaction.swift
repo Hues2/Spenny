@@ -30,6 +30,9 @@ struct AddTransaction: View {
                 // MARK: TextFields
                 textFields
                 
+                // MARK: Date Picker
+                datePicker
+                
                 // MARK: Transaction Types
                 transactionTypeScrollView
 
@@ -92,6 +95,19 @@ extension AddTransaction{
                 .keyboardType(.decimalPad)
         }
         .padding(.top, 10)
+    }
+    
+    private var datePicker: some View{
+        VStack(alignment: .leading){
+            Text("Transaction Date:")
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(.accentColor)
+            
+            DatePicker("", selection: $vm.date, displayedComponents: .date)
+                .labelsHidden()
+        }
+        .padding(.top, 15)
     }
     
     private var transactionTypeScrollView: some View{

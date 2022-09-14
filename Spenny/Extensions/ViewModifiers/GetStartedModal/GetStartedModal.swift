@@ -130,7 +130,7 @@ extension GetStartedModal{
     
     private var listOfDirectDebits: some View{
         VStack{
-            ForEach(vm.dataManager.directDebits){ directDebit in
+            ForEach(vm.dataManager.transactions.filter({$0.isDirectDebit})){ directDebit in
                 Text("DIRECT DEBIT CARD WILL APPEAR HERE")
             }
         }
