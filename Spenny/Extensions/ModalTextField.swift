@@ -16,7 +16,7 @@ struct ModalTextField: View {
         GroupBox{
             VStack(alignment: .leading, spacing: 5) {
                 Text("\(title):")
-                    .font(.caption)
+                    .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.accentColor)
                 TextField("E.g. \(placeholder)", text: $amount)

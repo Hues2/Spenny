@@ -14,7 +14,7 @@ class AddTransactionViewModel: ObservableObject{
     @Published var transaction: Transaction = Transaction(title: "", amount: 0.00, date: "TEST DATE", transactionType: TransactionType(iconName: "", title: "", colorHex: ""), isDirectDebit: false)
     @Published var selectedTransactionType: TransactionType = TransactionType(iconName: "", title: "", colorHex: "")
     @Published var amount: Double? = nil
-    private var isDirectDebit: Bool
+    @Published var isDirectDebit: Bool = false
     @Published var date = Date()
     
     @Binding var isAddingTransaction: Bool
@@ -23,9 +23,8 @@ class AddTransactionViewModel: ObservableObject{
     
     private var dataManager: DataManager
     
-    init(dataManager: DataManager, isDirectDebit: Bool, isAddingTransaction: Binding<Bool>){
+    init(dataManager: DataManager, isAddingTransaction: Binding<Bool>){
         self.dataManager = dataManager
-        self.isDirectDebit = isDirectDebit// For the transaction type, as long as there is an icon, there will definitely be a title and hexColor too
         self._isAddingTransaction = isAddingTransaction
     }
     

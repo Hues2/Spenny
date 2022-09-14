@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct AddTransaction: View {
-    
+
     @StateObject private var vm: AddTransactionViewModel
-    let isDirectDebit: Bool
     
-    
-    init(dataManager: DataManager, isAddingDirectDebit: Binding<Bool>, isDirectDebit: Bool) {
-        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isDirectDebit: isDirectDebit, isAddingTransaction: isAddingDirectDebit))
-        self.isDirectDebit = isDirectDebit
+    init(dataManager: DataManager, isAddingTransaction: Binding<Bool>) {
+        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isAddingTransaction: isAddingTransaction))
     }
     
     
@@ -27,6 +24,9 @@ struct AddTransaction: View {
                 // MARK: Add Transaction Header
                 header
                 
+                // MARK: Is Direct Debit Toggle
+                isDirectDebitToggle
+                
                 // MARK: TextFields
                 textFields
                 
@@ -36,6 +36,9 @@ struct AddTransaction: View {
                 
                 // MARK: Transaction Types
                 transactionTypeScrollView
+                
+                // MARK: Add Transaction Button
+                addTransactionButton
 
             }
             
@@ -53,8 +56,8 @@ extension AddTransaction{
     
     private var header: some View{
         HStack{
-            Text("\(isDirectDebit ? "Add Direct Debit" : "Add Transaction"):")
-                .font(.caption)
+            Text("Add Transaction:")
+                .font(.title3)
                 .fontWeight(.semibold)
                 .foregroundColor(.accentColor)
             
@@ -65,22 +68,26 @@ extension AddTransaction{
                 Button {
                     vm.cancelTransaction()
                 } label: {
-                    Image(systemName: "trash.square.fill")
-                        .font(.title)
+                    Image(systemName: "xmark")
+                        .font(.title3)
                         .foregroundColor(.red)
-                }
-                
-                if vm.transactionIsValid(){
-                    Button {
-                        vm.addTransaction()
-                    } label: {
-                        Image(systemName: "checkmark.square.fill")
-                            .font(.title)
-                            .foregroundColor(.green)
-                    }
                 }
             }
         }
+    }
+    
+    private var isDirectDebitToggle: some View{
+        HStack{
+            Text("Direct Debit:")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.accentColor)
+            
+            Toggle(isOn: $vm.isDirectDebit) {
+                Text("")
+            }
+        }
+        .padding(.top, 50)
     }
     
     private var textFields: some View{
@@ -94,13 +101,13 @@ extension AddTransaction{
                 .lineLimit(1)
                 .keyboardType(.decimalPad)
         }
-        .padding(.top, 10)
+        .padding(.top, 20)
     }
     
     private var datePicker: some View{
         VStack(alignment: .leading){
             Text("Transaction Date:")
-                .font(.caption)
+                .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.accentColor)
             
@@ -109,18 +116,40 @@ extension AddTransaction{
                 .labelsHidden()
         }
         
-        .padding(.vertical)
+        .padding(.top, 10)
     }
     
     private var transactionTypeScrollView: some View{
-        ScrollView(.horizontal ,showsIndicators: false) {
-            HStack{
-                ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
-                    TransactionTypePill(transactionType: transactionType, selectedTransactionType: $vm.selectedTransactionType)
+        VStack(alignment: .leading){
+            Text("Transaction Date:")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.accentColor)
+            
+            ScrollView(.horizontal ,showsIndicators: false) {
+                HStack{
+                    ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
+                        TransactionTypePill(transactionType: transactionType, selectedTransactionType: $vm.selectedTransactionType)
+                    }
                 }
             }
         }
         .padding(.top, 20)
+    }
+    
+    @ViewBuilder private var addTransactionButton: some View{
+        if vm.transactionIsValid(){
+            Button {
+                vm.addTransaction()
+            } label: {
+                Text("Add")
+                    .fontWeight(.bold)
+                    .withSpennyButtonLabelStyle()
+            }
+            .buttonStyle(SpennyButtonStyle())
+            .padding(.top, 10)
+        }
+       
     }
     
 }

@@ -22,6 +22,15 @@ APP DESIGN:
 
 APP TODO:
 
+    - An empty list will be above the add direct debit text
+    - When the add direct debit text is pressed, the view below it (AddTransaction) will appear
+    - The text will then dissapear, so that the user cant make the addTransaction view dissappear
+    - Once the user clicks the save or delete button, the Transaction will be added to the list (in this case, to the list of direct debits), and then it will appear in the list
+    - All the data in the add transaction view will be wiped aand then it will be taken off the screen
+    - And then the add direct debit text will appear again
+
+
+
 - On home screen, show a progressview
 - In the init of the view model, it will try to get the data
 - If it gets data, then display it
@@ -29,19 +38,7 @@ APP TODO:
 - In init of data manager, try to get the data from core data
 - Pass the data manager down through dependency injection
 
-- Create two more models, PayOut and PayIn
-- Each of these models will have:
-    - let date: Date/String
-    - let amount: Double
-    - let transactionType: TransactionType
 
-- Create an enum that represents the type of transaction. Example types ->
-    - Direct Debit  --> Which will be an enum too, with these types: Car, Rent, Phone, Spotify, etc...
-    - Food
-    - Drinks
-    - Paid a friend
-    - Other
-    
 - When user adds a direct debit or a payment, add a horizontal scrollview with these types with their icon and name inside a color pill shape
 
 
@@ -49,10 +46,10 @@ APP TODO:
 
 
 WORKING ON NOW:
+
+- Change layout of add transaction textfields
+- Give textfields a title
+- Add toggle, for user to indicate if the transaction is a direct debit
     
-    - An empty list will be above the add direct debit text
-    - When the add direct debit text is pressed, the view below it (AddTransaction) will appear
-    - The text will then dissapear, so that the user cant make the addTransaction view dissappear
-    - Once the user clicks the save or delete button, the Transaction will be added to the list (in this case, to the list of direct debits), and then it will appear in the list
-    - All the data in the add transaction view will be wiped aand then it will be taken off the screen
-    - And then the add direct debit text will appear again
+    
+    

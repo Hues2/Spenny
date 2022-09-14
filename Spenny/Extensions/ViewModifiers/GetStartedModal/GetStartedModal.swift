@@ -33,7 +33,7 @@ struct GetStartedModal: View{
     
     @Binding var showModal: Bool
     @State private var offset = CGFloat.zero
-    @State var isAddingDirectDebit: Bool = false
+    @State var isAddingTransaction: Bool = false
     
     init(dataManager: DataManager, showModal: Binding<Bool>){
         self._vm = StateObject(wrappedValue: ModalViewModel(dataManager: dataManager))
@@ -108,26 +108,6 @@ extension GetStartedModal{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.dataManager.savingsGoal)
     }
     
-    @ViewBuilder private var addDirectDebitText: some View{
-        if !isAddingDirectDebit{
-            HStack(spacing: 3){
-                Image(systemName: "plus.circle")
-                Text("Add a direct debit")
-                    .fontWeight(.light)
-                Spacer()
-            }
-            .font(.subheadline)
-            .foregroundColor(.accentColor)
-            .containerShape(Rectangle())
-            .onTapGesture {
-                withAnimation {
-                    isAddingDirectDebit = true
-                }
-            }
-            .padding(.horizontal)
-        }
-    }
-    
     private var listOfDirectDebits: some View{
         VStack{
             ForEach(vm.dataManager.transactions.filter({$0.isDirectDebit})){ directDebit in
@@ -136,27 +116,49 @@ extension GetStartedModal{
         }
     }
     
-    @ViewBuilder private var addDirectDebitsField: some View{
-        if isAddingDirectDebit{
-            AddTransaction(dataManager: vm.dataManager, isAddingDirectDebit: $isAddingDirectDebit, isDirectDebit: true)
+    @ViewBuilder private var addDirectDebitText: some View{
+        if !isAddingTransaction{
+            HStack(spacing: 3){
+                Image(systemName: "plus.circle")
+                Text("Add a transaction")
+                    .fontWeight(.light)
+                Spacer()
+            }
+            .font(.subheadline)
+            .foregroundColor(.accentColor)
+            .containerShape(Rectangle())
+            .onTapGesture {
+                withAnimation {
+                    isAddingTransaction = true
+                }
+            }
+            .padding(.horizontal)
         }
     }
     
-    private var saveToCoreDataButton: some View{
-        
-        Button {
-            print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
-            
-        } label: {
-            Text("Save")
-                .fontWeight(.bold)
-                .withSpennyButtonLabelStyle()
+    @ViewBuilder private var addDirectDebitsField: some View{
+        if isAddingTransaction{
+            AddTransaction(dataManager: vm.dataManager, isAddingTransaction: $isAddingTransaction)
         }
-        .buttonStyle(SpennyButtonStyle())
-        .padding(.top, 10)
+    }
+    
+    @ViewBuilder private var saveToCoreDataButton: some View{
+        if !isAddingTransaction{
+            Button {
+                print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
+                
+            } label: {
+                Text("Save")
+                    .fontWeight(.bold)
+                    .withSpennyButtonLabelStyle()
+            }
+            .buttonStyle(SpennyButtonStyle())
+            .padding(.top, 10)
+        }
         
         
     }
+
     
     
     //MARK: - Functionality
