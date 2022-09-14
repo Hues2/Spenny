@@ -57,13 +57,13 @@ extension AddTransaction{
             
             Spacer()
             
-            HStack(spacing: 10){
+            HStack(spacing: 15){
                 
                 Button {
                     vm.cancelTransaction()
                 } label: {
                     Image(systemName: "trash.square.fill")
-                        .font(.title2)
+                        .font(.title)
                         .foregroundColor(.red)
                 }
                 
@@ -72,7 +72,7 @@ extension AddTransaction{
                         vm.addTransaction()
                     } label: {
                         Image(systemName: "checkmark.square.fill")
-                            .font(.title2)
+                            .font(.title)
                             .foregroundColor(.green)
                     }
                 }
