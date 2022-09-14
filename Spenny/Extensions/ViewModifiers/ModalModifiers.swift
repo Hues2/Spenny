@@ -18,7 +18,6 @@ struct ModalModifiers: ViewModifier{
             .frame(height: UIScreen.main.bounds.height / 1.5)
             .frame(maxWidth: .infinity)
             .onTapGesture {
-                print("\n tapped modal \n")
                 UIApplication.shared.dismissKeyboard()
             }
             .overlay(

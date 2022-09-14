@@ -24,5 +24,18 @@ class DataManager: ObservableObject{
     
     
     
+    // MARK: Add Direct Debit | Transaction
+    func addTransaction(transaction: Transaction){
+        if transaction.isDirectDebit{
+            directDebits.append(transaction)
+            print("\n [DATA MANAGER] --> Direct Debit added! Direct Debits list: \(directDebits) \n")
+        } else {
+            transactions.append(transaction)
+            print("\n [DATA MANAGER] --> Transaction added! Direct Debits list: \(transactions) \n")
+        }
+        
+    }
+    
+    
     
 }

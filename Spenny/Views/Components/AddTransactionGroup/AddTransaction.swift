@@ -9,13 +9,14 @@ import SwiftUI
 
 struct AddTransaction: View {
     
-    @StateObject var vm: AddTransactionViewModel
+    @StateObject private var vm: AddTransactionViewModel
     @Binding var isAddingDirectDebit: Bool
     let isDirectDebit: Bool
+    @FocusState private var isAmountFocused: Bool
     
 
     init(dataManager: DataManager, isAddingDirectDebit: Binding<Bool>, isDirectDebit: Bool) {
-        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager))
+        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isDirectDebit: isDirectDebit))
         self._isAddingDirectDebit = isAddingDirectDebit
         self.isDirectDebit = isDirectDebit
     }
@@ -23,17 +24,16 @@ struct AddTransaction: View {
     
     var body: some View {
         GroupBox{
+            
             VStack(alignment: .leading, spacing: 5) {
+                
                 Text("\(isDirectDebit ? "Add Direct Debit" : "Add Transaction"):")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.accentColor)
-                TextField("E.g. Car Insurance", text: $vm.transaction.title)
                 
-                Divider()
-                
-                TextField("E.g. £313.18", text: $vm.transaction.amount)
-                    .keyboardType(.decimalPad)
+                // MARK: TextFields
+                textFields
                 
                 // MARK: Transaction Types
                 transactionTypeScrollView
@@ -54,6 +54,19 @@ struct AddTransaction: View {
 
 extension AddTransaction{
     
+    private var textFields: some View{
+        VStack{
+            TextField("E.g. Car Insurance", text: $vm.transaction.title)
+            
+            Divider()
+            
+            TextField("E.g. £313.18", value: $vm.amount, format: .number)
+                .focused($isAmountFocused)
+                .keyboardType(.decimalPad)
+        }
+        .padding(.top, 10)
+    }
+    
     private var transactionTypeScrollView: some View{
         ScrollView(.horizontal ,showsIndicators: false) {
             HStack{
@@ -62,11 +75,13 @@ extension AddTransaction{
                 }
             }
         }
+        .padding(.top, 20)
     }
     
     @ViewBuilder private var addDirectDebitButton: some View{
             Button {
-                print("\n Add direct debit button pressed \n")
+                isAmountFocused = false
+                vm.addTransaction()
             } label: {
                 Text("Add")
                     .withSpennyButtonLabelStyle()
