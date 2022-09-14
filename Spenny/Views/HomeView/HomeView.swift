@@ -81,6 +81,11 @@ extension HomeView{
             }
             
         }
+        .onTapGesture {
+            withAnimation {
+                showModal = false
+            }
+        }
     }
     
     private var logo: some View{

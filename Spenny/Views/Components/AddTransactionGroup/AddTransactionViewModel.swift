@@ -71,6 +71,7 @@ class AddTransactionViewModel: ObservableObject{
     private func dateString() -> String{
         let formatter = DateFormatter()
         formatter.dateStyle = .short
+        formatter.dateFormat = "dd/MM/yy"
         return formatter.string(from: self.date)
     }
 }

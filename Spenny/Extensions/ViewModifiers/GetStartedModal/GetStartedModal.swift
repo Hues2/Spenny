@@ -47,16 +47,16 @@ struct GetStartedModal: View{
             buttonRow
                 .padding(.bottom, 5)
             
-            ScrollView{
+            ScrollView(showsIndicators: false){
                 //MARK: Monthly Income Field
                 monthlyIncomeField
-                    .padding(.bottom, 5)
                 
                 //MARK: Savings Goal Field
                 savingsGoalField
+                    .padding(.bottom, 20)
                 
                 // MARK: List Of Added Direct Debits
-//                listOfTransactions
+                listOfTransactions
                 
                 // MARK: Add Direct Debit Button Text
                 addDirectDebitText
@@ -109,9 +109,11 @@ extension GetStartedModal{
     
     private var listOfTransactions: some View{
         VStack{
-//            ForEach(vm.dataManager.transactions){ directDebit in
+//            ForEach(vm.dataManager.transactions){ transaction in
             ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
                 TransactionRow(transaction: transaction)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal)
             }
         }
     }

@@ -26,11 +26,11 @@ struct ListOfTransactionTypes{
     ]
     
     static let listofFakeTransactions: [Transaction] = [
-        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
-        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
-        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
-        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
-        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
-        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF"))
+        Transaction(title: "Aldi Shop", amount: 255.00, date: "31/05/22", transactionType: TransactionType(iconName: "car.fill", title: "Car", colorHex: "#FFD478"), isDirectDebit: true),
+        Transaction(title: "Paid Georgia", amount: 4.99, date: "31/05/22", transactionType: TransactionType(iconName: "house.fill", title: "Rent", colorHex: "#75D5FF"), isDirectDebit: false),
+        Transaction(title: "Greggs", amount: 25.09, date: "31/05/22", transactionType: TransactionType(iconName: "fork.knife", title: "Food", colorHex: "#00B498"), isDirectDebit: false),
+        Transaction(title: " ", amount: 567.18, date: "31/05/22", transactionType: TransactionType(iconName: "questionmark.circle.fill", title: "Other", colorHex: "#424242"), isDirectDebit: true),
+        Transaction(title: "Amazon Mechanical Keyboard", amount: 25.0, date: "31/05/22", transactionType: TransactionType(iconName: "tshirt.fill", title: "Clothes", colorHex: "#8CB2D3"), isDirectDebit: false),
+        Transaction(title: "Tesco", amount: 25.0, date: "31/05/22", transactionType: TransactionType(iconName: "creditcard.fill", title: "Credit", colorHex: "#FF9F5D"), isDirectDebit: true)
     ]
 }

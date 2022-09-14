@@ -25,7 +25,7 @@ struct ModalTextField: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding()
+        .padding(.horizontal)
         .clipped()
         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
     }
