@@ -11,6 +11,7 @@ struct AddTransaction: View {
 
     @StateObject private var vm: AddTransactionViewModel
     @Namespace var namespace
+    @State var dismissKeyboardDrag: CGFloat = .zero
     
     init(dataManager: DataManager, isAddingTransaction: Binding<Bool>) {
         self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isAddingTransaction: isAddingTransaction))
@@ -46,6 +47,10 @@ struct AddTransaction: View {
         .clipped()
         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
         .padding()
+        .onTapGesture {
+            UIApplication.shared.dismissKeyboard()
+        }
+        
     }
 }
 
@@ -153,6 +158,7 @@ extension AddTransaction{
                     .foregroundColor(.accentColor)
                 
                 TextField("Transaction Title", text: $vm.transaction.title, prompt: Text("E.g. Car Insurance"))
+                    .onTapGesture {}
                     .lineLimit(1)
                 
                 Divider()
@@ -166,6 +172,7 @@ extension AddTransaction{
                     .foregroundColor(.accentColor)
                 
                 TextField("E.g. £313.18", value: $vm.amount, format: .number)
+                    .onTapGesture {}
                     .lineLimit(1)
                     .keyboardType(.decimalPad)
                 
@@ -184,7 +191,7 @@ extension AddTransaction{
                 .foregroundColor(.accentColor)
             
             DatePicker("", selection: $vm.date, displayedComponents: [.date])
-                .datePickerStyle(.wheel)
+                .datePickerStyle(.compact)
                 .labelsHidden()
         }
         

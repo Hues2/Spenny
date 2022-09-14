@@ -12,14 +12,13 @@ struct ModalModifiers: ViewModifier{
     @Binding var showModal: Bool
     @Binding var offset: CGFloat
     let dismissModal: () -> Void
+    @State var dismissKeyboardDrag: CGFloat = .zero
     
     func body(content: Content) -> some View {
         content
-            .frame(height: UIScreen.main.bounds.height / 1.5)
+            .frame(height: UIScreen.main.bounds.height / 1.8)
             .frame(maxWidth: .infinity)
-            .onTapGesture {
-                UIApplication.shared.dismissKeyboard()
-            }
+            
             .overlay(
                 RoundedRectangle(cornerRadius: 30)
                     .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
@@ -33,6 +32,9 @@ struct ModalModifiers: ViewModifier{
                     .ignoresSafeArea()
                     .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: -2)
             )
+            .onTapGesture {
+                UIApplication.shared.dismissKeyboard()
+            }
             .offset(x: 0, y: showModal ? offset : .zero)
             .addModalDragGesture(offset: $offset, dismissModal: dismissModal)
     }

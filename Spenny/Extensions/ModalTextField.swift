@@ -21,6 +21,7 @@ struct ModalTextField: View {
                     .foregroundColor(.accentColor)
                 TextField("E.g. \(placeholder)", text: $amount)
                     .keyboardType(.decimalPad)
+                    .onTapGesture {}
             }
         }
         .frame(maxWidth: .infinity)

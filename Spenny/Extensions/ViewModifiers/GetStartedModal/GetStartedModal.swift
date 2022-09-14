@@ -52,19 +52,17 @@ struct GetStartedModal: View{
                 monthlyIncomeField
                     .padding(.bottom, 5)
                 
-                
                 //MARK: Savings Goal Field
                 savingsGoalField
                 
                 // MARK: List Of Added Direct Debits
-                listOfTransactions
+//                listOfTransactions
                 
                 // MARK: Add Direct Debit Button Text
                 addDirectDebitText
                 
                 //MARK: Optional Direct Debits Field
                 addDirectDebitsField
-                
                 
                 // MARK: Save Info Button
                 saveToCoreDataButton
@@ -81,7 +79,6 @@ extension GetStartedModal{
     //MARK: Views
     private var buttonRow: some View{
         HStack{
-            
             Spacer()
             
             Button {
@@ -102,10 +99,12 @@ extension GetStartedModal{
     
     private var monthlyIncomeField: some View{
         ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.dataManager.monthlyIncome)
+            .clipped()
     }
     
     private var savingsGoalField: some View{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.dataManager.savingsGoal)
+            .clipped()
     }
     
     private var listOfTransactions: some View{
