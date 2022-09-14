@@ -22,6 +22,7 @@ APP DESIGN:
 
 APP TODO:
 
+- Add validation for the texfields
 - An empty list will be above the add direct debit text
 - When the add direct debit text is pressed, the view below it (AddTransaction) will appear
 - The text will then dissapear, so that the user cant make the addTransaction view dissappear
@@ -46,5 +47,5 @@ APP TODO:
 
 WORKING ON NOW:
 
-- Add validation for the texfields
+- Create transaction component
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 
 class DataManager: ObservableObject{
@@ -25,8 +26,9 @@ class DataManager: ObservableObject{
     
     // MARK: Add Direct Debit | Transaction
     func addTransaction(transaction: Transaction){
-        transactions.append(transaction)
-        print("\n [DATA MANAGER] --> Transaction added! Direct Debits list: \(transactions) \n")
+        withAnimation {
+            transactions.append(transaction)
+        }
     }
     
     

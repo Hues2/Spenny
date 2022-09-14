@@ -57,7 +57,7 @@ struct GetStartedModal: View{
                 savingsGoalField
                 
                 // MARK: List Of Added Direct Debits
-                
+                listOfTransactions
                 
                 // MARK: Add Direct Debit Button Text
                 addDirectDebitText
@@ -108,10 +108,11 @@ extension GetStartedModal{
         ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.dataManager.savingsGoal)
     }
     
-    private var listOfDirectDebits: some View{
+    private var listOfTransactions: some View{
         VStack{
-            ForEach(vm.dataManager.transactions.filter({$0.isDirectDebit})){ directDebit in
-                Text("DIRECT DEBIT CARD WILL APPEAR HERE")
+//            ForEach(vm.dataManager.transactions){ directDebit in
+            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
+                TransactionRow(transaction: transaction)
             }
         }
     }

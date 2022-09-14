@@ -24,4 +24,13 @@ struct ListOfTransactionTypes{
         TransactionType(iconName: "fuelpump.fill", title: "Fuel", colorHex: "#5A6119"),
         TransactionType(iconName: "questionmark.circle.fill", title: "Other", colorHex: "#424242")
     ]
+    
+    static let listofFakeTransactions: [Transaction] = [
+        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
+        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
+        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
+        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
+        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF")),
+        Transaction(title: "Aldi", amount: 25.0, date: "31/05/2022", transactionType: TransactionType(iconName: "house.fill", title: "Test", colorHex: "#75D5FF"))
+    ]
 }
