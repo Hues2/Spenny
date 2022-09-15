@@ -143,7 +143,7 @@ extension AddTransaction{
             )
             .cornerRadius(15)
             .onTapGesture {
-                withAnimation {
+                withAnimation(.spring()) {
                     vm.isDirectDebit = true
                 }
             }
@@ -152,6 +152,7 @@ extension AddTransaction{
     private var textFields: some View{
         VStack{
             
+            // MARK: Title TextField
             VStack(alignment: .leading){
                 
                 TextFieldHeader(title: "Transaction Title:", isValid: vm.titleIsValid, font: .subheadline)
@@ -164,6 +165,7 @@ extension AddTransaction{
             }
             
             
+            // MARK: Amount TextField
             VStack(alignment: .leading){
                 
                 TextFieldHeader(title: "Transaction Amount:", isValid: vm.amountIsValid, font: .subheadline)

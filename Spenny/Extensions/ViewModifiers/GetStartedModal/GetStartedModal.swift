@@ -65,16 +65,14 @@ struct GetStartedModal: View{
                     addDirectDebitText
                     
                     //MARK: Optional Direct Debits Field
-                    addDirectDebitsField
-                        .id("addTransaction")
+                    addTransactionsField
+                        .id("proxy_addTransactionsField")
                     
                     // MARK: Save Info Button
                     saveToCoreDataButton
                         .onChange(of: isAddingTransaction) { newValue in
-                            if newValue{
-                                withAnimation(.spring()) {
-                                    proxy.scrollTo("addTransaction")
-                                }
+                            withAnimation(.spring()) {
+                                proxy.scrollTo("proxy_addTransactionsField")
                             }
                         }
                 }
@@ -135,8 +133,9 @@ extension GetStartedModal{
             }
             
             ForEach(vm.dataManager.transactions){ transaction in
-//            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
+                //            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
                 TransactionRow(transaction: transaction)
+                    .transition(.move(edge: .leading))
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal)
             }
@@ -163,9 +162,10 @@ extension GetStartedModal{
         }
     }
     
-    @ViewBuilder private var addDirectDebitsField: some View{
+    @ViewBuilder private var addTransactionsField: some View{
         if isAddingTransaction{
             AddTransaction(dataManager: vm.dataManager, isAddingTransaction: $isAddingTransaction)
+                .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
         }
     }
     
@@ -184,7 +184,7 @@ extension GetStartedModal{
         
         
     }
-
+    
     
     
     //MARK: - Functionality
