@@ -102,7 +102,8 @@ extension GetStartedModal{
                             .font(.title2)
                     }
             }
-            .padding(5)
+            .padding(.horizontal)
+            .padding(.bottom, 10)
         }
         .contentShape(Rectangle())
     }
@@ -110,6 +111,7 @@ extension GetStartedModal{
     private var monthlyIncomeField: some View{
         ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.dataManager.monthlyIncome, isValidAmount: $vm.monthlyIncomeIsValid)
             .clipped()
+            .padding(.top, 10)
     }
     
     private var savingsGoalField: some View{
