@@ -34,7 +34,7 @@ struct TransactionRow: View {
                 Text(transaction.date)
                     .font(.headline)
                     .fontWeight(.light)
-                    .frame(width: 75)
+                    .frame(width: 70)
                 
                 
                 Spacer()
@@ -44,19 +44,20 @@ struct TransactionRow: View {
                     .font(.headline)
                     .fontWeight(.light)
                     .lineLimit(1)
-                    .frame(width: 80)
+                    .frame(width: 75)
                 
                 Spacer()
                 
-                
                 //MARK: - Transaction Amount
-                Text("£\(transaction.amount.toFormattedString(format: "%.2f"))")
+                Text("\((transaction.amount < 0) ? "-" : "")£\(transaction.amount.toFormattedString(format: "%.2f"))")
                     .font(.headline)
                     .fontWeight(.medium)
                     .foregroundColor(transaction.amount == 0.0 ? .gray : (transaction.amount > 0 ? .green : .red))
                     .frame(width: 75)
-                    .frame(maxWidth: 125)
+                    .frame(maxWidth: 130)
+                    .lineLimit(1)
                     .layoutPriority(1)
+                    .minimumScaleFactor(0.8)
             }
         }
         .frame(maxWidth: .infinity)

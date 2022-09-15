@@ -78,7 +78,7 @@ class AddTransactionViewModel: ObservableObject{
         var transaction: Transaction = Transaction(title: "", amount: 0.0, date: "", transactionType: TransactionType(iconName: "", title: "", colorHex: ""), isDirectDebit: false)
         // Configure the transaction with the correct values
         transaction.title = title
-        transaction.amount = amount
+        transaction.amount = (self.isIncome ? amount : -amount)
         transaction.date = dateString()
         transaction.transactionType = selectedTransactionType
         transaction.isDirectDebit = isDirectDebit

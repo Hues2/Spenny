@@ -10,6 +10,6 @@ import Foundation
 
 extension Double{
     func toFormattedString(format: String) -> String{
-        return String(format: format, self)
+        return String(format: format, self).replacingOccurrences(of: "-", with: "")
     }
 }
