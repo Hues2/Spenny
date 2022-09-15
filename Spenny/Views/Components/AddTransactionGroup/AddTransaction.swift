@@ -152,12 +152,18 @@ extension AddTransaction{
     private var textFields: some View{
         VStack{
             VStack(alignment: .leading){
-                Text("Transaction Title:")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.accentColor)
                 
-                TextField("Transaction Title", text: $vm.transaction.title, prompt: Text("E.g. Car Insurance"))
+                HStack{
+                    
+                    Text("Transaction Title:")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+                    
+                    
+                }
+                
+                TextField("Transaction Title", text: $vm.title, prompt: Text("E.g. Car Insurance"))
                     .onTapGesture {}
                     .lineLimit(1)
                 

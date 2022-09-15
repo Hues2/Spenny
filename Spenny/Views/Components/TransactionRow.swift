@@ -53,6 +53,7 @@ struct TransactionRow: View {
                 Text("£\(transaction.amount.toFormattedString(format: "%.2f"))")
                     .font(.headline)
                     .fontWeight(.medium)
+                    .foregroundColor(transaction.amount == 0.0 ? .gray : (transaction.amount > 0 ? .green : .red))
                     .frame(width: 75)
                     .frame(maxWidth: 125)
                     .layoutPriority(1)

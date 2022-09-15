@@ -48,7 +48,9 @@ struct GetStartedModal: View{
                 .padding(.bottom, 5)
             
             ScrollView(showsIndicators: false){
+                
                 ScrollViewReader{ proxy in
+                    
                     //MARK: Monthly Income Field
                     monthlyIncomeField
                     
@@ -76,9 +78,7 @@ struct GetStartedModal: View{
                             }
                         }
                 }
-                
             }
-            
         }
         .addModalModifiers(showModal: $showModal, offset: $offset, dismissModal: dismissModal)
         
