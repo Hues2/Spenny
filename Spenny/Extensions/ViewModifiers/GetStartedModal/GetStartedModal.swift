@@ -48,25 +48,37 @@ struct GetStartedModal: View{
                 .padding(.bottom, 5)
             
             ScrollView(showsIndicators: false){
-                //MARK: Monthly Income Field
-                monthlyIncomeField
+                ScrollViewReader{ proxy in
+                    //MARK: Monthly Income Field
+                    monthlyIncomeField
+                    
+                    //MARK: Savings Goal Field
+                    savingsGoalField
+                        .padding(.bottom, 20)
+                    
+                    // MARK: List Of Added Direct Debits
+                    listOfTransactions
+                    
+                    // MARK: Add Direct Debit Button Text
+                    addDirectDebitText
+                    
+                    //MARK: Optional Direct Debits Field
+                    addDirectDebitsField
+                        .id("addTransaction")
+                    
+                    // MARK: Save Info Button
+                    saveToCoreDataButton
+                        .onChange(of: isAddingTransaction) { newValue in
+                            if newValue{
+                                withAnimation(.spring()) {
+                                    proxy.scrollTo("addTransaction")
+                                }
+                            }
+                        }
+                }
                 
-                //MARK: Savings Goal Field
-                savingsGoalField
-                    .padding(.bottom, 20)
-                
-                // MARK: List Of Added Direct Debits
-                listOfTransactions
-                
-                // MARK: Add Direct Debit Button Text
-                addDirectDebitText
-                
-                //MARK: Optional Direct Debits Field
-                addDirectDebitsField
-                
-                // MARK: Save Info Button
-                saveToCoreDataButton
             }
+            
         }
         .addModalModifiers(showModal: $showModal, offset: $offset, dismissModal: dismissModal)
         
@@ -109,8 +121,21 @@ extension GetStartedModal{
     
     private var listOfTransactions: some View{
         VStack{
-//            ForEach(vm.dataManager.transactions){ transaction in
-            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
+            
+            if !vm.dataManager.transactions.isEmpty{
+                HStack{
+                    Text("Transactions:")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+            }
+            
+            ForEach(vm.dataManager.transactions){ transaction in
+//            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
                 TransactionRow(transaction: transaction)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal)

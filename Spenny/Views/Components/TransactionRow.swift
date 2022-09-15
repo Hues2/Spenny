@@ -42,7 +42,7 @@ struct TransactionRow: View {
                 //MARK: - Transaction Title
                 Text(transaction.title)
                     .font(.headline)
-                    .fontWeight(.light)
+                    .fontWeight(.ultraLight)
                     .lineLimit(1)
                     .frame(width: 80)
                 
@@ -52,7 +52,7 @@ struct TransactionRow: View {
                 //MARK: - Transaction Amount
                 Text("£\(transaction.amount.toFormattedString(format: "%.2f"))")
                     .font(.headline)
-                    .fontWeight(.thin)
+                    .fontWeight(.medium)
                     .frame(width: 75)
                     .frame(maxWidth: 125)
                     .layoutPriority(1)
