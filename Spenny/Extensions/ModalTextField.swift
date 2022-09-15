@@ -10,16 +10,26 @@ import SwiftUI
 struct ModalTextField: View {
     let title: String
     let placeholder: String
-    @Binding var amount: String
+    @Binding var amount: Double?
+    @Binding var isValidAmount: Bool
     
     var body: some View {
         GroupBox{
             VStack(alignment: .leading, spacing: 10) {
-                Text("\(title):")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.accentColor)
-                TextField("E.g. \(placeholder)", text: $amount)
+                HStack{
+                    Text("\(title):")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+                    
+                    Spacer()
+                    
+                    Image(systemName: isValidAmount ? "checkmark.circle" : "xmark.circle")
+                        .font(.caption)
+                        .foregroundColor(isValidAmount ? .green : .red)
+                }
+                
+                TextField("E.g. \(placeholder)", value: $amount, format: .number)
                     .keyboardType(.decimalPad)
                     .onTapGesture {}
             }
@@ -28,13 +38,5 @@ struct ModalTextField: View {
         .padding(.horizontal)
         .clipped()
         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
-    }
-}
-
-struct ModalTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        ModalTextField(title: "Montlhy Income", placeholder: "£99.00", amount: .constant(""))
-            .previewLayout(.sizeThatFits)
-            .padding()
     }
 }

@@ -110,12 +110,12 @@ extension GetStartedModal{
     }
     
     private var monthlyIncomeField: some View{
-        ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.dataManager.monthlyIncome)
+        ModalTextField(title: "Monthly Income", placeholder: "£1250.00", amount: $vm.dataManager.monthlyIncome, isValidAmount: $vm.monthlyIncomeIsValid)
             .clipped()
     }
     
     private var savingsGoalField: some View{
-        ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.dataManager.savingsGoal)
+        ModalTextField(title: "Savings Goal", placeholder: "£90.00", amount: $vm.dataManager.savingsGoal, isValidAmount: $vm.savingsGoalIsValid)
             .clipped()
     }
     
@@ -173,7 +173,6 @@ extension GetStartedModal{
         if !isAddingTransaction{
             Button {
                 print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
-                
             } label: {
                 Text("Save")
                     .fontWeight(.bold)
@@ -197,10 +196,10 @@ extension GetStartedModal{
     
 }
 
+
 extension View{
     func withGetStartedModal(dataManager: DataManager, showModal: Binding<Bool>) -> some View{
         modifier(GetStartedModalViewModifier(dataManager: dataManager, showModal: showModal))
     }
 }
-
 

@@ -14,8 +14,8 @@ class DataManager: ObservableObject{
     
     @Published var spennyData: SpennyData? = nil
     
-    @Published var monthlyIncome: String = ""
-    @Published var savingsGoal: String = ""
+    @Published var monthlyIncome: Double? = nil
+    @Published var savingsGoal: Double? = nil
     @Published var transactions: [Transaction] = []
     
     init(){
