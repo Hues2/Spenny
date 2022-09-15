@@ -16,6 +16,7 @@ class AddTransactionViewModel: ObservableObject{
     @Published var selectedTransactionType: TransactionType = TransactionType(iconName: "", title: "", colorHex: "")
     @Published var date = Date()
     @Published var isDirectDebit: Bool = false
+    @Published var isIncome: Bool = false
     
     @Binding var isAddingTransaction: Bool
     @Published var titleIsValid: Bool = false
@@ -32,10 +33,6 @@ class AddTransactionViewModel: ObservableObject{
         self._isAddingTransaction = isAddingTransaction
         self.addSubscribers()
     }
-    
-    
-    
-    
     
     
     

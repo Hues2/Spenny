@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddTransaction: View {
-
+    
     @StateObject private var vm: AddTransactionViewModel
     @Namespace var namespace
     @State var dismissKeyboardDrag: CGFloat = .zero
@@ -26,6 +26,9 @@ struct AddTransaction: View {
                 // MARK: Add Transaction Header
                 header
                 
+                //MARK: - Is Income Toggle
+                isIncomeToggle
+                
                 // MARK: Is Direct Debit Toggle
                 isDirectDebitToggle
                 
@@ -40,7 +43,7 @@ struct AddTransaction: View {
                 
                 // MARK: Add Transaction Button
                 addTransactionButton
-
+                
             }
         }
         .frame(maxWidth: .infinity)
@@ -80,6 +83,74 @@ extension AddTransaction{
         }
     }
     
+    private var isIncomeToggle: some View{
+        VStack(alignment: .center){
+            HStack{
+                payInOption
+                
+                Spacer()
+                
+                payOutOption
+            }
+            Divider()
+        }
+        .padding(.top, 40)
+    }
+    
+    private var payInOption: some View{
+        ZStack{
+            
+            if vm.isIncome{
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(
+                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(15)
+                    .matchedGeometryEffect(id: "option1Background", in: namespace)
+            }
+            Text("Pay In")
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(vm.isIncome ? .white : .accentColor)
+                .opacity(vm.isIncome ? 1 : 0.4)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+        }
+        .frame(width: 100)
+        .onTapGesture {
+            withAnimation(.spring()) {
+                vm.isIncome = true
+            }
+        }
+    }
+    
+    private var payOutOption: some View{
+        ZStack{
+            if !vm.isIncome{
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(
+                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(15)
+                    .matchedGeometryEffect(id: "option1Background", in: namespace)
+            }
+            
+            Text("Pay Out")
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(vm.isIncome ? .accentColor : .white)
+                .opacity(vm.isIncome ? 0.4 : 1)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+        }
+        .frame(width: 100)
+        .onTapGesture {
+            withAnimation(.spring()) {
+                vm.isIncome = false
+            }
+        }
+    }
+    
     private var isDirectDebitToggle: some View{
         VStack(alignment: .center){
             HStack{
@@ -89,64 +160,65 @@ extension AddTransaction{
                 
                 directDebitOption
             }
+            
+            Divider()
         }
-        .padding(.top, 40)
+        .padding(.top, 15)
     }
     
     private var standardTransactionOption: some View{
-        Text("Standard Transaction")
-            .font(.body)
-            .fontWeight(.bold)
-            .foregroundColor(vm.isDirectDebit ? .accentColor : .white)
-            .opacity(vm.isDirectDebit ? 0.3 : 1)
-            .padding(.vertical, 5)
-            .padding(.horizontal, 10)
-            .background(
-                ZStack{
-                    if !vm.isDirectDebit{
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(
-                                LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
-                            )
-                            .matchedGeometryEffect(id: "optionBackground", in: namespace)
-                    }
-                }
-                
-            )
-            .cornerRadius(15)
+        ZStack{
+            if !vm.isDirectDebit{
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(
+                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(15)
+                    .matchedGeometryEffect(id: "option2Background", in: namespace)
+            }
+            
+            Text("Standard Transaction")
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(vm.isDirectDebit ? .accentColor : .white)
+                .opacity(vm.isDirectDebit ? 0.4 : 1)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+        }
+        .frame(width: 150)
             .onTapGesture {
-                withAnimation {
+                withAnimation(.spring()) {
                     vm.isDirectDebit = false
                 }
             }
+            
     }
     
     private var directDebitOption: some View{
-        Text("Direct Debit")
-            .font(.body)
-            .fontWeight(.bold)
-            .foregroundColor(vm.isDirectDebit ? .white : .accentColor)
-            .opacity(vm.isDirectDebit ? 1 : 0.3)
-            .padding(.vertical, 5)
-            .padding(.horizontal, 10)
-            .background(
-                ZStack{
-
-                    if vm.isDirectDebit{
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(
-                                LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
-                            )
-                            .matchedGeometryEffect(id: "optionBackground", in: namespace)
-                    }
-                }
-            )
-            .cornerRadius(15)
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    vm.isDirectDebit = true
-                }
+        ZStack{
+            if vm.isDirectDebit{
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(
+                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(15)
+                    .matchedGeometryEffect(id: "option2Background", in: namespace)
             }
+            
+            Text("Direct Debit")
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(vm.isDirectDebit ? .white : .accentColor)
+                .opacity(vm.isDirectDebit ? 1 : 0.4)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+        }
+        .frame(width: 150)
+        .onTapGesture {
+            withAnimation(.spring()) {
+                vm.isDirectDebit = true
+            }
+        }
     }
     
     private var textFields: some View{
@@ -195,6 +267,8 @@ extension AddTransaction{
             DatePicker("", selection: $vm.date, displayedComponents: [.date])
                 .datePickerStyle(.compact)
                 .labelsHidden()
+            
+            Divider()
         }
         
         .padding(.top, 10)
@@ -220,22 +294,20 @@ extension AddTransaction{
     }
     
     @ViewBuilder private var addTransactionButton: some View{
-//        if vm.transactionIsValid(){
-            Button {
-                vm.addTransaction()
-            } label: {
-                Text("Add")
-                    .fontWeight(.bold)
-                    .withSpennyButtonLabelStyle()
-                    .opacity(vm.transactionIsValid() ? 1 : 0.3)
-            }
-            .buttonStyle(SpennyButtonStyle())
-            .padding(.top, 10)
-            .scaleEffect(vm.transactionIsValid() ? 1 : 0.7)
-            .animation(.spring(), value: vm.transactionIsValid())
-            .disabled(!vm.transactionIsValid())
-//        }
-       
+        Button {
+            vm.addTransaction()
+        } label: {
+            Text("Add")
+                .fontWeight(.bold)
+                .withSpennyButtonLabelStyle()
+                .opacity(vm.transactionIsValid() ? 1 : 0.3)
+        }
+        .buttonStyle(SpennyButtonStyle())
+        .padding(.top, 10)
+        .scaleEffect(vm.transactionIsValid() ? 1 : 0.7)
+        .animation(.spring(), value: vm.transactionIsValid())
+        .disabled(!vm.transactionIsValid())
+        
     }
     
 }
