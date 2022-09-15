@@ -132,8 +132,8 @@ extension GetStartedModal{
                 .padding(.horizontal)
             }
             
-            ForEach(vm.dataManager.transactions){ transaction in
-                //            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
+//            ForEach(vm.dataManager.transactions){ transaction in
+            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
                 TransactionRow(transaction: transaction)
                     .transition(.move(edge: .leading))
                     .frame(maxWidth: .infinity)

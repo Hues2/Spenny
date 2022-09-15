@@ -33,16 +33,16 @@ struct TransactionRow: View {
                 //MARK: - Transaction Date
                 Text(transaction.date)
                     .font(.headline)
-                    .fontWeight(.ultraLight)
+                    .fontWeight(.light)
                     .frame(width: 75)
-                            
+                
                 
                 Spacer()
                 
                 //MARK: - Transaction Title
                 Text(transaction.title)
                     .font(.headline)
-                    .fontWeight(.ultraLight)
+                    .fontWeight(.light)
                     .lineLimit(1)
                     .frame(width: 80)
                 
@@ -57,13 +57,12 @@ struct TransactionRow: View {
                     .frame(width: 75)
                     .frame(maxWidth: 125)
                     .layoutPriority(1)
-                
-                
-                
-                
             }
         }
         .frame(maxWidth: .infinity)
+        .groupBoxStyle(ColoredGroupBox())
     }
 }
+
+
 

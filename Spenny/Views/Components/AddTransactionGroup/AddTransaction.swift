@@ -50,7 +50,7 @@ struct AddTransaction: View {
         .onTapGesture {
             UIApplication.shared.dismissKeyboard()
         }
-        
+        .groupBoxStyle(ColoredGroupBox())
     }
 }
 

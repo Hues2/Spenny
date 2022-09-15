@@ -16,20 +16,19 @@ struct ModalModifiers: ViewModifier{
     
     func body(content: Content) -> some View {
         content
-//            .frame(height: UIScreen.main.bounds.height / 1.8)
             .frame(maxWidth: .infinity)
+            .background(
+                Color.backgroundColor
+                .cornerRadius(10)
+                .edgesIgnoringSafeArea([.bottom])
+                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: -2)
+            )
             .overlay(
                 RoundedRectangle(cornerRadius: 30)
                     .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
                     .frame(width: 30, height: 5)
                     .padding(3)
                 , alignment: .top
-            )
-            .background(
-                Color.startedModalBackgroundColor
-                    .cornerRadius(10)
-                    .edgesIgnoringSafeArea([.bottom])
-                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: -2)
             )
             .padding(.top, 25)
             .onTapGesture {

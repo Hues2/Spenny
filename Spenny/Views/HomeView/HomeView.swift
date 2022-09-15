@@ -36,6 +36,7 @@ struct HomeView: View {
                  }
                  */
                 getStarted
+                .background(Color.backgroundColor.ignoresSafeArea())
                 
 //            }
             

@@ -10,7 +10,8 @@ import SwiftUI
 
 
 extension Color{
-    static let startedModalBackgroundColor = Color("GetStartedModalBackground")
+    static let backgroundColor = Color("BackgroundColor")
+    static let groupBoxBackgroundColor = Color("GroupBoxBackgroundColor")
     
     init(hex: String) {
             let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
