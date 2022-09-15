@@ -16,18 +16,8 @@ struct ModalTextField: View {
     var body: some View {
         GroupBox{
             VStack(alignment: .leading, spacing: 10) {
-                HStack{
-                    Text("\(title):")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.accentColor)
-                    
-                    Spacer()
-                    
-                    Image(systemName: isValidAmount ? "checkmark.circle" : "xmark.circle")
-                        .font(.caption)
-                        .foregroundColor(isValidAmount ? .green : .red)
-                }
+                
+                TextFieldHeader(title: title, isValid: isValidAmount, font: .title3)
                 
                 TextField("E.g. \(placeholder)", value: $amount, format: .number)
                     .keyboardType(.decimalPad)

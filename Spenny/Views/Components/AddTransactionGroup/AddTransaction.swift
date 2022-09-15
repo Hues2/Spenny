@@ -151,17 +151,10 @@ extension AddTransaction{
     
     private var textFields: some View{
         VStack{
+            
             VStack(alignment: .leading){
                 
-                HStack{
-                    
-                    Text("Transaction Title:")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.accentColor)
-                    
-                    
-                }
+                TextFieldHeader(title: "Transaction Title:", isValid: vm.titleIsValid, font: .subheadline)
                 
                 TextField("Transaction Title", text: $vm.title, prompt: Text("E.g. Car Insurance"))
                     .onTapGesture {}
@@ -172,10 +165,8 @@ extension AddTransaction{
             
             
             VStack(alignment: .leading){
-                Text("Transaction Amount:")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.accentColor)
+                
+                TextFieldHeader(title: "Transaction Amount:", isValid: vm.amountIsValid, font: .subheadline)
                 
                 TextField("E.g. £313.18", value: $vm.amount, format: .number)
                     .onTapGesture {}

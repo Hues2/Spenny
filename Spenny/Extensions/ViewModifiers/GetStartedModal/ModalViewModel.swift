@@ -27,7 +27,8 @@ class ModalViewModel: ObservableObject{
     
     func addSubscribers(){
         dataManager.$monthlyIncome
-            .sink { returnedIncome in
+            .sink { [weak self] returnedIncome in
+                guard let self = self else { return }
                 // Validation of monthly income
                 self.validateAmount(returnedAmount: returnedIncome, amountIsValid: &self.monthlyIncomeIsValid)
             }
@@ -35,7 +36,8 @@ class ModalViewModel: ObservableObject{
         
         
         dataManager.$savingsGoal
-            .sink { returnedSavingsGoal in
+            .sink { [weak self] returnedSavingsGoal in
+                guard let self = self else { return }
                 // Validation of monthly income
                 self.validateAmount(returnedAmount: returnedSavingsGoal, amountIsValid: &self.savingsGoalIsValid)
             }

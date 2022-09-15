@@ -73,12 +73,6 @@ extension HomeView{
                         
             Spacer()
             
-            // This moves the logo up, when the modal appears
-//            if showModal{
-//                Spacer()
-//                    .frame(height: UIScreen.main.bounds.height / 1.9)
-//            }
-            
         }
         .onTapGesture {
             withAnimation {

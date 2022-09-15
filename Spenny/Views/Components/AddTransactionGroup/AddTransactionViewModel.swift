@@ -18,17 +18,61 @@ class AddTransactionViewModel: ObservableObject{
     @Published var isDirectDebit: Bool = false
     
     @Binding var isAddingTransaction: Bool
+    @Published var titleIsValid: Bool = false
+    @Published var amountIsValid: Bool = false
     
     
     
     private var dataManager: DataManager
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(dataManager: DataManager, isAddingTransaction: Binding<Bool>){
         self.dataManager = dataManager
         self._isAddingTransaction = isAddingTransaction
+        self.addSubscribers()
     }
     
     
+    
+    
+    
+    
+    
+    private func addSubscribers(){
+        self.$title
+            .sink { [weak self] returnedTitle in
+                self?.validateTitle()
+            }
+            .store(in: &cancellables)
+        
+        self.$amount
+            .sink { [weak self] returnedAmount in
+                self?.validateAmount()
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    
+    // MARK: Validate Title
+    private func validateTitle(){
+        guard !title.isEmpty else { titleIsValid = false; return }
+        titleIsValid = true
+    }
+    
+    // MARK: Validate Amount
+    private func validateAmount(){
+        guard let amount = amount else { self.amountIsValid = false; return }
+        self.amountIsValid = true
+    }
+    
+    // MARK: Transaction Is Valid
+    func transactionIsValid() -> Bool{
+        // For the transaction type, as long as there is an icon, there will definitely be a title and hexColor too
+        guard let _ = amount, !title.isEmpty && !dateString().isEmpty && !selectedTransactionType.iconName.isEmpty else { return  false}
+        return true
+    }
     
     // MARK: Add Transaction
     func addTransaction(){
@@ -49,12 +93,7 @@ class AddTransactionViewModel: ObservableObject{
         }
     }
     
-    func transactionIsValid() -> Bool{
-        // For the transaction type, as long as there is an icon, there will definitely be a title and hexColor too
-        guard let _ = amount, !title.isEmpty && !dateString().isEmpty && !selectedTransactionType.iconName.isEmpty else { return  false}
-        return true
-    }
-    
+    // MARK: Cancel Transaction
     func cancelTransaction(){
         resetValues()
     }
