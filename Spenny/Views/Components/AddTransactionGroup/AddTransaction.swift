@@ -220,17 +220,21 @@ extension AddTransaction{
     }
     
     @ViewBuilder private var addTransactionButton: some View{
-        if vm.transactionIsValid(){
+//        if vm.transactionIsValid(){
             Button {
                 vm.addTransaction()
             } label: {
                 Text("Add")
                     .fontWeight(.bold)
                     .withSpennyButtonLabelStyle()
+                    .opacity(vm.transactionIsValid() ? 1 : 0.3)
             }
             .buttonStyle(SpennyButtonStyle())
             .padding(.top, 10)
-        }
+            .scaleEffect(vm.transactionIsValid() ? 1 : 0.7)
+            .animation(.spring(), value: vm.transactionIsValid())
+            .disabled(!vm.transactionIsValid())
+//        }
        
     }
     
