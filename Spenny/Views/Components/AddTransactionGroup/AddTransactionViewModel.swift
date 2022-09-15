@@ -63,7 +63,7 @@ class AddTransactionViewModel: ObservableObject{
     
     // MARK: Validate Amount
     private func validateAmount(){
-        guard let amount = amount else { self.amountIsValid = false; return }
+        guard let _ = amount else { self.amountIsValid = false; return }
         self.amountIsValid = true
     }
     

@@ -155,7 +155,8 @@ extension AddTransaction{
             // MARK: Title TextField
             VStack(alignment: .leading){
                 
-                TextFieldHeader(title: "Transaction Title:", isValid: vm.titleIsValid, font: .subheadline)
+                TextFieldHeader(title: vm.isDirectDebit ? "Direct Debit Title" : "Transaction Title", isValid: vm.titleIsValid, font: .subheadline)
+                    .animation(.none, value: vm.isDirectDebit)
                 
                 TextField("Transaction Title", text: $vm.title, prompt: Text("E.g. Car Insurance"))
                     .onTapGesture {}
@@ -168,7 +169,8 @@ extension AddTransaction{
             // MARK: Amount TextField
             VStack(alignment: .leading){
                 
-                TextFieldHeader(title: "Transaction Amount:", isValid: vm.amountIsValid, font: .subheadline)
+                TextFieldHeader(title: vm.isDirectDebit ? "Direct Debit Amount" : "Transaction Amount", isValid: vm.amountIsValid, font: .subheadline)
+                    .animation(.none, value: vm.isDirectDebit)
                 
                 TextField("E.g. £313.18", value: $vm.amount, format: .number)
                     .onTapGesture {}
@@ -184,10 +186,11 @@ extension AddTransaction{
     
     private var datePicker: some View{
         VStack(alignment: .leading){
-            Text("Transaction Date:")
+            Text(vm.isDirectDebit ? "Direct Debit Date" : "Transaction Date:")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.accentColor)
+                .animation(.none, value: vm.isDirectDebit)
             
             DatePicker("", selection: $vm.date, displayedComponents: [.date])
                 .datePickerStyle(.compact)
@@ -199,10 +202,11 @@ extension AddTransaction{
     
     private var transactionTypeScrollView: some View{
         VStack(alignment: .leading){
-            Text("Transaction Type:")
+            Text(vm.isDirectDebit ? "Direct Debit Type" : "Transaction Type:")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.accentColor)
+                .animation(.none, value: vm.isDirectDebit)
             
             ScrollView(.horizontal ,showsIndicators: false) {
                 HStack{

@@ -132,8 +132,8 @@ extension GetStartedModal{
                 .padding(.horizontal)
             }
             
-//            ForEach(vm.dataManager.transactions){ transaction in
-            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
+            ForEach(vm.dataManager.transactions){ transaction in
+//            ForEach(ListOfTransactionTypes.listofFakeTransactions){ transaction in
                 TransactionRow(transaction: transaction)
                     .transition(.move(edge: .leading))
                     .frame(maxWidth: .infinity)
@@ -165,6 +165,7 @@ extension GetStartedModal{
     @ViewBuilder private var addTransactionsField: some View{
         if isAddingTransaction{
             AddTransaction(dataManager: vm.dataManager, isAddingTransaction: $isAddingTransaction)
+                .zIndex(1)
                 .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
         }
     }
@@ -178,6 +179,7 @@ extension GetStartedModal{
                     .fontWeight(.bold)
                     .withSpennyButtonLabelStyle()
             }
+            .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
             .buttonStyle(SpennyButtonStyle())
             .padding(.top, 10)
         }
