@@ -47,5 +47,5 @@ APP TODO:
 
 WORKING ON NOW:
 
-- Add transactions title on modal (only show if the user has added a transaction)
+- Add Pay In/ Pay Out option to add transaction view, so that users can set the value to negative or positive
     

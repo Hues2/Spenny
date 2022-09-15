@@ -25,7 +25,7 @@ struct ModalDragGestureViewModifier: ViewModifier{
                         }
                     })
                     .onEnded({ gesture in
-                        if gesture.translation.height > 150{
+                        if gesture.translation.height > 250{
                             dismissModal()
                         } else{
                             withAnimation {

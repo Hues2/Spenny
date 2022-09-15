@@ -12,10 +12,10 @@ import Combine
 class AddTransactionViewModel: ObservableObject{
     
     @Published var title: String = ""
-    @Published var selectedTransactionType: TransactionType = TransactionType(iconName: "", title: "", colorHex: "")
     @Published var amount: Double? = nil
-    @Published var isDirectDebit: Bool = false
+    @Published var selectedTransactionType: TransactionType = TransactionType(iconName: "", title: "", colorHex: "")
     @Published var date = Date()
+    @Published var isDirectDebit: Bool = false
     
     @Binding var isAddingTransaction: Bool
     
