@@ -28,6 +28,8 @@ class DataManager: ObservableObject{
     
     
     
+    
+    
     // MARK: Add Direct Debit | Transaction
     func addTransaction(transaction: Transaction){
         withAnimation {
