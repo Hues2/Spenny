@@ -39,6 +39,7 @@ class CoreDataManager: ObservableObject {
             let spennyData = SpennyData(monthlyIncome: result[0].monthlyIncome, savingsGoal: result[0].savingsGoal, transactions: (result[0].transactions?.allObjects as! [Transaction]))
             
             spennyDataPublisher.send(spennyData)
+            print("\n This is the fetched data: \(spennyData) \n")
             
         } catch{
             print("\n [CORE DATA MANAGER] --> Error fetching Spenny Data from core data. Error: \(error.localizedDescription) \n")
@@ -52,7 +53,29 @@ class CoreDataManager: ObservableObject {
         let spennyEntity = SpennyEntity(context: container.viewContext)
         spennyEntity.monthlyIncome = spennyData.monthlyIncome
         spennyEntity.savingsGoal = spennyData.savingsGoal
+        
+        for transaction in spennyData.transactions{
+            
+            let transactionEntity = TransactionEntity(context: container.viewContext)
+            transactionEntity.spennyEntity = spennyEntity
+            transactionEntity.title = transaction.title
+            transactionEntity.amount = transaction.amount
+            transactionEntity.id = transaction.id
+            transactionEntity.date = transaction.date
+            transactionEntity.isDirectDebit = transaction.isDirectDebit
+            
+            let transactionTypeEntity = TransactionTypeEntity(context: container.viewContext)
+            transactionTypeEntity.transactionEntity = transactionEntity
+            transactionTypeEntity.title = transaction.transactionType.title
+            transactionTypeEntity.iconName = transaction.transactionType.iconName
+            transactionTypeEntity.colorHex = transaction.transactionType.colorHex
+            
+            transactionEntity.transactionType = transactionTypeEntity
+            
+            spennyEntity.transactions?.adding(transactionEntity)
+        }
         spennyEntity.transactions?.addingObjects(from: spennyData.transactions)
+        applyChanges()
     }
     
     

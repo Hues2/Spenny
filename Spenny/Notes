@@ -47,7 +47,8 @@ APP TODO:
 
 WORKING ON NOW:
 
-- Add Pay In/ Pay Out option to add transaction view, so that users can set the value to negative or positive
+- When saving the spenny data, the list of transactions needs to conform to the model in core data
+- So inside for loop make each transaction from scrap with the available data
     
 
 

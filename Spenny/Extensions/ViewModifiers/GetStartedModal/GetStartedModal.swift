@@ -176,6 +176,7 @@ extension GetStartedModal{
         if !isAddingTransaction{
             Button {
                 print("\n Should check if the entered data is valid, and if it is, save it to core data \n")
+                vm.dataManager.addSpennyData()
             } label: {
                 Text("Save")
                     .fontWeight(.bold)
