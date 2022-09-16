@@ -18,6 +18,10 @@ class DataManager: ObservableObject{
     @Published var savingsGoal: Double? = nil
     @Published var transactions: [Transaction] = []
     
+    
+    private let coreDataManager = CoreDataManager()
+    
+    
     init(){
         
     }

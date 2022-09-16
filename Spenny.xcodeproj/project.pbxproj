@@ -20,8 +20,8 @@
 		2E0E8A2D28CF7A22006C0252 /* GetStartedModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */; };
 		2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */; };
 		2E136DD628D13FEE00D07778 /* AddTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E136DD528D13FEE00D07778 /* AddTransactionViewModel.swift */; };
-		2E2F09D428D4A9DF004FDF01 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2F09D328D4A9DF004FDF01 /* CoreDataManager.swift */; };
 		2E2F09D728D4ADEF004FDF01 /* SpennyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2F09D528D4ADEF004FDF01 /* SpennyModel.xcdatamodeld */; };
+		2E2F09D928D4B003004FDF01 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2F09D828D4B003004FDF01 /* CoreDataManager.swift */; };
 		2E4C95B728D33E540029C652 /* TextFieldHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C95B628D33E540029C652 /* TextFieldHeader.swift */; };
 		2E4C95B928D357E20029C652 /* CustomGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C95B828D357E20029C652 /* CustomGroupBoxStyle.swift */; };
 		2E722A7728D0D65A00ADA295 /* TransactionTypePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */; };
@@ -54,8 +54,8 @@
 		2E0E8A2C28CF7A22006C0252 /* GetStartedModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedModal.swift; sourceTree = "<group>"; };
 		2E0E8A2E28CF7B2D006C0252 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		2E136DD528D13FEE00D07778 /* AddTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewModel.swift; sourceTree = "<group>"; };
-		2E2F09D328D4A9DF004FDF01 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		2E2F09D628D4ADEF004FDF01 /* SpennyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpennyModel.xcdatamodel; sourceTree = "<group>"; };
+		2E2F09D828D4B003004FDF01 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		2E4C95B628D33E540029C652 /* TextFieldHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldHeader.swift; sourceTree = "<group>"; };
 		2E4C95B828D357E20029C652 /* CustomGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupBoxStyle.swift; sourceTree = "<group>"; };
 		2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransactionTypePill.swift; path = Spenny/Models/TransactionTypePill.swift; sourceTree = SOURCE_ROOT; };
@@ -90,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				2E04DE8728CFD30B0013D866 /* DataManager.swift */,
+				2E2F09D828D4B003004FDF01 /* CoreDataManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -132,7 +133,6 @@
 				2E04DE7E28CFBA990013D866 /* SpennyData.swift */,
 				2E08DC8328D09CC300431470 /* Transaction.swift */,
 				2E08DC8528D09CD500431470 /* TransactionType.swift */,
-				2E2F09D328D4A9DF004FDF01 /* CoreDataManager.swift */,
 				2E2F09D528D4ADEF004FDF01 /* SpennyModel.xcdatamodeld */,
 			);
 			path = Models;
@@ -313,7 +313,6 @@
 				2EB744FC28D0700D005FFBA4 /* SpennyButtonLabelModifier.swift in Sources */,
 				2E04DE8828CFD30B0013D866 /* DataManager.swift in Sources */,
 				2ED9924728D0DD5B00E55406 /* ListOfTransactionTypes.swift in Sources */,
-				2E2F09D428D4A9DF004FDF01 /* CoreDataManager.swift in Sources */,
 				2E08DC8828D0A3B700431470 /* AddTransaction.swift in Sources */,
 				2EB744FA28D06BFC005FFBA4 /* ModalTextField.swift in Sources */,
 				2E04DE7F28CFBA990013D866 /* SpennyData.swift in Sources */,
@@ -334,6 +333,7 @@
 				2EBF174128D2207B004CD8AA /* TransactionRow.swift in Sources */,
 				2E4C95B728D33E540029C652 /* TextFieldHeader.swift in Sources */,
 				2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */,
+				2E2F09D928D4B003004FDF01 /* CoreDataManager.swift in Sources */,
 				2E04DE8528CFC6E40013D866 /* ModalModifiers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
