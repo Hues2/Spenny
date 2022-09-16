@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct TransactionRow: View {
-    @State var transaction: Transaction
+    @State var transaction: TransactionEntity
+    @State var transactionType = TransactionType(iconName: "", typeTitle: "", hexColor: "")
     
     var body: some View {
         GroupBox{
@@ -17,7 +18,7 @@ struct TransactionRow: View {
                 VStack{
                     
                     //MARK: - Transaction Type Pill
-                    TransactionTypePill(transactionType: transaction.transactionType, selectedTransactionType: $transaction.transactionType, isSelectable: false)
+                    TransactionTypePill(typeTitle: transaction.typeTitle ?? "", iconName: transaction.iconName ?? "", hexColor: transaction.hexColor ?? "", transactionType: $transactionType, isSelectable: false)
                         .frame(width: 50)
                     
                     Text(transaction.isDirectDebit ? "Direct Debit" : "Transaction")
@@ -31,7 +32,7 @@ struct TransactionRow: View {
                 Spacer()
                 
                 //MARK: - Transaction Date
-                Text(transaction.date)
+                Text(transaction.date ?? "")
                     .font(.headline)
                     .fontWeight(.light)
                     .frame(width: 70)
@@ -40,7 +41,7 @@ struct TransactionRow: View {
                 Spacer()
                 
                 //MARK: - Transaction Title
-                Text(transaction.title)
+                Text(transaction.title ?? "")
                     .font(.headline)
                     .fontWeight(.light)
                     .lineLimit(1)

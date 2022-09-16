@@ -285,7 +285,7 @@ extension AddTransaction{
             ScrollView(.horizontal ,showsIndicators: false) {
                 HStack{
                     ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
-                        TransactionTypePill(transactionType: transactionType, selectedTransactionType: $vm.selectedTransactionType, isSelectable: true)
+                        TransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, transactionType: $vm.transactionType, isSelectable: true)
                     }
                 }
             }

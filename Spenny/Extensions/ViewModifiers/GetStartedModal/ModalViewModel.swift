@@ -45,8 +45,6 @@ class ModalViewModel: ObservableObject{
     }
     
     
-    
-    
     private func validateAmount(returnedAmount: Double?, amountIsValid: inout Bool){
         guard let amount = returnedAmount, amount > 0 else { amountIsValid = false; return}
         amountIsValid = true

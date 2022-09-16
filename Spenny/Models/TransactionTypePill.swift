@@ -8,23 +8,26 @@
 import SwiftUI
 
 struct TransactionTypePill: View {
-    let transactionType: TransactionType
-    @Binding var selectedTransactionType: TransactionType
+    let typeTitle: String
+    let iconName: String
+    let hexColor: String
+    @Binding var transactionType: TransactionType
+    
     let isSelectable: Bool
     
     var body: some View {
         HStack{
             if !isSelectable{
-                Image(systemName: transactionType.iconName)
+                Image(systemName: iconName)
                     .resizable()
                     .frame(width: 20, height: 20)
                     .padding(2.5)
             }
             
             if isSelectable{
-                Image(systemName: transactionType.iconName)
+                Image(systemName: iconName)
                 
-                Text(transactionType.title)
+                Text(typeTitle)
                     .fontWeight(.bold)
             }
         }
@@ -33,19 +36,21 @@ struct TransactionTypePill: View {
         .padding(.vertical, 5)
         .padding(.horizontal, isSelectable ? 10 : 5)
         .background(
-            Color(hex: transactionType.colorHex)
+            Color(hex: hexColor)
         )
         .cornerRadius(30)
         .shadow(color: (.black.opacity(0.3)), radius: 3)
         .overlay(
             RoundedRectangle(cornerRadius: 30)
-                .stroke(((transactionType == selectedTransactionType) && isSelectable) ? Color.primary : .clear, lineWidth: 2)
+                .stroke(((iconName == transactionType.iconName) && isSelectable) ? Color.primary : .clear, lineWidth: 2)
         )
         .padding(2)
         .onTapGesture {
             withAnimation {
                 if isSelectable{
-                    selectedTransactionType = transactionType
+                    transactionType.iconName = iconName
+                    transactionType.typeTitle = typeTitle
+                    transactionType.hexColor = hexColor
                 }
             }
         }

@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 
-struct TransactionType: Codable, Identifiable, Equatable{
+struct TransactionType: Identifiable, Equatable{
     var id: UUID = UUID()
-    var iconName: String
-    var title: String
-    var colorHex: String
+    var iconName: String?
+    var typeTitle: String
+    var hexColor: String
 }

@@ -8,16 +8,17 @@
     <entity name="TransactionEntity" representedClassName="TransactionEntity" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="hexColor" optional="YES" attributeType="String"/>
+        <attribute name="iconName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isDirectDebit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="typeTitle" optional="YES" attributeType="String"/>
         <relationship name="spennyEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SpennyEntity" inverseName="transactions" inverseEntity="SpennyEntity"/>
-        <relationship name="transactionType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TransactionTypeEntity" inverseName="transactionEntity" inverseEntity="TransactionTypeEntity"/>
     </entity>
     <entity name="TransactionTypeEntity" representedClassName="TransactionTypeEntity" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="iconName" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="transactionEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TransactionEntity" inverseName="transactionType" inverseEntity="TransactionEntity"/>
     </entity>
 </model>
