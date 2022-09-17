@@ -11,12 +11,10 @@ import UIKit
 struct HomeView: View {
     
     @StateObject var vm: HomeViewModel
-    @Binding var showModal: Bool
     
     
-    init(dataManager: DataManager, showModal: Binding<Bool>){
-        self._showModal = showModal
-        self._vm = StateObject(wrappedValue: HomeViewModel(dataManager: dataManager, showModal: showModal))
+    init(dataManager: DataManager){
+        self._vm = StateObject(wrappedValue: HomeViewModel(dataManager: dataManager))
     }
     
     var body: some View {
@@ -32,7 +30,7 @@ struct HomeView: View {
                     getStarted
                     .background(Color.backgroundColor.ignoresSafeArea())
                 } else{
-                    TrackView()
+                    TrackView(dataManager: vm.dataManager)
                 }
             }
 
@@ -71,7 +69,7 @@ extension HomeView{
         }
         .onTapGesture {
             withAnimation {
-                showModal = false
+                vm.dataManager.isAddingTransaction = false
             }
         }
     }
@@ -89,10 +87,10 @@ extension HomeView{
     }
     
     @ViewBuilder private var getStartedButton: some View{
-        if !showModal{
+        if !vm.dataManager.isAddingTransaction{
             Button {
                 withAnimation(.spring()) {
-                    vm.showModal = true
+                    vm.dataManager.isAddingTransaction = true
                 }
                 
             } label: {
@@ -101,7 +99,7 @@ extension HomeView{
                     .withSpennyButtonLabelStyle()
             }
             .transition(.scale)
-            .animation(.easeInOut, value: showModal)
+            .animation(.easeInOut, value: vm.dataManager.isAddingTransaction)
             .buttonStyle(SpennyButtonStyle())
         }
     }

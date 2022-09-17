@@ -55,6 +55,7 @@ class CoreDataManager: ObservableObject {
     // MARK: Save
     private func save(){
         do {
+            print("\n Saving \n")
             try container.viewContext.save()
         } catch {
             print("\n Error saving to core data. Error: \(error.localizedDescription) \n")

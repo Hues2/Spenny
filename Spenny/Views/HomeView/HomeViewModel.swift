@@ -12,16 +12,14 @@ import Combine
 class HomeViewModel: ObservableObject{
     
     @Published var showInitialProgressView: Bool = true
-    @Binding var showModal: Bool
     
     
     let dataManager : DataManager
     
     var cancellables = Set<AnyCancellable>()
     
-    init(dataManager: DataManager, showModal: Binding<Bool>){
+    init(dataManager: DataManager){
         self.dataManager = dataManager
-        self._showModal = showModal
         addSubbscribers()
     }
     

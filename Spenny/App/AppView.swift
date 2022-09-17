@@ -11,11 +11,11 @@ struct AppView: View {
     @StateObject var dataManager = DataManager()
     
     // This showModal is here, as the modal has to go over the tab bar
-    @State var showModal: Bool = false
+//    @State var showModal: Bool = false
     
     var body: some View {
         TabView {
-            HomeView(dataManager: dataManager, showModal: $showModal)
+            HomeView(dataManager: dataManager)
                 .tabItem {
                     Label {
                         Text("Track")
@@ -25,6 +25,6 @@ struct AppView: View {
 
                 }
         }
-        .withGetStartedModal(dataManager: dataManager, showModal: $showModal)
+        .withGetStartedModal(dataManager: dataManager, showModal: $dataManager.isAddingTransaction)
     }
 }

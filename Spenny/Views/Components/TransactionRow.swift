@@ -15,12 +15,12 @@ struct TransactionRow: View {
         GroupBox{
             HStack{
                 
-                VStack{
+                VStack(spacing: 10){
                     
                     //MARK: - Transaction Type Pill
                     TransactionTypePill(typeTitle: transaction.typeTitle ?? "", iconName: transaction.iconName ?? "", hexColor: transaction.hexColor ?? "", transactionType: $transactionType, isSelectable: false)
-                        .frame(width: 50)
-                    
+                        .frame(width: 50, height: 50)
+                                        
                     Text(transaction.isDirectDebit ? "Direct Debit" : "Transaction")
                         .font(.caption)
                         .fontWeight(.light)

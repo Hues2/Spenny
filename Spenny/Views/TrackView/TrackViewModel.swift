@@ -12,4 +12,11 @@ class TrackViewModel: ObservableObject{
     
     
     
+    var dataManager: DataManager
+    
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
+    }
+    
+    
 }

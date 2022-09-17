@@ -18,6 +18,7 @@ class DataManager: ObservableObject{
     @Published var savingsGoal: Double? = nil
     @Published var transactions: [TransactionEntity] = []
     
+    @Published var isAddingTransaction: Bool = false
     @Published var isLoadingOrSavingData: Bool = false
     
     
@@ -45,13 +46,23 @@ class DataManager: ObservableObject{
                     print("\n [DATA MANAGER] --> Error in spennyDataPubliher. Error: \(error.localizedDescription) \n")
                 }
             } receiveValue: { [weak self] returnedSpennyEntity in
-                guard let spennyEntity = returnedSpennyEntity else { print("\n [DATA MANAGER] --> Returned spenny data was nil. \n"); return }
+                guard let spennyEntity = returnedSpennyEntity, let self = self else { print("\n [DATA MANAGER] --> Returned spenny data was nil. \n"); return }
                 
                 // The was a saved spenny entity in core data, so now it populates everything with that data
-                self?.spennyEntity = spennyEntity
-                self?.monthlyIncome = spennyEntity.monthlyIncome
-                self?.savingsGoal = spennyEntity.savingsGoal
-                self?.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
+                print("\n Caught published spenny entity. Populating values now. \n")
+                self.spennyEntity = spennyEntity
+                self.monthlyIncome = spennyEntity.monthlyIncome
+                self.savingsGoal = spennyEntity.savingsGoal
+                self.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
+                
+                // This is to dismiss the modal
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.isAddingTransaction = false
+                    }
+                }
+                
+                
             }
             .store(in: &cancellables)
 
@@ -61,8 +72,10 @@ class DataManager: ObservableObject{
     //MARK: - Add Spenny Data
     func addSpennyData() {
         guard let monthlyIncome = monthlyIncome, let savingsGoal = savingsGoal else { print("\n Monthly Goal and/or Savings Goal is/are empty \n"); return }
-        spennyEntity?.monthlyIncome = monthlyIncome
-        spennyEntity?.savingsGoal = savingsGoal
+        let spennyEntity = SpennyEntity(context: coreDataManager.container.viewContext)
+        spennyEntity.monthlyIncome = monthlyIncome
+        spennyEntity.savingsGoal = savingsGoal
+        spennyEntity.transactions = NSSet(array: self.transactions)
         coreDataManager.applyChanges()
     }
     
