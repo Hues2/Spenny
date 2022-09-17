@@ -71,7 +71,15 @@ extension TrackView{
         HStack{
             Spacer()
             
-            Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
+            Rectangle()
+                .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+                .mask {
+                    Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
+                        .font(.title)
+                        .fontWeight(.black)
+                }
+                .frame(maxWidth: 150, maxHeight: 100)
+            
             
             Spacer()
         }
