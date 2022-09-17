@@ -13,16 +13,22 @@ struct TrackView: View {
     
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
+        UITableView.appearance().backgroundColor = UIColor.clear
     }
     
     var body: some View {
         
         VStack{
+            
+            //MARK: - Info Box
+            infoBox
+            
             Spacer()
             
             //MARK: - Transactions
             transactions
         }
+        .background(Color.backgroundColor.ignoresSafeArea())
         
         
     }
@@ -31,25 +37,81 @@ struct TrackView: View {
 
 extension TrackView{
     
-    private var transactions: some View{
-        VStack{
-            //MARK: - List Header
-            listHeader
+    private var infoBoxHeader: some View{
+        HStack{
             
-            //MARK: - Transactions List
-            List(vm.dataManager.transactions){ transaction in
-                TransactionRow(transaction: transaction)
+            VStack(spacing: 5){
+                
+                Text("Monthly Income:")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                
+                Text("\(vm.dataManager.monthlyIncome?.toFormattedString(format: "%.2f") ?? "")")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                
+            }
+            
+            Spacer()
+            
+            VStack(spacing: 5){
+                Text("Savings Goal")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                
+                Text("\(vm.dataManager.savingsGoal?.toFormattedString(format: "%.2f") ?? "")")
+                    .font(.caption)
+                    .foregroundColor(.gray)
             }
             
         }
-        
+    }
+    
+    private var infoBoxCenter: some View{
+        HStack{
+            Spacer()
+            
+            Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
+            
+            Spacer()
+        }
+    }
+    
+    private var infoBox: some View{
+        GroupBox{
+            VStack{
+                infoBoxHeader
+                
+                infoBoxCenter
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .groupBoxStyle(ColoredGroupBox())
+        .padding()
+    }
+    
+    private var transactions: some View{
+        VStack(spacing: 5){
+            //MARK: - List Header
+            listHeader
+            
+                //MARK: - Transactions List
+            List(vm.dataManager.transactions){ transaction in
+                TransactionRow(transaction: transaction)
+                    .listRowBackground(Color.backgroundColor.ignoresSafeArea())
+                    .listRowSeparator(.hidden)
+                    
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+        }
     }
     
     private var listHeader: some View{
         HStack{
             Text("")
                 .font(.caption)
-                .fontWeight(.ultraLight)
+                .fontWeight(.light)
                 .foregroundColor(.gray)
                 .frame(width: 75)
             
@@ -59,7 +121,7 @@ extension TrackView{
             //MARK: - Transaction Date
             Text("Date")
                 .font(.caption)
-                .fontWeight(.ultraLight)
+                .fontWeight(.light)
                 .foregroundColor(.gray)
                 .frame(width: 70)
             
@@ -69,9 +131,8 @@ extension TrackView{
             //MARK: - Transaction Title
             Text("Title")
                 .font(.caption)
-                .fontWeight(.ultraLight)
+                .fontWeight(.light)
                 .foregroundColor(.gray)
-                .lineLimit(1)
                 .frame(width: 75)
             
             Spacer()
@@ -79,13 +140,11 @@ extension TrackView{
             //MARK: - Transaction Amount
             Text("Amount")
                 .font(.caption)
-                .fontWeight(.ultraLight)
+                .fontWeight(.light)
                 .foregroundColor(.gray)
                 .frame(width: 75)
-                .frame(maxWidth: 130)
-                .lineLimit(1)
-                .layoutPriority(1)
-                .minimumScaleFactor(0.8)
         }
+        .padding(.horizontal)
     }
+    
 }

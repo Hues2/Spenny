@@ -19,21 +19,26 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            if vm.showInitialProgressView{
-
-                // MARK: Initial ProgressView
-                loadingView
-
-            } else{
-                
-                if vm.dataManager.spennyEntity == nil{
-                    getStarted
-                    .background(Color.backgroundColor.ignoresSafeArea())
+            VStack{
+                if vm.showInitialProgressView{
+                    
+                    // MARK: Initial ProgressView
+                    loadingView
+                        .background(Color.backgroundColor.ignoresSafeArea())
+                    
                 } else{
-                    TrackView(dataManager: vm.dataManager)
+                    
+                    if vm.dataManager.spennyEntity == nil{
+                        getStarted
+                            .background(Color.backgroundColor.ignoresSafeArea())
+                    } else{
+                        TrackView(dataManager: vm.dataManager)
+                    }
                 }
             }
-
+            .background(Color.backgroundColor.ignoresSafeArea())
+            
+            
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -57,13 +62,13 @@ extension HomeView{
         VStack{
             
             Spacer()
-
+            
             //MARK: - Logo
             logo
             
             //MARK: - Get Started Button
             getStartedButton
-                        
+            
             Spacer()
             
         }
