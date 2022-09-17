@@ -7,27 +7,36 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class HomeViewModel: ObservableObject{
     
     @Published var showInitialProgressView: Bool = true
     @Binding var showModal: Bool
     
-    init(showModal: Binding<Bool>){
+    
+    let dataManager : DataManager
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    init(dataManager: DataManager, showModal: Binding<Bool>){
+        self.dataManager = dataManager
         self._showModal = showModal
-        // Get the remaining amount from core data
+        addSubbscribers()
+    }
+    
+    
+    //MARK: - Add Subscribers
+    private func addSubbscribers() {
+        
+        dataManager.$spennyEntity
+            .sink { [weak self] returnedSpennyEntity in
+                self?.showInitialProgressView = false
+            }
+            .store(in: &cancellables)
         
         
-        // This replicates the fetching of the data from core data
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.showInitialProgressView = false
-        }
     }
     
     
 }
-
-
-/*
- - Get the remaining amount for the month from core data
- */

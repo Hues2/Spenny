@@ -21,6 +21,7 @@ class DataManager: ObservableObject{
     @Published var isLoadingOrSavingData: Bool = false
     
     
+    
     let coreDataManager: CoreDataManager
     
     private var cancellables = Set<AnyCancellable>()
@@ -45,15 +46,19 @@ class DataManager: ObservableObject{
                 }
             } receiveValue: { [weak self] returnedSpennyEntity in
                 guard let spennyEntity = returnedSpennyEntity else { print("\n [DATA MANAGER] --> Returned spenny data was nil. \n"); return }
-                print("\n Got spenny data on launch \n")
+                
+                // The was a saved spenny entity in core data, so now it populates everything with that data
                 self?.spennyEntity = spennyEntity
                 self?.monthlyIncome = spennyEntity.monthlyIncome
+                self?.savingsGoal = spennyEntity.savingsGoal
+                self?.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
             }
             .store(in: &cancellables)
 
     }
     
     
+    //MARK: - Add Spenny Data
     func addSpennyData() {
         guard let monthlyIncome = monthlyIncome, let savingsGoal = savingsGoal else { print("\n Monthly Goal and/or Savings Goal is/are empty \n"); return }
         spennyEntity?.monthlyIncome = monthlyIncome

@@ -14,34 +14,28 @@ struct HomeView: View {
     @Binding var showModal: Bool
     
     
-    init(showModal: Binding<Bool>){
+    init(dataManager: DataManager, showModal: Binding<Bool>){
         self._showModal = showModal
-        self._vm = StateObject(wrappedValue: HomeViewModel(showModal: showModal))
+        self._vm = StateObject(wrappedValue: HomeViewModel(dataManager: dataManager, showModal: showModal))
     }
     
     var body: some View {
         NavigationView {
-//            if vm.showInitialProgressView{
-//
-//                // MARK: Initial ProgressView
-//                loadingView
-//
-//            } else{
+            if vm.showInitialProgressView{
+
+                // MARK: Initial ProgressView
+                loadingView
+
+            } else{
                 
-                /*
-                 Check if the data is nil
-                 if vm.data != nil{
-                 } else{
-                 getStarted
-                 }
-                 */
-                getStarted
-                .background(Color.backgroundColor.ignoresSafeArea())
-                
-//            }
-            
-            
-            
+                if vm.dataManager.spennyEntity == nil{
+                    getStarted
+                    .background(Color.backgroundColor.ignoresSafeArea())
+                } else{
+                    TrackView()
+                }
+            }
+
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

@@ -15,7 +15,7 @@ struct AppView: View {
     
     var body: some View {
         TabView {
-            HomeView(showModal: $showModal)
+            HomeView(dataManager: dataManager, showModal: $showModal)
                 .tabItem {
                     Label {
                         Text("Track")
