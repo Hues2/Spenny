@@ -46,17 +46,17 @@ struct TrackView: View {
                     transactions
                     
                     Color.black.opacity(0.3).ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation {
+                                isEditingInfoBox = false
+                            }
+                            
+                        }
                     
                     VStack{
                         Spacer()
                         
                         infoBox
-                            .onTapGesture {
-                                withAnimation {
-                                    isEditingInfoBox = false
-                                }
-                                
-                            }
                             .matchedGeometryEffect(id: "hi", in: namespace)
                         
                         Spacer()

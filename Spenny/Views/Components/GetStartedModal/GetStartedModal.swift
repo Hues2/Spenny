@@ -99,7 +99,7 @@ extension GetStartedModal{
     private var listOfTransactions: some View{
         VStack{
             
-            if !vm.dataManager.transactions.isEmpty{
+            if !vm.transactions.isEmpty{
                 HStack{
                     Text("Transactions:")
                         .font(.title3)
@@ -111,7 +111,7 @@ extension GetStartedModal{
                 .padding(.horizontal)
             }
             
-            ForEach(vm.dataManager.transactions){ transaction in
+            ForEach(vm.transactions){ transaction in
                 TransactionRow(transaction: transaction)
                     .transition(.move(edge: .leading))
                     .frame(maxWidth: .infinity)

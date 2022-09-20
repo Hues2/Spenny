@@ -11,6 +11,8 @@ import Combine
 
 class ModalViewModel: ObservableObject{
     
+    @Published var transactions: [TransactionEntity] = []
+    
     @Published var monthlyIncomeIsValid: Bool = false
     @Published var savingsGoalIsValid: Bool = false
     
@@ -41,6 +43,13 @@ class ModalViewModel: ObservableObject{
                 guard let self = self else { return }
                 // Validation of monthly income
                 self.validateAmount(returnedAmount: returnedSavingsGoal, amountIsValid: &self.savingsGoalIsValid)
+            }
+            .store(in: &cancellables)
+        
+        
+        dataManager.$transactions
+            .sink { [weak self] returnedTransactions in
+                self?.transactions = returnedTransactions
             }
             .store(in: &cancellables)
     }
