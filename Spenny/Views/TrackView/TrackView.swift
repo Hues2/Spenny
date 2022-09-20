@@ -11,6 +11,9 @@ struct TrackView: View {
     
     @StateObject private var vm: TrackViewModel
     
+    @State var isEditingInfoBox: Bool = false
+    @Namespace var namespace
+    
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
         UITableView.appearance().backgroundColor = UIColor.clear
@@ -20,28 +23,52 @@ struct TrackView: View {
         
         VStack{
             
-            //MARK: - Info Box
-            infoBox
-            
-            Spacer()
-            
-            //MARK: - Transactions
-            transactions
-        }
-        .background(Color.backgroundColor.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Rectangle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
-                    .frame(width: 100, height: 50)
-                    .mask {
-                        Text("SPENNY")
-                            .font(.title3)
-                            .fontWeight(.black)
+            if !isEditingInfoBox{
+                //MARK: - Info Box
+                infoBox
+                    .onTapGesture {
+                        withAnimation {
+                            isEditingInfoBox = true
+                        }
+                        
                     }
+                    .matchedGeometryEffect(id: "hi", in: namespace)
+                
+                Spacer()
+                
+                //MARK: - Transactions
+                transactions
+                
+            } else{
+                
+                
+                ZStack{
+                    transactions
+                    
+                    Color.black.opacity(0.3).ignoresSafeArea()
+                    
+                    VStack{
+                        Spacer()
+                        
+                        infoBox
+                            .onTapGesture {
+                                withAnimation {
+                                    isEditingInfoBox = false
+                                }
+                                
+                            }
+                            .matchedGeometryEffect(id: "hi", in: namespace)
+                        
+                        Spacer()
+                    }
+                    
+                }
+                
             }
             
+            
+        }
+        .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     withAnimation(.spring()) {
@@ -54,6 +81,8 @@ struct TrackView: View {
 
             }
         }
+        .withTrackViewModifiers()
+        
         
         
     }
@@ -106,7 +135,7 @@ extension TrackView{
                 infoBoxHeader
                 
                 infoBoxCenter
-                    .padding(.top, 15)
+                    .padding(.top, 10)
             }
         }
         .frame(maxWidth: .infinity)
@@ -165,7 +194,7 @@ extension TrackView{
                     TransactionRow(transaction: transaction)
                         .listRowBackground(Color.backgroundColor.ignoresSafeArea())
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 7.5, trailing: 0))
                 }
                 .onDelete { indexSet in
                     vm.deleteTransaction(index: indexSet)
@@ -178,6 +207,34 @@ extension TrackView{
         }
     }
     
+}
+
+
+struct TrackViewModifiers: ViewModifier{
     
-    
+    func body(content: Content) -> some View {
+        content
+            .background(Color.backgroundColor.ignoresSafeArea())
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Rectangle()
+                        .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+                        .frame(width: 100, height: 50)
+                        .mask {
+                            Text("SPENNY")
+                                .font(.title3)
+                                .fontWeight(.black)
+                        }
+                }
+                
+                
+            }
+    }
+}
+
+extension View{
+    func withTrackViewModifiers() -> some View{
+        modifier(TrackViewModifiers())
+    }
 }
