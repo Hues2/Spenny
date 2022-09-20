@@ -37,7 +37,6 @@ class DataManager: ObservableObject{
     
     // MARK: Add Subscribers
     private func addSubscribers(){
-        print("\n Adding subs \n")
         coreDataManager.spennyDataPublisher
             .sink { completion in
                 switch completion{
@@ -50,10 +49,7 @@ class DataManager: ObservableObject{
                 guard let spennyEntity = returnedSpennyEntity, let self = self else { print("\n [DATA MANAGER] --> Returned spenny data was nil. \n"); return }
                 
                 // The was a saved spenny entity in core data, so now it populates everything with that data
-                print("\n Caught published spenny entity. Populating values now. \n")
-                
-                
-                // This is to dismiss the modal
+                                
                 DispatchQueue.main.async {
                     withAnimation {
                         self.spennyEntity = spennyEntity
@@ -96,6 +92,7 @@ class DataManager: ObservableObject{
     }
     
     
+    // MARK: Apply Changes In Core Data
     func applyChanges(){
         coreDataManager.applyChanges()
     }

@@ -16,7 +16,7 @@ class HomeViewModel: ObservableObject{
     
     let dataManager : DataManager
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     init(dataManager: DataManager){
         self.dataManager = dataManager

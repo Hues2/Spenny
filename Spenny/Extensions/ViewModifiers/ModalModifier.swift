@@ -31,8 +31,6 @@ struct GetStartedModalViewModifier: ViewModifier{
                         .animation(.spring(), value: dataManager.showModal)
                 }
                 
-                
-                
             }
         }
     }

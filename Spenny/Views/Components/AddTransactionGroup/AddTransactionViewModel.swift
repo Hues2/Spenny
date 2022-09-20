@@ -88,7 +88,7 @@ class AddTransactionViewModel: ObservableObject{
         // Configure the transaction with the correct values
         transaction.title = title
         transaction.amount = (self.isIncome ? amount : -amount)
-        transaction.date = dateString()
+        transaction.date = date
         transaction.isDirectDebit = isDirectDebit
         transaction.typeTitle = transactionType.typeTitle
         transaction.iconName = transactionType.iconName
@@ -124,12 +124,6 @@ class AddTransactionViewModel: ObservableObject{
         
     }
     
-    //MARK: - Date To String
-    private func dateString() -> String{
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.dateFormat = "dd/MM/yy"
-        return formatter.string(from: self.date)
-    }
+    
     
 }

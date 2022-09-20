@@ -114,30 +114,6 @@ extension TrackView{
         .padding()
     }
     
-    private var transactions: some View{
-        VStack(spacing: 5){
-            //MARK: - List Header
-            listHeader
-            
-                //MARK: - Transactions List
-            List {
-                ForEach(vm.transactions) { transaction  in
-                    TransactionRow(transaction: transaction)
-                        .listRowBackground(Color.backgroundColor.ignoresSafeArea())
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                }
-                .onDelete { indexSet in
-                    vm.deleteTransaction(index: indexSet)
-                }
-                    
-            }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .padding(.horizontal)
-        }
-    }
-    
     private var listHeader: some View{
         HStack{
             Text("Type")
@@ -177,5 +153,31 @@ extension TrackView{
         }
         .padding(.horizontal)
     }
+    
+    private var transactions: some View{
+        VStack(spacing: 5){
+            //MARK: - List Header
+            listHeader
+            
+                //MARK: - Transactions List
+            List {
+                ForEach(vm.transactions) { transaction  in
+                    TransactionRow(transaction: transaction)
+                        .listRowBackground(Color.backgroundColor.ignoresSafeArea())
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                }
+                .onDelete { indexSet in
+                    vm.deleteTransaction(index: indexSet)
+                }
+                    
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .padding(.horizontal)
+        }
+    }
+    
+    
     
 }

@@ -32,7 +32,7 @@ struct TransactionRow: View {
                 Spacer()
                 
                 //MARK: - Transaction Date
-                Text(transaction.date ?? "")
+                Text(transaction.date?.toString() ?? "")
                     .font(.headline)
                     .fontWeight(.light)
                     .frame(width: 70)

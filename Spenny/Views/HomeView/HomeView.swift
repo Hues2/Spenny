@@ -24,13 +24,11 @@ struct HomeView: View {
                     
                     // MARK: Initial ProgressView
                     loadingView
-                        .background(Color.backgroundColor.ignoresSafeArea())
                     
                 } else{
                     
                     if vm.dataManager.spennyEntity == nil{
                         getStarted
-                            .background(Color.backgroundColor.ignoresSafeArea())
                     } else{
                         TrackView(dataManager: vm.dataManager)
                     }

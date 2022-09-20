@@ -30,7 +30,7 @@ struct ModalModifiers: ViewModifier{
                     .padding(3)
                 , alignment: .top
             )
-            .padding(.top, 25)
+            .padding(.top, 15)
             .onTapGesture {
                 UIApplication.shared.dismissKeyboard()
             }

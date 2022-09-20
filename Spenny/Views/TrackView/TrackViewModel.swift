@@ -42,7 +42,7 @@ class TrackViewModel: ObservableObject{
     private func addSubscribers(){
         dataManager.$transactions
             .sink { [weak self] (returnedTransactions) in
-                self?.transactions = returnedTransactions
+                self?.transactions = returnedTransactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
             }
             .store(in: &cancellables)
         
