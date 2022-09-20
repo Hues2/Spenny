@@ -18,10 +18,12 @@ struct TransactionTypePill: View {
     var body: some View {
         HStack{
             if !isSelectable{
-                Image(systemName: iconName)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .padding(2.5)
+                ZStack{
+                    Circle()
+                        .fill(Color(hex: hexColor))
+                        .frame(width: 30, height:30)
+                    Image(systemName: iconName)
+                }
             }
             
             if isSelectable{

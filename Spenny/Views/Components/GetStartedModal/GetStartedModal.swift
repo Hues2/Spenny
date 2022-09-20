@@ -8,9 +8,6 @@
 import SwiftUI
 
 
-
-
-
 struct GetStartedModal: View{
     @StateObject var vm: ModalViewModel
     
@@ -67,7 +64,6 @@ struct GetStartedModal: View{
 
 extension GetStartedModal{
     
-    //MARK: Views
     private var buttonRow: some View{
         HStack{
             Spacer()

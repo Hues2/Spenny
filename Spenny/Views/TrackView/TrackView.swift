@@ -140,7 +140,7 @@ extension TrackView{
     
     private var listHeader: some View{
         HStack{
-            Text("")
+            Text("Type")
                 .font(.caption)
                 .fontWeight(.light)
                 .foregroundColor(.gray)
