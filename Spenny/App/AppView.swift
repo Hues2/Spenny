@@ -11,7 +11,19 @@ struct AppView: View {
     @StateObject var dataManager = DataManager()
     
     // This showModal is here, as the modal has to go over the tab bar
-//    @State var showModal: Bool = false
+    //    @State var showModal: Bool = false
+    
+    init(){
+        // correct the transparency bug for Tab bars
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = UIColor(Color.backgroundColor)
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        // correct the transparency bug for Navigation bars
+//        let navigationBarAppearance = UINavigationBarAppearance()
+//        navigationBarAppearance.configureWithOpaqueBackground()
+//        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+    }
     
     var body: some View {
         TabView {
@@ -22,7 +34,7 @@ struct AppView: View {
                     } icon: {
                         Image(systemName: "dollarsign.square.fill")
                     }
-
+                    
                 }
         }
         .background(

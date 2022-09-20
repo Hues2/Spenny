@@ -72,12 +72,14 @@ extension AddTransaction{
             
             HStack(spacing: 15){
                 
-                Button {
-                    vm.cancelTransaction()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.title3)
-                        .foregroundColor(.red)
+                if vm.dataManager.isNewUser{
+                    Button {
+                        vm.cancelTransaction()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title3)
+                            .foregroundColor(.red)
+                    }
                 }
             }
         }
