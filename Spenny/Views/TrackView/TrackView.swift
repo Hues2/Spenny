@@ -129,7 +129,7 @@ extension TrackView{
             listHeader
             
                 //MARK: - Transactions List
-            List(vm.dataManager.transactions){ transaction in
+            List(vm.transactions){ transaction in
                 TransactionRow(transaction: transaction)
                     .listRowBackground(Color.backgroundColor.ignoresSafeArea())
                     .listRowSeparator(.hidden)
@@ -139,6 +139,9 @@ extension TrackView{
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .padding(.horizontal)
+            .onChange(of: vm.dataManager.transactions) { newValue in
+                print("\n Transactions changed \n")
+            }
         }
     }
     

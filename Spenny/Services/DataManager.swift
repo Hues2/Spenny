@@ -51,15 +51,16 @@ class DataManager: ObservableObject{
                 
                 // The was a saved spenny entity in core data, so now it populates everything with that data
                 print("\n Caught published spenny entity. Populating values now. \n")
-                self.spennyEntity = spennyEntity
-                self.monthlyIncome = spennyEntity.monthlyIncome
-                self.savingsGoal = spennyEntity.savingsGoal
-                self.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
-                self.isNewUser = false
+                
                 
                 // This is to dismiss the modal
                 DispatchQueue.main.async {
                     withAnimation {
+                        self.spennyEntity = spennyEntity
+                        self.monthlyIncome = spennyEntity.monthlyIncome
+                        self.savingsGoal = spennyEntity.savingsGoal
+                        self.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
+                        self.isNewUser = false
                         self.showModal = false
                     }
                 }
