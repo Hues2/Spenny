@@ -14,6 +14,7 @@ struct TrackView: View {
     @State var isEditingInfoBox: Bool = false
     @Namespace var namespace
     
+    
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
         UITableView.appearance().backgroundColor = UIColor.clear
@@ -185,25 +186,36 @@ extension TrackView{
     
     private var transactions: some View{
         VStack(spacing: 5){
-            //MARK: - List Header
-            listHeader
-            
+            if !vm.transactions.isEmpty{
+                //MARK: - List Header
+                listHeader
+                
                 //MARK: - Transactions List
-            List {
-                ForEach(vm.transactions) { transaction  in
-                    TransactionRow(transaction: transaction)
-                        .listRowBackground(Color.backgroundColor.ignoresSafeArea())
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 7.5, trailing: 0))
-                }
-                .onDelete { indexSet in
-                    vm.deleteTransaction(index: indexSet)
-                }
+                List {
+                    ForEach(vm.transactions) { transaction  in
+                        TransactionRow(transaction: transaction)
+                            .listRowBackground(Color.backgroundColor.ignoresSafeArea())
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 7.5, trailing: 0))
+                    }
+                    .onDelete { indexSet in
+                        vm.deleteTransaction(index: indexSet)
+                    }
                     
+                }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .padding(.horizontal)
+                
+            } else {
+                Spacer()
+                
+                Text("YOU HAVE NO TRANSACTIONS")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
+                Spacer()
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .padding(.horizontal)
         }
     }
     
