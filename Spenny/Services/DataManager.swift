@@ -18,7 +18,8 @@ class DataManager: ObservableObject{
     @Published var savingsGoal: Double? = nil
     @Published var transactions: [TransactionEntity] = []
     
-    @Published var isAddingTransaction: Bool = false
+    @Published var showModal: Bool = false
+    @Published var isNewUser: Bool = true
     @Published var isLoadingOrSavingData: Bool = false
     
     
@@ -54,11 +55,12 @@ class DataManager: ObservableObject{
                 self.monthlyIncome = spennyEntity.monthlyIncome
                 self.savingsGoal = spennyEntity.savingsGoal
                 self.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
+                self.isNewUser = false
                 
                 // This is to dismiss the modal
                 DispatchQueue.main.async {
                     withAnimation {
-                        self.isAddingTransaction = false
+                        self.showModal = false
                     }
                 }
                 
@@ -83,7 +85,13 @@ class DataManager: ObservableObject{
     
     // MARK: Add Direct Debit | Transaction
     func addTransaction(transaction: TransactionEntity){
+        if isNewUser{
             transactions.append(transaction)
+        } else {
+            spennyEntity?.transactions?.adding(transaction)
+            coreDataManager.applyChanges()
+        }
+        
     }
     
     

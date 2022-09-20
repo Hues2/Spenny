@@ -28,6 +28,6 @@ struct AppView: View {
         .background(
             Color.backgroundColor.ignoresSafeArea()
         )
-        .withGetStartedModal(dataManager: dataManager, showModal: $dataManager.isAddingTransaction)
+        .withGetStartedModal(dataManager: dataManager, isNewUser: $dataManager.isNewUser)
     }
 }

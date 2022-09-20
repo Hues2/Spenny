@@ -29,6 +29,31 @@ struct TrackView: View {
             transactions
         }
         .background(Color.backgroundColor.ignoresSafeArea())
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Rectangle()
+                    .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+                    .frame(width: 100, height: 50)
+                    .mask {
+                        Text("SPENNY")
+                            .font(.title3)
+                            .fontWeight(.black)
+                    }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    withAnimation(.spring()) {
+                        vm.dataManager.showModal = true
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .foregroundColor(.accentColor)
+                }
+
+            }
+        }
         
         
     }
@@ -108,10 +133,12 @@ extension TrackView{
                 TransactionRow(transaction: transaction)
                     .listRowBackground(Color.backgroundColor.ignoresSafeArea())
                     .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                     
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
+            .padding(.horizontal)
         }
     }
     

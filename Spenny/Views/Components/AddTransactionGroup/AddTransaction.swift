@@ -13,8 +13,8 @@ struct AddTransaction: View {
     @Namespace var namespace
     @State var dismissKeyboardDrag: CGFloat = .zero
     
-    init(dataManager: DataManager, isAddingTransaction: Binding<Bool>) {
-        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isAddingTransaction: isAddingTransaction))
+    init(dataManager: DataManager, isAddingTransaction: Binding<Bool>, isNewUser: Bool) {
+        self._vm = StateObject(wrappedValue: AddTransactionViewModel(dataManager: dataManager, isAddingTransaction: isAddingTransaction, isNewUser: isNewUser))
     }
     
     

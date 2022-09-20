@@ -22,16 +22,18 @@ class AddTransactionViewModel: ObservableObject{
     @Binding var isAddingTransaction: Bool
     @Published var titleIsValid: Bool = false
     @Published var amountIsValid: Bool = false
+    let isNewUser: Bool
     
     
     
-    private var dataManager: DataManager
+    var dataManager: DataManager
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(dataManager: DataManager, isAddingTransaction: Binding<Bool>){
+    init(dataManager: DataManager, isAddingTransaction: Binding<Bool>, isNewUser: Bool){
         self.dataManager = dataManager
         self._isAddingTransaction = isAddingTransaction
+        self.isNewUser = isNewUser
         self.addSubscribers()
     }
     

@@ -74,7 +74,7 @@ extension HomeView{
         }
         .onTapGesture {
             withAnimation {
-                vm.dataManager.isAddingTransaction = false
+                vm.dataManager.showModal = false
             }
         }
     }
@@ -92,10 +92,10 @@ extension HomeView{
     }
     
     @ViewBuilder private var getStartedButton: some View{
-        if !vm.dataManager.isAddingTransaction{
+        if !vm.dataManager.showModal{
             Button {
                 withAnimation(.spring()) {
-                    vm.dataManager.isAddingTransaction = true
+                    vm.dataManager.showModal = true
                 }
                 
             } label: {
@@ -104,7 +104,7 @@ extension HomeView{
                     .withSpennyButtonLabelStyle()
             }
             .transition(.scale)
-            .animation(.easeInOut, value: vm.dataManager.isAddingTransaction)
+            .animation(.easeInOut, value: vm.dataManager.showModal)
             .buttonStyle(SpennyButtonStyle())
         }
     }

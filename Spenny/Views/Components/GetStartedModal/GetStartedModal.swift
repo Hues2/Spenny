@@ -8,36 +8,17 @@
 import SwiftUI
 
 
-struct GetStartedModalViewModifier: ViewModifier{
-    var dataManager: DataManager
-    @Binding var showModal: Bool
-    
-    func body(content: Content) -> some View {
-        ZStack(alignment: .bottom){
-            content
-                .zIndex(0)
-            
-            if showModal{
-                GetStartedModal(dataManager: dataManager, showModal: $showModal)
-                    .zIndex(1)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: showModal)
-            }
-        }
-    }
-}
+
 
 
 struct GetStartedModal: View{
     @StateObject var vm: ModalViewModel
     
-    @Binding var showModal: Bool
     @State private var offset = CGFloat.zero
     @State var isAddingTransaction: Bool = false
     
-    init(dataManager: DataManager, showModal: Binding<Bool>){
+    init(dataManager: DataManager){
         self._vm = StateObject(wrappedValue: ModalViewModel(dataManager: dataManager))
-        self._showModal = showModal
     }
     
     var body: some View{
@@ -78,7 +59,7 @@ struct GetStartedModal: View{
                 }
             }
         }
-        .addModalModifiers(showModal: $showModal, offset: $offset, dismissModal: dismissModal)
+        .addModalModifiers(showModal: $vm.dataManager.showModal, offset: $offset, dismissModal: dismissModal)
         
     }
 }
@@ -165,7 +146,7 @@ extension GetStartedModal{
     
     @ViewBuilder private var addTransactionsField: some View{
         if isAddingTransaction{
-            AddTransaction(dataManager: vm.dataManager, isAddingTransaction: $isAddingTransaction)
+            AddTransaction(dataManager: vm.dataManager, isAddingTransaction: $isAddingTransaction, isNewUser: true)
                 .zIndex(1)
                 .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
         }
@@ -193,16 +174,9 @@ extension GetStartedModal{
     //MARK: - Functionality
     private func dismissModal(){
         withAnimation(.easeInOut) {
-            showModal.toggle()
+            vm.dataManager.showModal.toggle()
         }
     }
     
-}
-
-
-extension View{
-    func withGetStartedModal(dataManager: DataManager, showModal: Binding<Bool>) -> some View{
-        modifier(GetStartedModalViewModifier(dataManager: dataManager, showModal: showModal))
-    }
 }
 
