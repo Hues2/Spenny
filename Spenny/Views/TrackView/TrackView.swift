@@ -65,29 +65,11 @@ extension TrackView{
     private var infoBoxHeader: some View{
         HStack{
             
-            VStack(spacing: 5){
-                
-                Text("Monthly Income:")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-                Text("\(vm.dataManager.monthlyIncome?.toFormattedString(format: "%.2f") ?? "")")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-            }
-            
+            InfoBoxHeader(text: "Monthly Income:", amount: vm.monthlyIncome)
+
             Spacer()
             
-            VStack(spacing: 5){
-                Text("Savings Goal")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-                Text("\(vm.dataManager.savingsGoal?.toFormattedString(format: "%.2f") ?? "")")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
+            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal)
             
         }
     }
@@ -96,14 +78,22 @@ extension TrackView{
         HStack{
             Spacer()
             
-            Rectangle()
-                .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
-                .mask {
-                    Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
-                        .font(.title)
-                        .fontWeight(.black)
-                }
-                .frame(maxWidth: 150, maxHeight: 100)
+            VStack(spacing: 5){
+                Text("Remaining:")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                
+                Rectangle()
+                    .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+                    .mask {
+                        Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
+                            .font(.title)
+                            .fontWeight(.black)
+                    }
+                    .frame(maxWidth: 150, maxHeight: 50)
+            }
+            
+           
             
             
             Spacer()
@@ -116,6 +106,7 @@ extension TrackView{
                 infoBoxHeader
                 
                 infoBoxCenter
+                    .padding(.top, 15)
             }
         }
         .frame(maxWidth: .infinity)
@@ -129,19 +120,21 @@ extension TrackView{
             listHeader
             
                 //MARK: - Transactions List
-            List(vm.transactions){ transaction in
-                TransactionRow(transaction: transaction)
-                    .listRowBackground(Color.backgroundColor.ignoresSafeArea())
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            List {
+                ForEach(vm.transactions) { transaction  in
+                    TransactionRow(transaction: transaction)
+                        .listRowBackground(Color.backgroundColor.ignoresSafeArea())
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                }
+                .onDelete { indexSet in
+                    vm.deleteTransaction(index: indexSet)
+                }
                     
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .padding(.horizontal)
-            .onChange(of: vm.dataManager.transactions) { newValue in
-                print("\n Transactions changed \n")
-            }
         }
     }
     

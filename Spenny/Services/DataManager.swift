@@ -96,5 +96,10 @@ class DataManager: ObservableObject{
     }
     
     
+    func applyChanges(){
+        coreDataManager.applyChanges()
+    }
+    
+    
     
 }

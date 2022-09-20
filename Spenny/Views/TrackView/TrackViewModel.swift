@@ -62,4 +62,10 @@ class TrackViewModel: ObservableObject{
     }
     
     
+    func deleteTransaction(index: IndexSet){
+        transactions.remove(atOffsets: index)
+        dataManager.spennyEntity?.transactions = NSSet(array: transactions)
+        dataManager.applyChanges()
+    }
+    
 }
