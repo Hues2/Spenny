@@ -84,10 +84,16 @@ struct TrackView: View {
         }
         .withTrackViewModifiers()
         .overlay(alignment: .bottomLeading) {
-            Circle()
-                .fill(Color.accentColor)
-                .frame(width: 50, height: 50)
-                .padding(7.5)
+            ZStack{
+                Circle()
+                    .fill(Color.accentColor)
+                    .frame(width: 50, height: 50)
+                    .padding(10)
+                
+                Image(systemName: "line.3.horizontal")
+                    .foregroundColor(.white)
+            }
+            
         }
         
         
