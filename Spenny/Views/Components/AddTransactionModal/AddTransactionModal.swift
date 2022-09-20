@@ -19,16 +19,17 @@ struct AddTransactionModal: View {
     
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0){
-            // MARK: Button Row
-            buttonRow
-                .padding(.bottom, 5)
-            
-            addTransactionsField
-            
-            
+        ScrollView{
+            VStack(alignment: .center, spacing: 0){
+                // MARK: Button Row
+                buttonRow
+                
+                // MARK: Add Transaction Field
+                addTransactionsField
+                
+            }
+            .addModalModifiers(showModal: $vm.dataManager.showModal, offset: $offset, dismissModal: vm.dismissModal)
         }
-        .addModalModifiers(showModal: $vm.dataManager.showModal, offset: $offset, dismissModal: dismissModal)
     }
 }
 
@@ -40,7 +41,7 @@ extension AddTransactionModal{
             Spacer()
             
             Button {
-                dismissModal()
+                vm.dismissModal()
             } label: {
                 Circle()
                     .fill(RadialGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), center: .center, startRadius: 5, endRadius: 15))
@@ -63,12 +64,5 @@ extension AddTransactionModal{
                 .transition(.move(edge: .bottom))
         }
     }
-    
-    
-    //MARK: - Functionality
-    private func dismissModal(){
-        withAnimation(.easeInOut) {
-            vm.dataManager.showModal.toggle()
-        }
-    }
+
 }

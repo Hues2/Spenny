@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Combine
 
 class ModalViewModel: ObservableObject{
@@ -48,6 +49,13 @@ class ModalViewModel: ObservableObject{
     private func validateAmount(returnedAmount: Double?, amountIsValid: inout Bool){
         guard let amount = returnedAmount, amount > 0 else { amountIsValid = false; return}
         amountIsValid = true
+    }
+    
+    //MARK: - Functionality
+    func dismissModal(){
+        withAnimation(.easeInOut) {
+            dataManager.showModal.toggle()
+        }
     }
     
     

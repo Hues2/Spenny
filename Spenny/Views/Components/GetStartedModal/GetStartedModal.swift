@@ -59,7 +59,7 @@ struct GetStartedModal: View{
                 }
             }
         }
-        .addModalModifiers(showModal: $vm.dataManager.showModal, offset: $offset, dismissModal: dismissModal)
+        .addModalModifiers(showModal: $vm.dataManager.showModal, offset: $offset, dismissModal: vm.dismissModal)
         
     }
 }
@@ -73,7 +73,7 @@ extension GetStartedModal{
             Spacer()
             
             Button {
-                dismissModal()
+                vm.dismissModal()
             } label: {
                 Circle()
                     .fill(RadialGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), center: .center, startRadius: 5, endRadius: 15))
@@ -167,15 +167,6 @@ extension GetStartedModal{
         }
         
         
-    }
-    
-    
-    
-    //MARK: - Functionality
-    private func dismissModal(){
-        withAnimation(.easeInOut) {
-            vm.dataManager.showModal.toggle()
-        }
     }
     
 }
