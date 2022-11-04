@@ -11,9 +11,12 @@ struct TrackView: View {
     
     @StateObject private var vm: TrackViewModel
     
-    @State var isEditingInfoBox: Bool = false
-    @Namespace var namespace
     
+    @State private var xOffset: CGFloat = 0
+    @State private var yOffset: CGFloat = 0
+    @State private var isDragging: Bool = false
+    @State private var alignment: Alignment = .bottomTrailing
+        
     
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
@@ -24,80 +27,66 @@ struct TrackView: View {
         
         VStack{
             
-            if !isEditingInfoBox{
                 //MARK: - Info Box
                 infoBox
-                    .onTapGesture {
-                        withAnimation {
-                            isEditingInfoBox = true
-                        }
-                        
-                    }
-                    .matchedGeometryEffect(id: "hi", in: namespace)
+
                 
                 Spacer()
                 
                 //MARK: - Transactions
                 transactions
-                
-            } else{
-                
-                
-                ZStack{
-                    transactions
-                    
-                    Color.black.opacity(0.3).ignoresSafeArea()
-                        .onTapGesture {
-                            withAnimation {
-                                isEditingInfoBox = false
-                            }
-                            
-                        }
-                    
-                    VStack{
-                        Spacer()
-                        
-                        infoBox
-                            .matchedGeometryEffect(id: "hi", in: namespace)
-                        
-                        Spacer()
-                    }
-                    
-                }
-                
-            }
-            
-            
+
         }
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    withAnimation(.spring()) {
-                        vm.dataManager.showModal = true
-                    }
+//                    withAnimation(.spring()) {
+//                        vm.dataManager.showModal = true
+//                    }
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "line.3.horizontal")
                         .foregroundColor(.accentColor)
                 }
 
             }
         }
         .withTrackViewModifiers()
-        .overlay(alignment: .bottomLeading) {
-            ZStack{
-                Circle()
-                    .fill(Color.accentColor)
-                    .frame(width: 50, height: 50)
-                    .padding(10)
-                
-                Image(systemName: "line.3.horizontal")
-                    .foregroundColor(.white)
+        .overlay(alignment: alignment) {
+            Button {
+                withAnimation(.spring()) {
+                    vm.dataManager.showModal = true
+                }
+            } label: {
+                ZStack{
+                    Circle()
+                        .fill(Color.accentColor)
+                        .frame(width: 50, height: 50)
+                        .padding(10)
+                        .shadow(color: .black.opacity(0.5), radius: 5)
+                    
+                    Image(systemName: "plus")
+                        .foregroundColor(.white)
+                        
+                }
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        vm.dataManager.showModal = true
+                    }
+                }
+                .offset(x: xOffset, y: yOffset)
+                .scaleEffect(isDragging ? 1.2 : 1)
+                .gesture(longTapGesture)
             }
+
+            
+            
+            
+            
+
+            
             
         }
-        
-        
-        
+
     }
 }
 
@@ -229,6 +218,47 @@ extension TrackView{
                 Spacer()
             }
         }
+    }
+    
+    private var longTapGesture: SequenceGesture<_EndedGesture<LongPressGesture>, _EndedGesture<_ChangedGesture<DragGesture>>> {
+        let longPress = LongPressGesture()
+            .onEnded { value in
+                isDragging = true
+            }
+        
+        let drag = DragGesture()
+            .onChanged { value in
+                withAnimation {
+                    xOffset = value.translation.width
+                    yOffset = value.translation.height
+                }
+                print("\n \(value.translation.width) \n")
+
+            }
+            .onEnded { value in
+                var positiveValue = value.translation.width
+                if positiveValue < 0 { positiveValue = positiveValue * (-1) }
+                
+                if positiveValue >= UIScreen.main.bounds.width / 2.9{
+                    withAnimation {
+                        alignment = (alignment == .bottomLeading ? .bottomTrailing : .bottomLeading)
+                        xOffset = 0
+                        yOffset = 0
+                    }
+                } else {
+                    withAnimation {
+                        xOffset = 0
+                        yOffset = 0
+                    }
+                }
+                
+                
+                isDragging = false
+            }
+        
+        let combined = longPress.sequenced(before: drag)
+        
+        return combined
     }
     
 }
