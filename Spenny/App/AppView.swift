@@ -10,8 +10,6 @@ import SwiftUI
 struct AppView: View {
     @StateObject var dataManager = DataManager()
     
-    // This showModal is here, as the modal has to go over the tab bar
-    //    @State var showModal: Bool = false
     
     init(){
         // correct the transparency bug for Tab bars

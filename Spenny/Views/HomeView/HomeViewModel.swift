@@ -21,14 +21,15 @@ class HomeViewModel: ObservableObject{
     init(dataManager: DataManager){
         self.dataManager = dataManager
         addSubbscribers()
+        self.dataManager.coreDataManager.getSpennyData()
     }
     
     
     //MARK: - Add Subscribers
     private func addSubbscribers() {
         
-        dataManager.$spennyEntity
-            .sink { [weak self] returnedSpennyEntity in
+        dataManager.spennyEntityPublisher
+            .sink { [weak self] _ in
                 self?.showInitialProgressView = false
             }
             .store(in: &cancellables)

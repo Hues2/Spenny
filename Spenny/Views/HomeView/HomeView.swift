@@ -54,6 +54,7 @@ extension HomeView{
             
             Spacer()
         }
+        .frame(width: UIScreen.main.bounds.width)
     }
     
     private var getStarted: some View{

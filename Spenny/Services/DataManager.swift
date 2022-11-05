@@ -12,6 +12,7 @@ import SwiftUI
 
 class DataManager: ObservableObject{
     
+    var spennyEntityPublisher = PassthroughSubject<Result<SpennyEntity, Error>, Never>()
     @Published var spennyEntity: SpennyEntity? = nil
     
     @Published var monthlyIncome: Double? = nil
@@ -31,7 +32,7 @@ class DataManager: ObservableObject{
     init(){
         coreDataManager = CoreDataManager()
         addSubscribers()
-        coreDataManager.getSpennyData()
+//        coreDataManager.getSpennyData()
     }
     
     
@@ -45,30 +46,47 @@ class DataManager: ObservableObject{
                 case .failure(let error):
                     print("\n [DATA MANAGER] --> Error in spennyDataPubliher. Error: \(error.localizedDescription) \n")
                 }
-            } receiveValue: { [weak self] returnedSpennyEntity in
-                guard let spennyEntity = returnedSpennyEntity, let self = self else { print("\n [DATA MANAGER] --> Returned spenny data was nil. \n"); return }
+            } receiveValue: { [weak self] returnedResult in
+                guard let self else { return }
                 
-                // The was a saved spenny entity in core data, so now it populates everything with that data
-                                
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.spennyEntity = spennyEntity
-                        self.monthlyIncome = spennyEntity.monthlyIncome
-                        self.savingsGoal = spennyEntity.savingsGoal
-                        self.transactions = spennyEntity.transactions?.allObjects as! [TransactionEntity]
-                        self.isNewUser = false
-                        self.showModal = false
+                switch returnedResult{
+                case .failure(let error):
+                    self.spennyEntityPublisher.send(.failure(error))
+                    
+                case .success(let spennyEntity):
+                    guard let spennyEntity else {
+                        self.spennyEntityPublisher.send(.failure(CustomError.spennyEntityWasNil))
+                        return
+                    }
+                    
+                    // The was a saved spenny entity in core data, so now it populates everything with that data
+                                    
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self else { return }
+                        
+                        withAnimation {
+                            self.spennyEntity = spennyEntity
+                            self.monthlyIncome = spennyEntity.monthlyIncome
+                            self.savingsGoal = spennyEntity.savingsGoal
+                            
+                            if let transactions = spennyEntity.transactions?.allObjects as? [TransactionEntity]{
+                                self.transactions = transactions
+                            }
+                            
+                            self.isNewUser = false
+                            self.showModal = false
+                            self.spennyEntityPublisher.send(.success(spennyEntity))
+                        }
                     }
                 }
-                
-                
+  
             }
             .store(in: &cancellables)
 
     }
     
     
-    //MARK: - Add Spenny Data
+    //MARK: - Add Spenny Data --> This is used when creating data for a new month / new user
     func addSpennyData() {
         guard let monthlyIncome = monthlyIncome, let savingsGoal = savingsGoal else { print("\n Monthly Goal and/or Savings Goal is/are empty \n"); return }
         let spennyEntity = SpennyEntity(context: coreDataManager.container.viewContext)

@@ -40,9 +40,7 @@ struct TrackView: View {
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-//                    withAnimation(.spring()) {
-//                        vm.dataManager.showModal = true
-//                    }
+                    /// Show filters option
                 } label: {
                     Image(systemName: "line.3.horizontal")
                         .foregroundColor(.accentColor)
@@ -232,7 +230,6 @@ extension TrackView{
                     xOffset = value.translation.width
                     yOffset = value.translation.height
                 }
-                print("\n \(value.translation.width) \n")
 
             }
             .onEnded { value in
@@ -251,7 +248,6 @@ extension TrackView{
                         yOffset = 0
                     }
                 }
-                
                 
                 isDragging = false
             }
