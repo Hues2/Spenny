@@ -47,6 +47,10 @@ APP TODO:
 
 WORKING ON NOW:
 
+    - Save the side of the floating button in user defaults, so that it appears where the user last placed it
+    - Save the sorting value in user defaults too
+    - On tap of a title in the header of the transactions list, the list will sort by that value
+    - Place a rectangle under each title, and if it is the selected value, then animate the change of rectangle with matched geometry effect
     
 
 

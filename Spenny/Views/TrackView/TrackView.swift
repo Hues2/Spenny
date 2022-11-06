@@ -11,11 +11,14 @@ struct TrackView: View {
     
     @StateObject private var vm: TrackViewModel
     
-    
+    /// Floating button movement
+    @AppStorage("buttonIsRightAlignment") private var buttonIsRightAlignment = true
     @State private var xOffset: CGFloat = 0
     @State private var yOffset: CGFloat = 0
     @State private var isDragging: Bool = false
-    @State private var alignment: Alignment = .bottomTrailing
+    private var alignment: Alignment{
+        return (buttonIsRightAlignment ? .bottomTrailing : .bottomLeading)
+    }
         
     
     init(dataManager: DataManager) {
@@ -29,7 +32,6 @@ struct TrackView: View {
             
                 //MARK: - Info Box
                 infoBox
-
                 
                 Spacer()
                 
@@ -37,13 +39,23 @@ struct TrackView: View {
                 transactions
 
         }
+        .sheet(isPresented: $vm.showOptionsSheet, content: {
+            filterSheet
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        })
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    /// Show filters option
+                    /// Show settings sheet
+                    withAnimation {
+                        vm.showOptionsSheet.toggle()
+                    }
+                    
                 } label: {
-                    Image(systemName: "line.3.horizontal")
+                    Image(systemName: "slider.vertical.3")
                         .foregroundColor(.accentColor)
+                        .rotationEffect(Angle(degrees: 90))
                 }
 
             }
@@ -76,13 +88,6 @@ struct TrackView: View {
                 .gesture(longTapGesture)
             }
 
-            
-            
-            
-            
-
-            
-            
         }
 
     }
@@ -222,6 +227,7 @@ extension TrackView{
         let longPress = LongPressGesture()
             .onEnded { value in
                 isDragging = true
+                HapticFeedbackGenerator.shared.impact(style: .medium)
             }
         
         let drag = DragGesture()
@@ -238,7 +244,7 @@ extension TrackView{
                 
                 if positiveValue >= UIScreen.main.bounds.width / 2.9{
                     withAnimation {
-                        alignment = (alignment == .bottomLeading ? .bottomTrailing : .bottomLeading)
+                        buttonIsRightAlignment = (buttonIsRightAlignment ? false : true)
                         xOffset = 0
                         yOffset = 0
                     }
@@ -255,6 +261,12 @@ extension TrackView{
         let combined = longPress.sequenced(before: drag)
         
         return combined
+    }
+    
+    private var filterSheet: some View{
+        VStack{
+            Text("Filter Sheet")
+        }
     }
     
 }

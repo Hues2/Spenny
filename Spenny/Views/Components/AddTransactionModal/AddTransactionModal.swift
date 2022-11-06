@@ -51,7 +51,8 @@ extension AddTransactionModal{
                             .font(.title2)
                     }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 5)
+            .padding(.top, 5)
             .padding(.bottom, 10)
         }
         .contentShape(Rectangle())

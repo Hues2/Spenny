@@ -16,6 +16,8 @@ class TrackViewModel: ObservableObject{
     @Published var savingsGoal: Double = 0.0
     @Published var transactions: [TransactionEntity] = []
     
+    @Published var showOptionsSheet: Bool = false
+    
 
     var dataManager: DataManager
     

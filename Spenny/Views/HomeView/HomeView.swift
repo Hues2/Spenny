@@ -93,6 +93,7 @@ extension HomeView{
     @ViewBuilder private var getStartedButton: some View{
         if !vm.dataManager.showModal{
             Button {
+                HapticFeedbackGenerator.shared.impact(style: .medium)
                 withAnimation(.spring()) {
                     vm.dataManager.showModal = true
                 }
