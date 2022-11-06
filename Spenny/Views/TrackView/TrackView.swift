@@ -19,11 +19,16 @@ struct TrackView: View {
     private var alignment: Alignment{
         return (buttonIsRightAlignment ? .bottomTrailing : .bottomLeading)
     }
+    
+    /// List header title movement
+    @Namespace private var namespace
+    @State var shouldAnimate: Bool = false
         
     
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
         UITableView.appearance().backgroundColor = UIColor.clear
+        UITableViewCell.appearance().layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 7.5, right: 0)
     }
     
     var body: some View {
@@ -86,6 +91,7 @@ struct TrackView: View {
                 .offset(x: xOffset, y: yOffset)
                 .scaleEffect(isDragging ? 1.2 : 1)
                 .gesture(longTapGesture)
+                .defersSystemGestures(on: .all)
             }
 
         }
@@ -148,51 +154,75 @@ extension TrackView{
         .padding()
     }
     
-    private var listHeader: some View{
+    private var listHeaders: some View{
         HStack{
-            Text("Type")
-                .font(.caption)
-                .fontWeight(.light)
-                .foregroundColor(.gray)
-                .frame(width: 75)
-            
+            listHeader(title: "Type", sortingType: .category)
             
             Spacer()
             
             //MARK: - Transaction Date
-            Text("Date")
-                .font(.caption)
-                .fontWeight(.light)
-                .foregroundColor(.gray)
-                .frame(width: 70)
-            
+            listHeader(title: "Date", sortingType: .date)
             
             Spacer()
             
             //MARK: - Transaction Title
-            Text("Title")
-                .font(.caption)
-                .fontWeight(.light)
-                .foregroundColor(.gray)
-                .frame(width: 75)
+            listHeader(title: "Title", sortingType: .title)
             
             Spacer()
             
             //MARK: - Transaction Amount
-            Text("Amount")
-                .font(.caption)
-                .fontWeight(.light)
-                .foregroundColor(.gray)
-                .frame(width: 75)
+            listHeader(title: "Amount", sortingType: .amount)
+            
         }
         .padding(.horizontal)
+    }
+    
+    private func listHeader(title: String, sortingType: TrackViewModel.ListHeaderTitleType) -> some View{
+        VStack{
+            HStack{
+                Text(title)
+                    .font(.caption)
+                    .fontWeight(.light)
+                    .foregroundColor(.gray)
+                    
+                    .onTapGesture {
+                        HapticFeedbackGenerator.shared.impact(style: .light)
+                        withAnimation {
+                            shouldAnimate.toggle()
+                            vm.selectedSortingType = sortingType
+                        }
+                    }
+                
+                if vm.isShowingSortIcon && sortingType == vm.selectedSortingType{
+                    Image(systemName: "arrow.up.arrow.down")
+                        .font(.caption)
+                        .fontWeight(.light)
+                        .foregroundColor(.gray)
+                        .rotationEffect(shouldAnimate ? Angle(degrees: 180) : Angle(degrees: 0))
+                        .transition(.scale)
+                    
+                }
+            }
+            .frame(width: 70)
+            
+            ZStack{
+                
+                if vm.selectedSortingType == sortingType{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.teal)
+                        .matchedGeometryEffect(id: "header", in: namespace)
+                }
+            }
+            .frame(width: 70, height: 3)
+            
+        }
     }
     
     private var transactions: some View{
         VStack(spacing: 5){
             if !vm.transactions.isEmpty{
                 //MARK: - List Header
-                listHeader
+                listHeaders
                 
                 //MARK: - Transactions List
                 List {
@@ -224,7 +254,7 @@ extension TrackView{
     }
     
     private var longTapGesture: SequenceGesture<_EndedGesture<LongPressGesture>, _EndedGesture<_ChangedGesture<DragGesture>>> {
-        let longPress = LongPressGesture()
+        let longPress = LongPressGesture(minimumDuration: 0.3)
             .onEnded { value in
                 isDragging = true
                 HapticFeedbackGenerator.shared.impact(style: .medium)
