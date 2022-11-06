@@ -15,14 +15,17 @@ class FilterViewModel: ObservableObject{
     
     //MARK: - Filter Options
     @Published var transactionType: FilterOptions.TransactionTypeFilter = .all
+    @Published var inOutType: FilterOptions.InOutTypeFilter = .all
     
     private var showFiltersSheet: Binding<Bool>
         
         
     init(filter: Binding<Filter>, showSheet: Binding<Bool>) {
         self.filter = filter
-        self.transactionType = filter.wrappedValue.transactionType
         self.showFiltersSheet = showSheet
+        self.transactionType = filter.wrappedValue.transactionType
+        self.inOutType = filter.wrappedValue.inOutType
+        
     }
     
     
@@ -30,6 +33,7 @@ class FilterViewModel: ObservableObject{
     func applyFilters(){
         
         self.filter.wrappedValue.transactionType = self.transactionType
+        self.filter.wrappedValue.inOutType = self.inOutType
         
         withAnimation {
             self.showFiltersSheet.wrappedValue = false
@@ -37,8 +41,5 @@ class FilterViewModel: ObservableObject{
         
     }
     
-    
-    
-    
-    
+ 
 }

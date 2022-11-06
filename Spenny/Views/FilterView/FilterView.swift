@@ -34,7 +34,10 @@ struct FilterView: View {
             
             //MARK: - Transaction Type Filter
             transactionTypeFilter
+            Divider()
             
+            //MARK: - Pay In/Out Filter
+            inOutTypeFilter
             Divider()
             
             Spacer()
@@ -74,7 +77,7 @@ extension FilterView{
                         LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
                     )
                     .cornerRadius(15)
-                    .matchedGeometryEffect(id: "option1Background", in: namespace)
+                    .matchedGeometryEffect(id: "transactionType", in: namespace)
                     .frame(maxWidth: 120)
             }
             
@@ -90,6 +93,51 @@ extension FilterView{
         .onTapGesture {
             withAnimation {
                 vm.transactionType = type
+            }
+        }
+    }
+    
+    private var inOutTypeFilter: some View{
+        
+        HStack{
+            
+            inOutType(title: "Both", type: .all)
+            
+            Spacer()
+            
+            inOutType(title: "Income", type: .payIn)
+            
+            Spacer()
+            
+            inOutType(title: "Outgoing", type: .payOut)
+            
+        }
+    }
+    
+    private func inOutType(title: String, type: FilterOptions.InOutTypeFilter) -> some View{
+        ZStack{
+            if vm.inOutType == type{
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(
+                        LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(15)
+                    .matchedGeometryEffect(id: "inOutFilter", in: namespace)
+                    .frame(maxWidth: 120)
+            }
+            
+            Text(title)
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(vm.inOutType == type ? .white : .accentColor)
+                .opacity(vm.inOutType == type ? 1 : 0.4)
+                .padding(.vertical, 5)
+        }
+        .frame(height: 40)
+        .frame(maxWidth: 120)
+        .onTapGesture {
+            withAnimation {
+                vm.inOutType = type
             }
         }
     }

@@ -22,7 +22,7 @@ class TrackViewModel: ObservableObject{
     private var tempSelectedType: ListHeaderTitleType = .none
     @Published var isShowingSortIcon: Bool = false
     
-    @Published var filter: Filter = Filter(transactionType: .all)
+    @Published var filter: Filter = Filter(transactionType: .all, inOutType: .all)
     @Published var filteredTransactions: [TransactionEntity] = []
     
 
@@ -156,6 +156,15 @@ class TrackViewModel: ObservableObject{
         /*
          TODO: Check for the other types of filters
          */
+        
+        switch filter.inOutType{
+        case .all:
+            break
+        case .payIn:
+            self.filteredTransactions = self.filteredTransactions.filter({$0.amount > 0})
+        case .payOut:
+            self.filteredTransactions = self.filteredTransactions.filter({$0.amount < 0})
+        }
         
         
     }

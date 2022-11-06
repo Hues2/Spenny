@@ -14,6 +14,10 @@ class FilterOptions{
         case directDebit, standardTransaction, all
     }
     
+    enum InOutTypeFilter{
+        case payIn, payOut, all
+    }
+    
     
     
 }
