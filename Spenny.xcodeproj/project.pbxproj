@@ -25,6 +25,7 @@
 		2E4C95B728D33E540029C652 /* TextFieldHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C95B628D33E540029C652 /* TextFieldHeader.swift */; };
 		2E4C95B928D357E20029C652 /* CustomGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C95B828D357E20029C652 /* CustomGroupBoxStyle.swift */; };
 		2E4FD94228DB197C003DF8E8 /* HapticFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4FD94128DB197C003DF8E8 /* HapticFeedbackGenerator.swift */; };
+		2E6FF8B42918561F002DB533 /* FilterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6FF8B32918561F002DB533 /* FilterOptions.swift */; };
 		2E722A7728D0D65A00ADA295 /* TransactionTypePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */; };
 		2E8683442915A89400C56175 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8683432915A89400C56175 /* CustomError.swift */; };
 		2E8683522915C8CC00C56175 /* SpennyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8683512915C8CC00C56175 /* SpennyTests.swift */; };
@@ -81,6 +82,7 @@
 		2E4C95B628D33E540029C652 /* TextFieldHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldHeader.swift; sourceTree = "<group>"; };
 		2E4C95B828D357E20029C652 /* CustomGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupBoxStyle.swift; sourceTree = "<group>"; };
 		2E4FD94128DB197C003DF8E8 /* HapticFeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackGenerator.swift; sourceTree = "<group>"; };
+		2E6FF8B32918561F002DB533 /* FilterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptions.swift; sourceTree = "<group>"; };
 		2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TransactionTypePill.swift; path = Spenny/Models/TransactionTypePill.swift; sourceTree = SOURCE_ROOT; };
 		2E8683432915A89400C56175 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		2E86834F2915C8CB00C56175 /* SpennyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpennyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +196,7 @@
 				2E4C95B828D357E20029C652 /* CustomGroupBoxStyle.swift */,
 				2E4FD94128DB197C003DF8E8 /* HapticFeedbackGenerator.swift */,
 				2E8683432915A89400C56175 /* CustomError.swift */,
+				2E6FF8B32918561F002DB533 /* FilterOptions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				2E08DC8628D09CD500431470 /* TransactionType.swift in Sources */,
 				2E136DD628D13FEE00D07778 /* AddTransactionViewModel.swift in Sources */,
 				2E04DE8328CFC5420013D866 /* ModalDragGesture.swift in Sources */,
+				2E6FF8B42918561F002DB533 /* FilterOptions.swift in Sources */,
 				2E04DE8E28CFE1190013D866 /* UIApplication.swift in Sources */,
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,
 				2ED8F09628DA13B900707D26 /* Date.swift in Sources */,

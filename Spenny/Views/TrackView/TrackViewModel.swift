@@ -16,18 +16,14 @@ class TrackViewModel: ObservableObject{
     @Published var savingsGoal: Double = 0.0
     @Published var transactions: [TransactionEntity] = []
     
-    @Published var showOptionsSheet: Bool = false
+    @Published var showFiltersSheet: Bool = false
     
     @Published var selectedSortingType: ListHeaderTitleType = .date
     private var tempSelectedType: ListHeaderTitleType = .none
     @Published var isShowingSortIcon: Bool = false
     
-    
-    
-    @Published var filter: Filter?
+    @Published var filter: Filter = Filter(transactionType: .all)
     @Published var filteredTransactions: [TransactionEntity] = []
-    
-    
     
 
     var dataManager: DataManager
@@ -46,7 +42,7 @@ class TrackViewModel: ObservableObject{
     
     init(dataManager: DataManager) {
         self.dataManager = dataManager
-        addSubscribers()
+        self.addSubscribers()
     }
     
     
@@ -60,18 +56,14 @@ class TrackViewModel: ObservableObject{
                 guard let self else { return }
                 self.transactions = returnedTransactions
                 
-                /// Reset the filtered list, so that it contains the correct items before filtering
+                /// Reset the filtered list, so that it contains the correct items
+                /// After reseting the list, apply the filter function
                 withAnimation {
                     self.filteredTransactions = self.transactions
+                    
+                    self.filterTransactions(filter: self.filter)
                 }
-                
-                /// If the filter is not nil, then filter the new list of transactions
-                if let filter = self.filter{
-                    withAnimation {
-                        self.filterTransactions(filter: filter)
-                    }
-                }
-                
+
                 
                 if self.tempSelectedType == .none{
                     self.sortTransactions(type: .date)
@@ -133,19 +125,12 @@ class TrackViewModel: ObservableObject{
         self.$filter
             .sink { [weak self] returnedFilter in
                 guard let self else { return }
-                
-                guard let returnedFilter else {
-                    /// Returned filter was nil, so remove all the filters that have been applied
-                    withAnimation {
-                        self.filteredTransactions = self.transactions
-                    }
-                    return
-                }
-                
-                /// The filtered list need to be reset before applying all of the new filters
-                self.filteredTransactions = self.transactions
-                
+
                 withAnimation {
+                    /// The filtered list need to be reset before applying all of the new filters
+                    self.filteredTransactions = self.transactions
+                    
+                    /// Apply the filters
                     self.filterTransactions(filter: returnedFilter)
                 }
  
@@ -158,14 +143,14 @@ class TrackViewModel: ObservableObject{
     //MARK: - Filter Filtered Transactions list
     func filterTransactions(filter: Filter){
         /// This checks if the user has selected direct debit or standard transaction
-        if let directDebitFilter = filter.isDirectDebit {
-            switch directDebitFilter{
-            case false:
-                self.filteredTransactions = self.filteredTransactions.filter({!$0.isDirectDebit})
+        switch filter.transactionType{
+        case .all:
+            break
+        case .standardTransaction:
+            self.filteredTransactions = self.filteredTransactions.filter({!$0.isDirectDebit})
                 
-            case true:
-                self.filteredTransactions = self.filteredTransactions.filter({$0.isDirectDebit})
-            }
+        case .directDebit:
+            self.filteredTransactions = self.filteredTransactions.filter({$0.isDirectDebit})
         }
         
         /*

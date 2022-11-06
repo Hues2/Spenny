@@ -13,8 +13,8 @@ struct FilterView: View {
     
     @Namespace private var namespace
     
-    init(filter: Binding<Filter?>) {
-        self._vm = StateObject(wrappedValue: FilterViewModel(filter: filter))
+    init(filter: Binding<Filter>, showSheet: Binding<Bool>) {
+        self._vm = StateObject(wrappedValue: FilterViewModel(filter: filter, showSheet: showSheet))
     }
     
     
@@ -66,7 +66,7 @@ extension FilterView{
         }
     }
     
-    private func transactionType(title: String, type: FilterViewModel.TransactionTypeFilter) -> some View{
+    private func transactionType(title: String, type: FilterOptions.TransactionTypeFilter) -> some View{
         ZStack{
             if vm.transactionType == type{
                 RoundedRectangle(cornerRadius: 15)

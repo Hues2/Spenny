@@ -8,6 +8,6 @@
 import Foundation
 
 
-struct Filter{
-    var isDirectDebit: Bool?
+struct Filter {
+    var transactionType: FilterOptions.TransactionTypeFilter
 }

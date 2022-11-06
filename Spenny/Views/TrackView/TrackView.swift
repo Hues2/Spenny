@@ -44,8 +44,8 @@ struct TrackView: View {
                 transactions
 
         }
-        .sheet(isPresented: $vm.showOptionsSheet, content: {
-            FilterView(filter: $vm.filter)
+        .sheet(isPresented: $vm.showFiltersSheet, content: {
+            FilterView(filter: $vm.filter, showSheet: $vm.showFiltersSheet)
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -54,7 +54,7 @@ struct TrackView: View {
                 Button {
                     /// Show settings sheet
                     withAnimation {
-                        vm.showOptionsSheet.toggle()
+                        vm.showFiltersSheet.toggle()
                     }
                     
                 } label: {
