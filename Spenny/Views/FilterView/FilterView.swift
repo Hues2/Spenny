@@ -19,7 +19,7 @@ struct FilterView: View {
     
     
     var body: some View {
-        VStack(alignment: .center){
+        VStack(alignment: .center, spacing: 15){
             
             //MARK: - Page Title
             HStack{
