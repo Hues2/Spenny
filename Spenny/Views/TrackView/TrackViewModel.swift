@@ -22,6 +22,13 @@ class TrackViewModel: ObservableObject{
     private var tempSelectedType: ListHeaderTitleType = .none
     @Published var isShowingSortIcon: Bool = false
     
+    
+    
+    @Published var filter: Filter?
+    @Published var filteredTransactions: [TransactionEntity] = []
+    
+    
+    
 
     var dataManager: DataManager
     
@@ -47,11 +54,25 @@ class TrackViewModel: ObservableObject{
     
     private func addSubscribers(){
         //MARK: - DataManager Transactions Subscriber
+        /// This subscriber runs when a transaction is added or deleted
         dataManager.$transactions
             .sink { [weak self] (returnedTransactions) in
                 guard let self else { return }
-                print("\n Transactions changed \n")
                 self.transactions = returnedTransactions
+                
+                /// Reset the filtered list, so that it contains the correct items before filtering
+                withAnimation {
+                    self.filteredTransactions = self.transactions
+                }
+                
+                /// If the filter is not nil, then filter the new list of transactions
+                if let filter = self.filter{
+                    withAnimation {
+                        self.filterTransactions(filter: filter)
+                    }
+                    
+                }
+                
                 
                 if self.tempSelectedType == .none{
                     self.sortTransactions(type: .date)
@@ -61,6 +82,7 @@ class TrackViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
+        
         //MARK: - DataManager Monthly Income Subscriber
         dataManager.$monthlyIncome
             .sink { [weak self] returnedIncome in
@@ -69,6 +91,7 @@ class TrackViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
+        
         //MARK: - DataManager Savings Goal Income Subscriber
         dataManager.$savingsGoal
             .sink { [weak self] returnedSavings in
@@ -76,6 +99,7 @@ class TrackViewModel: ObservableObject{
                 self?.savingsGoal = returnedSavings
             }
             .store(in: &cancellables)
+        
         
         //MARK: - TrackViewModel SelectedSortingType Subscriber
         self.$selectedSortingType
@@ -87,10 +111,8 @@ class TrackViewModel: ObservableObject{
                 }
                 
                 else if newSetValue != self.tempSelectedType{
-                    // If the new value is different to the tempValue then just sort the transactions by the new selected type, and set the temp value as the new value
                     self.tempSelectedType = newSetValue
                     
-                    // And now sort
                     withAnimation {
                         self.isShowingSortIcon = false
                         self.sortTransactions(type: self.tempSelectedType)
@@ -101,16 +123,64 @@ class TrackViewModel: ObservableObject{
                     withAnimation {
                         self.isShowingSortIcon = true
                         self.transactions = self.transactions.reversed()
+                        self.filteredTransactions = self.filteredTransactions.reversed()
                     }
                 }
             }
             .store(in: &cancellables)
+        
+        
+        /// This subscriber will run when a filter is selected in the filter page --> When the filter is cahnged in the filter view model, this runs
+        self.$filter
+            .sink { [weak self] returnedFilter in
+                guard let self else { return }
+                
+                guard let returnedFilter else {
+                    /// Returned filter was nil, so remove all the filters that have been applied
+                    withAnimation {
+                        self.filteredTransactions = self.transactions
+                    }
+                    return
+                }
+                
+                /// The filtered list need to be reset before applying all of the new filters
+                self.filteredTransactions = self.transactions
+                
+                withAnimation {
+                    self.filterTransactions(filter: returnedFilter)
+                }
+ 
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    
+    //MARK: - Filter Filtered Transactions list
+    func filterTransactions(filter: Filter){
+        /// This checks if the user has selected direct debit or standard transaction
+        if let directDebitFilter = filter.isDirectDebit {
+            switch directDebitFilter{
+            case false:
+                self.filteredTransactions = self.filteredTransactions.filter({!$0.isDirectDebit})
+                
+            case true:
+                self.filteredTransactions = self.filteredTransactions.filter({$0.isDirectDebit})
+            }
+        }
+        
+        /*
+         TODO: Check for the other types of filters
+         */
+        
+        
     }
     
     
     //MARK: - Delete Transaction
     func deleteTransaction(index: IndexSet){
         transactions.remove(atOffsets: index)
+        filteredTransactions.remove(atOffsets: index)
         dataManager.spennyEntity?.transactions = NSSet(array: transactions)
         dataManager.applyChanges()
     }
@@ -121,15 +191,19 @@ class TrackViewModel: ObservableObject{
             
         case .category:
             self.transactions = self.transactions.sorted(by: {$0.typeTitle ?? "" < $1.typeTitle ?? ""})
+            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.typeTitle ?? "" < $1.typeTitle ?? ""})
             
         case .title:
             self.transactions = self.transactions.sorted(by: {$0.title ?? "" < $01.title ?? ""})
+            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.title ?? "" < $01.title ?? ""})
             
         case .date:
             self.transactions = self.transactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
+            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
             
         case .amount:
             self.transactions = self.transactions.sorted(by: {$0.amount > $1.amount})
+            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.amount > $1.amount})
             
         case .none:
             break

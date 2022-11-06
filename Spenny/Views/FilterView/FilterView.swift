@@ -11,8 +11,8 @@ struct FilterView: View {
     
     @StateObject var vm: FilterViewModel
     
-    init(transactions: Binding<[TransactionEntity]>) {
-        self._vm = StateObject(wrappedValue: FilterViewModel(transactions: transactions))
+    init(filter: Binding<Filter?>) {
+        self._vm = StateObject(wrappedValue: FilterViewModel(filter: filter))
     }
     
     
@@ -20,7 +20,7 @@ struct FilterView: View {
         VStack{
             Text("Filter View")
                 .onTapGesture {
-                    vm.filter()
+                    vm.filterByDirectDebit()
                 }
         }
     }

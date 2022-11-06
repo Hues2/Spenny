@@ -45,7 +45,7 @@ struct TrackView: View {
 
         }
         .sheet(isPresented: $vm.showOptionsSheet, content: {
-            FilterView(transactions: $vm.transactions)
+            FilterView(filter: $vm.filter)
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -220,13 +220,13 @@ extension TrackView{
     
     private var transactions: some View{
         VStack(spacing: 5){
-            if !vm.transactions.isEmpty{
+            if !vm.filteredTransactions.isEmpty{
                 //MARK: - List Header
                 listHeaders
                 
                 //MARK: - Transactions List
                 List {
-                    ForEach(vm.transactions) { transaction  in
+                    ForEach(vm.filteredTransactions) { transaction  in
                         TransactionRow(transaction: transaction)
                             .listRowBackground(Color.backgroundColor.ignoresSafeArea())
                             .listRowSeparator(.hidden)
