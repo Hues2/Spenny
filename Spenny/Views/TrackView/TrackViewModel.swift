@@ -50,7 +50,7 @@ class TrackViewModel: ObservableObject{
         dataManager.$transactions
             .sink { [weak self] (returnedTransactions) in
                 guard let self else { return }
-                
+                print("\n Transactions changed \n")
                 self.transactions = returnedTransactions
                 
                 if self.tempSelectedType == .none{
@@ -135,6 +135,12 @@ class TrackViewModel: ObservableObject{
             break
             
         }
+    }
+    
+    
+    //MARK: - Filter Direct Debits
+    func filterDirectDebits(){
+        transactions = transactions.filter({$0.isDirectDebit})
     }
     
     

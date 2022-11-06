@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TrackView: View {
     
-    @StateObject private var vm: TrackViewModel
+    @StateObject var vm: TrackViewModel
     
     /// Floating button movement
     @AppStorage("buttonIsRightAlignment") private var buttonIsRightAlignment = true
@@ -45,7 +45,7 @@ struct TrackView: View {
 
         }
         .sheet(isPresented: $vm.showOptionsSheet, content: {
-            FilterView()
+            FilterView(transactions: $vm.transactions)
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         })
