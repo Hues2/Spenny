@@ -172,8 +172,13 @@ class TrackViewModel: ObservableObject{
     
     //MARK: - Delete Transaction
     func deleteTransaction(index: IndexSet){
-        transactions.remove(atOffsets: index)
+
+        let deletedTransaction = index.map({self.filteredTransactions[$0]})
+        var idOfDeletedTransaction = deletedTransaction.first?.id
+        
         filteredTransactions.remove(atOffsets: index)
+        transactions.removeAll(where: {$0.id == idOfDeletedTransaction})
+        
         dataManager.spennyEntity?.transactions = NSSet(array: transactions)
         dataManager.applyChanges()
     }
