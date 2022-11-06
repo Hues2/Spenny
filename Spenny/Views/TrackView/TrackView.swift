@@ -45,7 +45,7 @@ struct TrackView: View {
 
         }
         .sheet(isPresented: $vm.showOptionsSheet, content: {
-            filterSheet
+            FilterView()
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -197,7 +197,7 @@ extension TrackView{
                     Image(systemName: "arrow.up.arrow.down")
                         .font(.caption)
                         .fontWeight(.light)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.accentColor)
                         .rotationEffect(shouldAnimate ? Angle(degrees: 180) : Angle(degrees: 0))
                         .transition(.scale)
                     
@@ -209,7 +209,7 @@ extension TrackView{
                 
                 if vm.selectedSortingType == sortingType{
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.teal)
+                        .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
                         .matchedGeometryEffect(id: "header", in: namespace)
                 }
             }
@@ -292,13 +292,7 @@ extension TrackView{
         
         return combined
     }
-    
-    private var filterSheet: some View{
-        VStack{
-            Text("Filter Sheet")
-        }
-    }
-    
+
 }
 
 

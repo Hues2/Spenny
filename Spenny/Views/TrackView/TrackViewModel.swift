@@ -46,6 +46,7 @@ class TrackViewModel: ObservableObject{
     
     
     private func addSubscribers(){
+        //MARK: - DataManager Transactions Subscriber
         dataManager.$transactions
             .sink { [weak self] (returnedTransactions) in
                 guard let self else { return }
@@ -57,11 +58,10 @@ class TrackViewModel: ObservableObject{
                 } else{
                     self.sortTransactions(type: self.selectedSortingType)
                 }
-                
-                
             }
             .store(in: &cancellables)
         
+        //MARK: - DataManager Monthly Income Subscriber
         dataManager.$monthlyIncome
             .sink { [weak self] returnedIncome in
                 guard let returnedIncome = returnedIncome else { return }
@@ -69,6 +69,7 @@ class TrackViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
+        //MARK: - DataManager Savings Goal Income Subscriber
         dataManager.$savingsGoal
             .sink { [weak self] returnedSavings in
                 guard let returnedSavings = returnedSavings else { return }
@@ -76,6 +77,7 @@ class TrackViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
+        //MARK: - TrackViewModel SelectedSortingType Subscriber
         self.$selectedSortingType
             .sink { [weak self] newSetValue in
                 guard let self else { return }
@@ -94,7 +96,6 @@ class TrackViewModel: ObservableObject{
                         self.sortTransactions(type: self.tempSelectedType)
                     }
                     
-                    
                 } else {
                     // If the new value is the same as the temp value, then just change the order of the sorting
                     withAnimation {
@@ -102,21 +103,19 @@ class TrackViewModel: ObservableObject{
                         self.transactions = self.transactions.reversed()
                     }
                 }
-                
-                
             }
-        
             .store(in: &cancellables)
     }
     
     
+    //MARK: - Delete Transaction
     func deleteTransaction(index: IndexSet){
         transactions.remove(atOffsets: index)
         dataManager.spennyEntity?.transactions = NSSet(array: transactions)
         dataManager.applyChanges()
     }
     
-    
+    //MARK: - Sort Transactions
     func sortTransactions(type: ListHeaderTitleType){
         switch type{
             
