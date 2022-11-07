@@ -1,4 +1,4 @@
-## Spenny
+<h1> Spenny </h1>
 
 # ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
 
