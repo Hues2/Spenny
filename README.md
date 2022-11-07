@@ -10,3 +10,12 @@ The app is built with Swift and SwiftUI, and also makes use of the Combine and C
   <img src="https://user-images.githubusercontent.com/80175028/200176032-13b1d9f6-a60e-4f78-bfc0-8c611e22eb5c.png" width="100" />
   
 </p>
+
+
+## App Functionality
+<ul>
+    <li> Keep track of remaining monthly balance </li>
+    <li> Sort your transactions by Date, Amount, Title or Transaction Type </li>
+    <li> Data is saved on the users device </li>
+    <li> There is a wide variety of filters, so that the user can filter the list of transactions </li>
+ </ul>
