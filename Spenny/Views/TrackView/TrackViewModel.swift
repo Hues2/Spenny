@@ -37,6 +37,13 @@ class TrackViewModel: ObservableObject{
         return (monthlyIncome) + transactionsTotal
     }
     
+    var currentTransactionsAmount: Double {
+        let values = filteredTransactions.map({$0.amount})
+        let total = values.reduce(0, +)
+        print("\n \(total) \n")
+        return values.reduce(0, +)
+    }
+    
     
     private var cancellables = Set<AnyCancellable>()
     

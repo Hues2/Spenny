@@ -12,4 +12,8 @@ extension Double{
     func toFormattedString(format: String) -> String{
         return "£" + String(format: format, self).replacingOccurrences(of: "-", with: "")
     }
+    
+    func withPoundSign(format: String) -> String{
+        return "£" + String(format: format, self)
+    }
 }

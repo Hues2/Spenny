@@ -11,6 +11,10 @@ struct InfoBoxHeader: View {
     let text: String
     let amount: Double
     
+    var amountString: String{
+        return amount.withPoundSign(format: "%.2f")
+    }
+    
     var body: some View {
         VStack(spacing: 5){
             
@@ -18,9 +22,9 @@ struct InfoBoxHeader: View {
                 .font(.footnote)
                 .foregroundColor(.gray)
             
-            Text("\(amount.toFormattedString(format: "%.2f"))")
+            Text("\(amount.withPoundSign(format: "%.2f"))")
                 .font(.subheadline)
-                .foregroundColor(.accentColor)
+                .foregroundColor(amountString.firstIndex(of: "-") == nil ? .green : .red)
         }
     }
 }

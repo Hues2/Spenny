@@ -19,49 +19,67 @@ struct FilterView: View {
     
     
     var body: some View {
-        VStack(alignment: .center, spacing: 20){
-            
-            //MARK: - Page Title
-            HStack{
-                Text("Select Filters:")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.accentColor)
+        ScrollView{
+            VStack(alignment: .center, spacing: 20){
                 
-                Spacer()
-            }
-            .padding(.bottom, 20)
-            
-            //MARK: - Transaction Type Filter
-            transactionTypeFilter
-            Divider()
-            
-            //MARK: - Pay In/Out Filter
-            inOutTypeFilter
-            Divider()
-            
-            VStack{
+                //MARK: - Page Title
                 HStack{
-                    Text("Select:")
-                    transactionTypeScrollView
+                    Text("Select Filters:")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.accentColor)
+                    
+                    Spacer()
+                }
+                .padding(.bottom, 20)
+                
+                //MARK: - Transaction Type Filter
+                Group{
+                    transactionTypeFilter
+                    Divider()
                 }
                 
-                HStack{
-                    Text("Active:")
-                    activeTransactionTypeScrollView
+                //MARK: - Pay In/Out Filter
+                Group{
+                    inOutTypeFilter
+                    Divider()
                 }
                 
                 
+                // MARK: Transaction Type Pills Filter Options
+                Group{
+                    VStack{
+                        HStack{
+                            Text("Select:")
+                                .font(.caption)
+                                .fontWeight(.light)
+                                .foregroundColor(.accentColor)
+                            
+                            transactionTypeScrollView
+                        }
+                        
+                        HStack{
+                            Text("Active:")
+                                .font(.caption)
+                                .fontWeight(.light)
+                                .foregroundColor(.accentColor)
+                            
+                            activeTransactionTypeScrollView
+                        }
+                    }
+                    Divider()
+                }
+                
+                // MARK: Apply Filters Button
+                Group{
+                    
+                    Spacer()
+                    
+                    applyFiltersButton
+                }
                 
                 
             }
-            Divider()
-            
-            Spacer()
-            
-            applyFiltersButton
-
-            
         }
         .padding()
     }
@@ -166,12 +184,11 @@ extension FilterView{
                 HStack{
                     ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
                         if !vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
-                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor)
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""))
                                 .onTapGesture {
-                                    withAnimation {
+                                    withAnimation{
                                         vm.pillTapped(iconName: transactionType.iconName ?? "")
                                     }
-                                    
                                 }
                                 .matchedGeometryEffect(id: transactionType.iconName, in: namespace)
                         }
@@ -179,7 +196,6 @@ extension FilterView{
                 }
             }
         }
-        .padding(.top, 20)
     }
     
     private var activeTransactionTypeScrollView: some View{
@@ -188,12 +204,11 @@ extension FilterView{
                 HStack{
                     ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
                         if vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
-                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor)
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""))
                                 .onTapGesture {
                                     withAnimation {
                                         vm.pillTapped(iconName: transactionType.iconName ?? "")
                                     }
-                                    
                                 }
                                 .matchedGeometryEffect(id: transactionType.iconName, in: namespace)
                         }
@@ -202,12 +217,9 @@ extension FilterView{
                 }
             }
         }
-        .padding(.top, 20)
     }
     
-    
-    
-    
+        
     private var applyFiltersButton: some View{
         Button {
             withAnimation {

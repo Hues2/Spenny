@@ -118,7 +118,7 @@ extension TrackView{
         HStack{
             Spacer()
             
-            VStack(spacing: 5){
+            VStack(spacing: 2.5){
                 Text("Remaining:")
                     .font(.caption)
                     .foregroundColor(.gray)
@@ -133,10 +133,20 @@ extension TrackView{
                     .frame(maxWidth: 150, maxHeight: 50)
             }
             
-           
-            
-            
+                       
             Spacer()
+        }
+    }
+    
+    private var infoBoxFooter: some View{
+        HStack{
+            
+            InfoBoxHeader(text: "Current Transactions:", amount: vm.currentTransactionsAmount)
+
+            Spacer()
+            
+//            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal)
+            
         }
     }
     
@@ -146,7 +156,10 @@ extension TrackView{
                 infoBoxHeader
                 
                 infoBoxCenter
-                    .padding(.top, 10)
+                    .padding(.top, 2.5)
+                    .padding(.bottom, 2.5)
+                
+                infoBoxFooter
             }
         }
         .frame(maxWidth: .infinity)

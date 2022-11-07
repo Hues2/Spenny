@@ -8,6 +8,7 @@ APP FUNCTIONALITY:
 - Depending on the "Savings Goal" amd the actual "savings amount", the number will be green (if saved money (+)) or red (no savings (-)) depending on the 2 values
 
 
+
 APP DESIGN:
 
 - Home page will display the remaining amount for the month at the top
@@ -18,6 +19,7 @@ APP DESIGN:
     that represents the amount over or under the goal
 
 - Second view will be a list with all of the previous months
+
 
 
 APP TODO:
@@ -47,14 +49,10 @@ APP TODO:
 
 WORKING ON NOW:
 
-    - Save the side of the floating button in user defaults, so that it appears where the user last placed it
     - Save the sorting value in user defaults too
-    - On tap of a title in the header of the transactions list, the list will sort by that value
-    - Place a rectangle under each title, and if it is the selected value, then animate the change of rectangle with matched geometry effect
     
 
 
 
-- Give the Filter a list of strings variable
-- When the user taps on one of the options, add the iconName to the array
-- When filtering, only allow items whos iconName are contained in that array
+In top left of trackview, display the total amount that the currently displayed transactions is worth
+The amount remaining will always be the total remaining, but this value will show the total that the filtered transactions is worth (will probably always be negative)
