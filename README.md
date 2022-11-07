@@ -3,6 +3,8 @@
 <div align="center">
  
   ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
+ 
+ ![GitHub Repo stars](https://img.shields.io/github/stars/ankidroid/Anki-Android?style=social)
 
  </div>
   
