@@ -15,6 +15,7 @@ struct TransactionTypePill: View {
     
     let isSelectable: Bool
     
+    
     var body: some View {
         HStack{
             if !isSelectable{
@@ -56,5 +57,43 @@ struct TransactionTypePill: View {
                 }
             }
         }
+    }
+}
+
+
+
+
+
+
+struct FilterTransactionTypePill: View {
+    let typeTitle: String
+    let iconName: String
+    let hexColor: String
+    
+    var isHighlited: Bool
+    
+    
+    var body: some View {
+        HStack{
+            
+            Image(systemName: iconName)
+            
+            Text(typeTitle)
+                .fontWeight(.bold)
+        }
+        .font(.headline)
+        .foregroundColor(.white)
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
+        .background(
+            Color(hex: hexColor)
+        )
+        .cornerRadius(30)
+        .shadow(color: (.black.opacity(0.3)), radius: 3)
+        .overlay(
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(isHighlited ? Color.primary : .clear, lineWidth: 2)
+        )
+        .padding(2)
     }
 }

@@ -54,3 +54,7 @@ WORKING ON NOW:
     
 
 
+
+- Give the Filter a list of strings variable
+- When the user taps on one of the options, add the iconName to the array
+- When filtering, only allow items whos iconName are contained in that array

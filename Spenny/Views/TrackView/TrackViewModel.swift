@@ -22,7 +22,7 @@ class TrackViewModel: ObservableObject{
     private var tempSelectedType: ListHeaderTitleType = .none
     @Published var isShowingSortIcon: Bool = false
     
-    @Published var filter: Filter = Filter(transactionType: .all, inOutType: .all)
+    @Published var filter: Filter = Filter(transactionType: .all, inOutType: .all, listOfPaymentReasons: [])
     @Published var filteredTransactions: [TransactionEntity] = []
     
 
@@ -167,6 +167,14 @@ class TrackViewModel: ObservableObject{
         }
         
         
+        if !filter.listOfPaymentReasons.isEmpty{
+            self.filteredTransactions = self.filteredTransactions.filter({filter.listOfPaymentReasons.contains($0.iconName ?? "")})
+        }
+        
+        
+        
+        
+        
     }
     
     
@@ -182,6 +190,7 @@ class TrackViewModel: ObservableObject{
         dataManager.spennyEntity?.transactions = NSSet(array: transactions)
         dataManager.applyChanges()
     }
+    
     
     //MARK: - Sort Transactions
     func sortTransactions(type: ListHeaderTitleType){

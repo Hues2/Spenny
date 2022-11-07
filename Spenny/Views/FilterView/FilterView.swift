@@ -40,9 +40,13 @@ struct FilterView: View {
             inOutTypeFilter
             Divider()
             
+            transactionTypeScrollView
+            Divider()
+            
             Spacer()
             
             applyFiltersButton
+
             
         }
         .padding()
@@ -140,6 +144,22 @@ extension FilterView{
                 vm.inOutType = type
             }
         }
+    }
+    
+    private var transactionTypeScrollView: some View{
+        VStack(alignment: .leading){
+            ScrollView(.horizontal ,showsIndicators: false) {
+                HStack{
+                    ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
+                        FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isHighlited: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""))
+                            .onTapGesture {
+                                vm.pillTapped(iconName: transactionType.iconName ?? "")
+                            }
+                    }
+                }
+            }
+        }
+        .padding(.top, 20)
     }
     
     
