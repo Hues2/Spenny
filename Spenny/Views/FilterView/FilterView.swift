@@ -19,7 +19,7 @@ struct FilterView: View {
     
     
     var body: some View {
-        VStack(alignment: .center, spacing: 15){
+        VStack(alignment: .center, spacing: 20){
             
             //MARK: - Page Title
             HStack{
@@ -40,7 +40,21 @@ struct FilterView: View {
             inOutTypeFilter
             Divider()
             
-            transactionTypeScrollView
+            VStack{
+                HStack{
+                    Text("Select:")
+                    transactionTypeScrollView
+                }
+                
+                HStack{
+                    Text("Active:")
+                    activeTransactionTypeScrollView
+                }
+                
+                
+                
+                
+            }
             Divider()
             
             Spacer()
@@ -151,10 +165,39 @@ extension FilterView{
             ScrollView(.horizontal ,showsIndicators: false) {
                 HStack{
                     ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
-                        FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isHighlited: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""))
-                            .onTapGesture {
-                                vm.pillTapped(iconName: transactionType.iconName ?? "")
-                            }
+                        if !vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor)
+                                .onTapGesture {
+                                    withAnimation {
+                                        vm.pillTapped(iconName: transactionType.iconName ?? "")
+                                    }
+                                    
+                                }
+                                .matchedGeometryEffect(id: transactionType.iconName, in: namespace)
+                        }
+                    }
+                }
+            }
+        }
+        .padding(.top, 20)
+    }
+    
+    private var activeTransactionTypeScrollView: some View{
+        VStack(alignment: .leading){
+            ScrollView(.horizontal ,showsIndicators: false) {
+                HStack{
+                    ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
+                        if vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor)
+                                .onTapGesture {
+                                    withAnimation {
+                                        vm.pillTapped(iconName: transactionType.iconName ?? "")
+                                    }
+                                    
+                                }
+                                .matchedGeometryEffect(id: transactionType.iconName, in: namespace)
+                        }
+                        
                     }
                 }
             }

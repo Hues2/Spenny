@@ -61,17 +61,12 @@ struct TransactionTypePill: View {
 }
 
 
-
-
-
-
+// MARK: For Filter View
 struct FilterTransactionTypePill: View {
     let typeTitle: String
     let iconName: String
     let hexColor: String
-    
-    var isHighlited: Bool
-    
+        
     
     var body: some View {
         HStack{
@@ -90,10 +85,6 @@ struct FilterTransactionTypePill: View {
         )
         .cornerRadius(30)
         .shadow(color: (.black.opacity(0.3)), radius: 3)
-        .overlay(
-            RoundedRectangle(cornerRadius: 30)
-                .stroke(isHighlited ? Color.primary : .clear, lineWidth: 2)
-        )
         .padding(2)
     }
 }
