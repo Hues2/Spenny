@@ -1,6 +1,6 @@
 # Spenny
 
-<div align="center">
+<div float="left">
  
   ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
  
