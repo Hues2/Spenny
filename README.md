@@ -1,12 +1,12 @@
 # Spenny
 
-<div float="left", display-contet="inline">
+<p float="left">
  
   ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
  
  ![GitHub Repo stars](https://img.shields.io/github/stars/hues2/Spenny?style=social)
 
- </div>
+ </p>
   
   
 This iOS app allows users to keep track of their spending with an easy-to-use UI.
