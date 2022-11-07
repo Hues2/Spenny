@@ -6,6 +6,7 @@ The app is built with Swift and SwiftUI, and also makes use of the Combine and C
 ## Main Views
 
 <p float="left">
+  <img src="https://user-images.githubusercontent.com/80175028/200295813-2ddf3051-ad29-4803-8671-7d5d35daf040.png" width="100" />
   <img src="https://user-images.githubusercontent.com/80175028/200175955-e7a57409-8ea1-4231-b96a-cf96544c8f52.png" width="100" />
   <img src="https://user-images.githubusercontent.com/80175028/200176032-13b1d9f6-a60e-4f78-bfc0-8c611e22eb5c.png" width="100" />
   
