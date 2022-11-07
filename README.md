@@ -2,7 +2,7 @@
 
 <p float="left">
  
-  ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic&color=blue)
  
  ![GitHub Repo stars](https://img.shields.io/github/stars/hues2/Spenny?style=plastic)
 
