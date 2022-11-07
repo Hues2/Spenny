@@ -40,8 +40,12 @@ class TrackViewModel: ObservableObject{
     var currentTransactionsAmount: Double {
         let values = filteredTransactions.map({$0.amount})
         let total = values.reduce(0, +)
-        print("\n \(total) \n")
         return values.reduce(0, +)
+    }
+    
+    var percentageOfSavingsSoFar: Double {
+        let percentage = (remainingAmount * 100) / savingsGoal
+        return percentage
     }
     
     

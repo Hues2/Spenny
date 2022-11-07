@@ -46,7 +46,7 @@ struct TrackView: View {
         }
         .sheet(isPresented: $vm.showFiltersSheet, content: {
             FilterView(filter: $vm.filter, showSheet: $vm.showFiltersSheet)
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
         })
         .toolbar{
@@ -105,11 +105,11 @@ extension TrackView{
     private var infoBoxHeader: some View{
         HStack{
             
-            InfoBoxHeader(text: "Monthly Income:", amount: vm.monthlyIncome)
+            InfoBoxHeader(text: "Monthly Income:", amount: vm.monthlyIncome, isFooter: false, isPercent: false)
 
             Spacer()
             
-            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal)
+            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal, isFooter: false, isPercent: false)
             
         }
     }
@@ -118,7 +118,7 @@ extension TrackView{
         HStack{
             Spacer()
             
-            VStack(spacing: 2.5){
+            VStack(spacing: 0){
                 Text("Remaining:")
                     .font(.caption)
                     .foregroundColor(.gray)
@@ -127,10 +127,10 @@ extension TrackView{
                     .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
                     .mask {
                         Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
-                            .font(.title)
+                            .font(.largeTitle)
                             .fontWeight(.black)
                     }
-                    .frame(maxWidth: 150, maxHeight: 50)
+                    .frame(maxWidth: 200, maxHeight: 50)
             }
             
                        
@@ -141,11 +141,11 @@ extension TrackView{
     private var infoBoxFooter: some View{
         HStack{
             
-            InfoBoxHeader(text: "Current Transactions:", amount: vm.currentTransactionsAmount)
+            InfoBoxHeader(text: "Transactions:", amount: vm.currentTransactionsAmount, isFooter: true, isPercent: false)
 
             Spacer()
             
-//            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal)
+            InfoBoxHeader(text: "% of Goal:", amount: vm.percentageOfSavingsSoFar, isFooter: true, isPercent: true)
             
         }
     }

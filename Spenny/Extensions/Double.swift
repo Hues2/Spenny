@@ -16,4 +16,8 @@ extension Double{
     func withPoundSign(format: String) -> String{
         return "£" + String(format: format, self)
     }
+    
+    func withPercentage(format: String) -> String{
+        return String(format: format, self) + "%"
+    }
 }
