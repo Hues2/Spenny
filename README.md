@@ -4,7 +4,7 @@
  
   ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
  
- ![GitHub Repo stars](https://img.shields.io/github/stars/hues2/Spenny?style=social)
+ ![GitHub Repo stars](https://img.shields.io/github/stars/hues2/Spenny?style=plastic)
 
  </p>
   
