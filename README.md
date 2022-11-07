@@ -1,6 +1,6 @@
 # Spenny
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
+# ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
 
 <br>
 
