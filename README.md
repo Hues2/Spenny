@@ -1,8 +1,13 @@
 
 <h1> Spenny </h1>
 
-# ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
+<div align="center">
+ 
+  ![GitHub last commit](https://img.shields.io/github/last-commit/Hues2/Spenny?style=plastic)
 
+ </div>
+  
+  
 This iOS app allows users to keep track of their spending with an easy-to-use UI.
 The app is built with Swift and SwiftUI, and also makes use of the Combine and Core Data frameworks
 
