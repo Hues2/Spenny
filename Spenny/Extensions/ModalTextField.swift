@@ -28,6 +28,6 @@ struct ModalTextField: View {
         .padding(.horizontal)
         .clipped()
         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 0)
-        .groupBoxStyle(ColoredGroupBox())
+        .groupBoxStyle(ColoredGroupBox(frameHeight: nil))
     }
 }

@@ -62,7 +62,7 @@ struct TransactionRow: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .groupBoxStyle(ColoredGroupBox())
+        .groupBoxStyle(ColoredGroupBox(frameHeight: nil))
     }
 }
 

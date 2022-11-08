@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct TrackView: View {
     
@@ -35,11 +36,26 @@ struct TrackView: View {
         
         VStack{
             
+            TabView{
                 //MARK: - Info Box
                 infoBox
+                    .tag(1)
+                    
                 
-                Spacer()
+                chartBox
+                    .tag(2)
                 
+//                RoundedRectangle(cornerRadius: 10)
+//                    .fill(.black)
+//                    .padding(.horizontal)
+//                    .tag(2)
+                
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(maxWidth: .infinity)
+            .frame(height: 300)
+            
+                                
                 //MARK: - Transactions
                 transactions
 
@@ -149,10 +165,35 @@ extension TrackView{
                 infoBoxFooter
             }
         }
+        .clipped()
+        .shadow(color: .black.opacity(0.6), radius: 3, x: 0, y: 0)
         .frame(maxWidth: .infinity)
-        .groupBoxStyle(ColoredGroupBox())
-        .padding()
+        .frame(height: 290)
+        .groupBoxStyle(ColoredGroupBox(frameHeight: 290))
+        
+        .padding(.horizontal)
     }
+    
+    
+    
+    private var chartBox: some View{
+        GroupBox{
+            Chart{
+                ForEach(vm.transactions){ transaction in
+                    LineMark(x: .value("Date", transaction.date ?? Date.now), y: .value("Amount", transaction.amount))
+                }
+
+            }
+            .drawingGroup()
+        }
+        .clipped()
+        .shadow(color: .black.opacity(0.6), radius: 3, x: 0, y: 0)
+        .frame(maxWidth: .infinity)
+        .groupBoxStyle(ColoredGroupBox(frameHeight: 290))
+        .padding(.horizontal)
+    }
+    
+    
     
     private var listHeaders: some View{
         HStack{
