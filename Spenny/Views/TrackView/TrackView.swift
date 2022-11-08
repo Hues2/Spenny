@@ -24,31 +24,36 @@ struct TrackView: View {
     /// List header title movement
     @Namespace private var namespace
     @State var shouldAnimate: Bool = false
+    
+    /// Tab View Selection
+    @State var selection: Int = 1
         
     
+    /// Init
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
         UITableView.appearance().backgroundColor = UIColor.clear
         UITableViewCell.appearance().layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 7.5, right: 0)
     }
     
+    
+    /// Body
     var body: some View {
         
         VStack{
             
-            TabView{
+            TabView(selection: $selection){
                 //MARK: - Info Box
                 infoBox
-                    .tag(1)
-                    
+                    .tag(1)                    
                 
-                chartBox
+                LineChartBox(chartObjects: vm.lineChartObjects)
                     .tag(2)
                 
-//                RoundedRectangle(cornerRadius: 10)
-//                    .fill(.black)
-//                    .padding(.horizontal)
-//                    .tag(2)
+                
+                BarMarkChartBox(chartObjects: vm.barChartObjects)
+                    .tag(3)
+                
                 
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -173,28 +178,7 @@ extension TrackView{
         
         .padding(.horizontal)
     }
-    
-    
-    
-    private var chartBox: some View{
-        GroupBox{
-            Chart{
-                ForEach(vm.transactions){ transaction in
-                    LineMark(x: .value("Date", transaction.date ?? Date.now), y: .value("Amount", transaction.amount))
-                }
-
-            }
-            .drawingGroup()
-        }
-        .clipped()
-        .shadow(color: .black.opacity(0.6), radius: 3, x: 0, y: 0)
-        .frame(maxWidth: .infinity)
-        .groupBoxStyle(ColoredGroupBox(frameHeight: 290))
-        .padding(.horizontal)
-    }
-    
-    
-    
+     
     private var listHeaders: some View{
         HStack{
             listHeader(title: "Type", sortingType: .category)

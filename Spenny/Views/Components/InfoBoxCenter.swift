@@ -39,8 +39,8 @@ struct InfoBoxCenter: View {
                 .rotationEffect(Angle(degrees: 90))
                 .animation(.easeInOut, value: progress)
                 .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
-                .shadow(color: color.opacity(0.4), radius: 3, x: 0, y: 0)
-                .shadow(color: color.opacity(0.4), radius: 3, x: 0, y: 0)
+                .shadow(color: color.opacity(0.5), radius: 3, x: 0, y: 0)
+                .shadow(color: color.opacity(0.5), radius: 3, x: 0, y: 0)
             
         }
         .overlay(alignment: .center) {

@@ -52,7 +52,8 @@ WORKING ON NOW:
     - Save the sorting value in user defaults too
     
 
-
-
-In top left of trackview, display the total amount that the currently displayed transactions is worth
-The amount remaining will always be the total remaining, but this value will show the total that the filtered transactions is worth (will probably always be negative)
+- Make a chart object that has two vars, the date and the total remaining at that date
+- Loop through all the transactions and have a counter that adds up the total at each step, and at each step make a new ChartObject and add it to a list
+- The transactions will be sorted, so do a check if the date of the new transaction is the saem as the one just gone, if it is, just add the number and then replace the object in the list.
+- If the date is different, add the total and then create a new object and add to the list
+- This list will then be passed down to the ChartBox view
