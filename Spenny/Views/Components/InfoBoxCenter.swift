@@ -14,7 +14,12 @@ struct InfoBoxCenter: View {
     
     var color: Color{
         if progress < 0.9{
-            return .green
+            if progress > 0.84{
+                return .orange
+            } else{
+                return .green
+            }
+            
         } else {
             return .red
         }
@@ -24,7 +29,7 @@ struct InfoBoxCenter: View {
         ZStack{
             
             Circle()
-                .stroke(color.opacity(0.2), lineWidth: 15)
+                .stroke(color.opacity(0.15), lineWidth: 15)
             
             Circle()
                 .trim(from: progress, to: 1)
@@ -37,14 +42,13 @@ struct InfoBoxCenter: View {
             
         }
         .overlay(alignment: .center) {
-            Rectangle()
-                .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
-                .mask {
-                    Text(remaining.toFormattedString(format: "%.2f"))
-                        .font(.title2)
-                        .fontWeight(.black)
-                }
-                .frame(maxWidth: 100, maxHeight: 100)
+            Text(remaining.toFormattedString(format: "%.2f"))
+                .foregroundColor(color)
+                .font(.title2)
+                .fontWeight(.black)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .frame(maxWidth: 90, maxHeight: 90)
         }
     }
 }
