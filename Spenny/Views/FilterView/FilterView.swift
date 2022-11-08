@@ -15,80 +15,98 @@ struct FilterView: View {
     
     init(filter: Binding<Filter>, showSheet: Binding<Bool>) {
         self._vm = StateObject(wrappedValue: FilterViewModel(filter: filter, showSheet: showSheet))
+        UITableView.appearance().backgroundColor = .green
     }
     
     
     var body: some View {
-        ScrollView{
-            VStack(alignment: .center, spacing: 20){
-                
-                //MARK: - Page Title
-                HStack{
-                    Text("Select Filters:")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.accentColor)
-                    
-                    Spacer()
-                }
-                .padding(.bottom, 20)
-                
-                //MARK: - Transaction Type Filter
-                Group{
-                    transactionTypeFilter
-                    Divider()
-                }
-                
-                //MARK: - Pay In/Out Filter
-                Group{
-                    inOutTypeFilter
-                    Divider()
-                }
-                
-                
-                // MARK: Transaction Type Pills Filter Options
-                Group{
-                    VStack(spacing: 5){
-                        HStack{
-                            Text("Select:")
-                                .font(.caption)
-                                .fontWeight(.light)
-                                .foregroundColor(.accentColor)
-                            
-                            transactionTypeScrollView
-                        }
-                        .padding(.vertical, 5)
-                        
-                        HStack{
-                            Text("Active:")
-                                .font(.caption)
-                                .fontWeight(.light)
-                                .foregroundColor(.accentColor)
-                            
-                            activeTransactionTypeScrollView
-                        }
-                        .padding(.vertical, 5)
-                    }
-                    Divider()
-                }
-                
-                // MARK: Apply Filters Button
-                Group{
-                    
-                    Spacer()
-                    
-                    applyFiltersButton
-                }
-                
-                
-            }
+        
+        List{
+            // MARK: Payment occurrence
+            section1
+            
+            // MARK: Pay In/Out
+            section2
+            
+            // MARK: Transaction Type
+            section3
         }
-        .padding()
+        .listStyle(.insetGrouped)
+        
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .cornerRadius(10)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 20)
+        
+        .shadow(color: .black.opacity(0.4), radius: 3, x: 0, y: 0)
+        
+        Spacer()
+        
+        applyFiltersButton
+ 
     }
 }
 
 
 extension FilterView{
+    
+    private var section1: some View{
+        Section {
+            VStack{
+                transactionTypeFilter
+                Divider()
+            }
+        } header: {
+            Text("Payment Occurrence:")
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 15, leading: 5, bottom: 5, trailing: 5))
+    }
+    
+    private var section2: some View{
+        Section {
+            VStack{
+                inOutTypeFilter
+                Divider()
+            }
+        } header: {
+            Text("Paid In/Out:")
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+    }
+    
+    private var section3: some View{
+        Section {
+            VStack(spacing: 5){
+                HStack{
+                    Text("Select:")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+
+                    transactionTypeScrollView
+                }
+                .padding(.vertical, 5)
+
+                HStack{
+                    Text("Active:")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+
+                    activeTransactionTypeScrollView
+                }
+                .padding(.vertical, 5)
+                
+                Divider()
+            }
+        } header: {
+            Text("Transaction Type:")
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+    }
     
     private var transactionTypeFilter: some View{
         
