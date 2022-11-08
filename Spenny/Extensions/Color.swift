@@ -12,6 +12,7 @@ import SwiftUI
 extension Color{
     static let backgroundColor = Color("BackgroundColor")
     static let groupBoxBackgroundColor = Color("GroupBoxBackgroundColor")
+    static let listBackgroundColor = Color("ListBackgroundColor")
     
     init(hex: String) {
             let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

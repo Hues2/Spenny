@@ -20,29 +20,45 @@ struct FilterView: View {
     
     
     var body: some View {
-        
-        List{
-            // MARK: Payment occurrence
-            section1
+        ZStack{
             
-            // MARK: Pay In/Out
-            section2
+            Color.backgroundColor
+                .ignoresSafeArea()
             
-            // MARK: Transaction Type
-            section3
+            
+            VStack{
+                ZStack{
+                    
+                    Color.groupBoxBackgroundColor
+                        .ignoresSafeArea()
+                    
+                    List{
+                        // MARK: Payment occurrence
+                        section1
+                        
+                        // MARK: Pay In/Out
+                        section2
+                        
+                        // MARK: Transaction Type
+                        section3
+                    }
+                    .listStyle(.insetGrouped)
+                    .scrollContentBackground(.hidden)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .cornerRadius(10)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 20)
+                .shadow(color: .black.opacity(0.4), radius: 3, x: 0, y: 0)
+                
+                
+                Spacer()
+                
+                applyFiltersButton
+                
+            }
+
         }
-        .listStyle(.insetGrouped)
-        
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .cornerRadius(10)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 20)
-        
-        .shadow(color: .black.opacity(0.4), radius: 3, x: 0, y: 0)
-        
-        Spacer()
-        
-        applyFiltersButton
  
     }
 }
