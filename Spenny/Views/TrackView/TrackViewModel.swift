@@ -40,12 +40,18 @@ class TrackViewModel: ObservableObject{
     var currentTransactionsAmount: Double {
         let values = filteredTransactions.map({$0.amount})
         let total = values.reduce(0, +)
-        return values.reduce(0, +)
+        return total
     }
     
     var percentageOfSavingsSoFar: Double {
         let percentage = (remainingAmount * 100) / savingsGoal
         return percentage
+    }
+    
+    
+    var infoBoxCenterPercent: Double{
+        let value = transactionsTotal / monthlyIncome
+        return (value < 0 ? (value * (-1)) : value)
     }
     
     
@@ -193,7 +199,7 @@ class TrackViewModel: ObservableObject{
     func deleteTransaction(index: IndexSet){
 
         let deletedTransaction = index.map({self.filteredTransactions[$0]})
-        var idOfDeletedTransaction = deletedTransaction.first?.id
+        let idOfDeletedTransaction = deletedTransaction.first?.id
         
         filteredTransactions.remove(atOffsets: index)
         transactions.removeAll(where: {$0.id == idOfDeletedTransaction})

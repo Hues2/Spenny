@@ -118,20 +118,23 @@ extension TrackView{
         HStack{
             Spacer()
             
-            VStack(spacing: 0){
-                Text("Remaining:")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-                Rectangle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
-                    .mask {
-                        Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
-                            .font(.largeTitle)
-                            .fontWeight(.black)
-                    }
-                    .frame(maxWidth: 200, maxHeight: 50)
-            }
+            InfoBoxCenter(progress: vm.infoBoxCenterPercent, remaining: vm.remainingAmount)
+                .frame(width: 150, height: 150)
+            
+//            VStack(spacing: 0){
+//                Text("Remaining:")
+//                    .font(.caption)
+//                    .foregroundColor(.gray)
+//
+//                Rectangle()
+//                    .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+//                    .mask {
+//                        Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
+//                            .font(.largeTitle)
+//                            .fontWeight(.black)
+//                    }
+//                    .frame(maxWidth: 200, maxHeight: 50)
+//            }
             
                        
             Spacer()
