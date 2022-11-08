@@ -69,6 +69,8 @@ struct FilterTransactionTypePill: View {
         
     var isSelected: Bool = false
     
+    let namespace: Namespace.ID
+    
     var body: some View {
         HStack{
             Image(systemName: iconName)
@@ -83,10 +85,11 @@ struct FilterTransactionTypePill: View {
         .background(
             Color(hex: hexColor)
         )
-        .zIndex(5)
         .opacity(isSelected ? 1 : 0.5)
         .cornerRadius(30)
         .shadow(color: (.black.opacity(0.3)), radius: 3)
+        .padding(.vertical, 2)
+        .matchedGeometryEffect(id: iconName, in: namespace)
         
     }
 }

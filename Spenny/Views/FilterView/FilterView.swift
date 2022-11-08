@@ -48,7 +48,7 @@ struct FilterView: View {
                 
                 // MARK: Transaction Type Pills Filter Options
                 Group{
-                    VStack{
+                    VStack(spacing: 5){
                         HStack{
                             Text("Select:")
                                 .font(.caption)
@@ -57,6 +57,7 @@ struct FilterView: View {
                             
                             transactionTypeScrollView
                         }
+                        .padding(.vertical, 5)
                         
                         HStack{
                             Text("Active:")
@@ -66,6 +67,7 @@ struct FilterView: View {
                             
                             activeTransactionTypeScrollView
                         }
+                        .padding(.vertical, 5)
                     }
                     Divider()
                 }
@@ -184,17 +186,18 @@ extension FilterView{
                 HStack{
                     ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
                         if !vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
-                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""))
+                            
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""), namespace: namespace)
                                 .onTapGesture {
                                     withAnimation{
                                         vm.pillTapped(iconName: transactionType.iconName ?? "")
                                     }
                                 }
-                                .matchedGeometryEffect(id: transactionType.iconName, in: namespace)
                         }
                     }
                 }
             }
+            .cornerRadius(30)
         }
     }
     
@@ -204,18 +207,19 @@ extension FilterView{
                 HStack{
                     ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
                         if vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
-                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""))
+                            
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""), namespace: namespace)
                                 .onTapGesture {
                                     withAnimation {
                                         vm.pillTapped(iconName: transactionType.iconName ?? "")
                                     }
                                 }
-                                .matchedGeometryEffect(id: transactionType.iconName, in: namespace)
                         }
                         
                     }
                 }
             }
+            .cornerRadius(30)
         }
     }
     
