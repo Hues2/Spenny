@@ -27,6 +27,8 @@ struct TrackView: View {
     
     /// Tab View Selection
     @State var selection: Int = 1
+    
+    @State var animateBarChart: Bool = false
         
     
     /// Init
@@ -51,8 +53,15 @@ struct TrackView: View {
                     .tag(2)
                 
                 
-                BarMarkChartBox(chartObjects: vm.barChartObjects)
+                BarMarkChartBox(chartObjects: vm.barChartObjects, animate: $animateBarChart)
                     .tag(3)
+                    .onChange(of: selection) { newValue in
+                        if selection == 3{
+                            withAnimation {
+                                animateBarChart = true
+                            }
+                        }
+                    }
                 
                 
             }
@@ -209,7 +218,6 @@ extension TrackView{
                     .font(.caption)
                     .fontWeight(.light)
                     .foregroundColor(.gray)
-                    
                     .onTapGesture {
                         HapticFeedbackGenerator.shared.impact(style: .light)
                         withAnimation {

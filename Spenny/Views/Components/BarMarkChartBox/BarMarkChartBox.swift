@@ -12,17 +12,22 @@ struct BarMarkChartBox: View{
     
     let chartObjects: [ChartObject]
     
+    @Binding var animate: Bool
+    
     var body: some View{
         
         GroupBox{
             Chart{
                 ForEach(chartObjects){ chartObject in
                     withAnimation {
-                        BarMark(x: .value("Date", chartObject.date), y: .value("Amount", chartObject.amountRemaining))
+                        BarMark(x: .value("Date", chartObject.date), y: .value("Amount", animate ? chartObject.amountRemaining : 0))
                             .foregroundStyle(chartObject.amountRemaining < 0 ? .red : .green)
+                            .cornerRadius(4)
+
                     }
                 }
             }
+            .animation(.spring(), value: animate)
             
         }
         .clipped()

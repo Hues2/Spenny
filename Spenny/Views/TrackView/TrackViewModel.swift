@@ -146,8 +146,9 @@ class TrackViewModel: ObservableObject{
                     // If the new value is the same as the temp value, then just change the order of the sorting
                     withAnimation {
                         self.isShowingSortIcon = true
-                        self.transactions = self.transactions.reversed()
                         self.filteredTransactions = self.filteredTransactions.reversed()
+                        self.transactions = self.transactions.reversed()
+                        
                     }
                 }
             }
@@ -264,7 +265,7 @@ class TrackViewModel: ObservableObject{
     }
     
     
-    // MARK: Get Chart Data
+    // MARK: Get Line Chart Data
     func getLineChartData() -> [ChartObject]{
         
         var remaining = monthlyIncome
@@ -304,15 +305,13 @@ class TrackViewModel: ObservableObject{
             // If there is an object with this date, then remove it and then add this updated one
             chartObjects.remove(at: dateIsInList)
             chartObjects.append(objectToAdd)
-            print("\n \(objectToAdd.date) \n")
-            print("\n \(remaining) \n")
-            
         }
         
         return chartObjects.sorted(by: { $0.date < $1.date })
     }
     
     
+    // MARK: Get Bar Chart Data
     func getBarChartData() -> [ChartObject]{
         var chartObjects = [ChartObject]()
         var tempDate: Date?
