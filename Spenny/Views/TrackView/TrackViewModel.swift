@@ -280,7 +280,7 @@ class TrackViewModel: ObservableObject{
             
             let dateIsInList = chartObjects.firstIndex { object in
                 // Compare the dates
-                var order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
+                let order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
 
                 switch order {
                 case .orderedDescending:
@@ -324,7 +324,7 @@ class TrackViewModel: ObservableObject{
             
             let dateIsInList = chartObjects.firstIndex { object in
                 // Compare the dates
-                var order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
+                let order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
 
                 switch order {
                 case .orderedDescending:
