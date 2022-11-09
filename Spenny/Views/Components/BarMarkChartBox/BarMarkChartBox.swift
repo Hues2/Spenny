@@ -19,6 +19,7 @@ struct BarMarkChartBox: View{
                 ForEach(chartObjects){ chartObject in
                     withAnimation {
                         BarMark(x: .value("Date", chartObject.date), y: .value("Amount", chartObject.amountRemaining))
+                            .foregroundStyle(chartObject.amountRemaining < 0 ? .red : .green)
                     }
                 }
             }

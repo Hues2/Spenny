@@ -267,7 +267,7 @@ class TrackViewModel: ObservableObject{
     // MARK: Get Chart Data
     func getLineChartData() -> [ChartObject]{
         
-        var remaining = remainingAmount
+        var remaining = monthlyIncome
         var chartObjects = [ChartObject]()
         var tempDate: Date?
         
@@ -277,8 +277,20 @@ class TrackViewModel: ObservableObject{
             tempDate = transaction.date
             remaining += transaction.amount
             
+            
             let dateIsInList = chartObjects.firstIndex { object in
-                return object.date == tempDate
+                // Compare the dates
+                var order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
+
+                switch order {
+                case .orderedDescending:
+                    return false
+                case .orderedAscending:
+                    return false
+                case .orderedSame:
+                    return true
+                }
+
             }
             
             let objectToAdd = ChartObject(date: transaction.date ?? Date(), amountRemaining: remaining)
@@ -292,6 +304,8 @@ class TrackViewModel: ObservableObject{
             // If there is an object with this date, then remove it and then add this updated one
             chartObjects.remove(at: dateIsInList)
             chartObjects.append(objectToAdd)
+            print("\n \(objectToAdd.date) \n")
+            print("\n \(remaining) \n")
             
         }
         
@@ -309,7 +323,18 @@ class TrackViewModel: ObservableObject{
             tempDate = transaction.date
             
             let dateIsInList = chartObjects.firstIndex { object in
-                return object.date == tempDate
+                // Compare the dates
+                var order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
+
+                switch order {
+                case .orderedDescending:
+                    return false
+                case .orderedAscending:
+                    return false
+                case .orderedSame:
+                    return true
+                }
+
             }
             
             
