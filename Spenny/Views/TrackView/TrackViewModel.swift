@@ -174,7 +174,7 @@ class TrackViewModel: ObservableObject{
     func deleteTransaction(index: IndexSet){
 
         let deletedTransaction = index.map({self.filteredTransactions[$0]})
-        var idOfDeletedTransaction = deletedTransaction.first?.id
+        let idOfDeletedTransaction = deletedTransaction.first?.id
         
         filteredTransactions.remove(atOffsets: index)
         transactions.removeAll(where: {$0.id == idOfDeletedTransaction})
