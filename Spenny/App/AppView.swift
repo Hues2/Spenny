@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct AppView: View {
-    @StateObject var dataManager = DataManager()
-    
+    @StateObject var dataManager: DataManager
     
     init(){
+        self._dataManager = StateObject(wrappedValue: DataManager(coreDataManager: CoreDataManager()))
         // correct the transparency bug for Tab bars
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()

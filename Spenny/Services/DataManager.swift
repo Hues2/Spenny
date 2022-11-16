@@ -25,12 +25,12 @@ class DataManager: ObservableObject{
     
     
     
-    let coreDataManager: CoreDataManager
+    let coreDataManager: CoreDataProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(){
-        coreDataManager = CoreDataManager()
+    init(coreDataManager: CoreDataProtocol){
+        self.coreDataManager = coreDataManager
         addSubscribers()
 //        coreDataManager.getSpennyData()
     }

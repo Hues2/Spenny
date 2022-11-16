@@ -20,7 +20,7 @@ final class TrackViewModelTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        dataManager = DataManager()
+        dataManager = DataManager(coreDataManager: CoreDataManager())
         trackViewModel = TrackViewModel(dataManager: dataManager)
     }
 
@@ -99,6 +99,14 @@ final class TrackViewModelTests: XCTestCase {
         dataManager.savingsGoal = nil
         
         XCTAssertEqual(trackViewModel.savingsGoal, expectedResult)
+        
+    }
+    
+    func test_addingTransactionToDataManager_trackViewTransactionsShouldMatch() throws{
+        let testDataManager = CoreDataTestManager()
+//        let trackViewModel = TrackViewModel(dataManager: testDataManager)
+        
+        
         
     }
 
