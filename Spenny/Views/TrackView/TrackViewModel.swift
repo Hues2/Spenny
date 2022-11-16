@@ -27,8 +27,7 @@ class TrackViewModel: ObservableObject{
     @Published var filteredTransactions: [TransactionEntity] = []
     
     
-    
-    
+
     var transactionsTotal: Double{
         let values = transactions.map({$0.amount})
         return values.reduce(0, +)
@@ -66,8 +65,7 @@ class TrackViewModel: ObservableObject{
     }
     
     
-    
-    
+
     var dataManager: DataManager
     
     
@@ -78,9 +76,8 @@ class TrackViewModel: ObservableObject{
         self.addSubscribers()
     }
     
-    
-    
-    
+
+    //MARK: - Add Subscribers
     private func addSubscribers(){
         //MARK: - DataManager Transactions Subscriber
         /// This subscriber runs when a transaction is added or deleted
