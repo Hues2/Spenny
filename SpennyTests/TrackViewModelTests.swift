@@ -20,7 +20,7 @@ final class TrackViewModelTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        dataManager = DataManager(coreDataManager: CoreDataManager())
+        dataManager = DataManager(coreDataManager: CoreDataTestManager())
         trackViewModel = TrackViewModel(dataManager: dataManager)
     }
 
@@ -42,7 +42,7 @@ final class TrackViewModelTests: XCTestCase {
         
         dataManager.monthlyIncome = expectedResult
         
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 3)
         XCTAssertEqual(result, expectedResult)
          
     }
@@ -66,6 +66,7 @@ final class TrackViewModelTests: XCTestCase {
     }
     
     func test_changingSavingsGoalFromDataManager_trackViewSavingsGoalShouldChange() throws{
+        
         let expectedResult: Double = 68.22
         var result: Double?
         
@@ -81,12 +82,13 @@ final class TrackViewModelTests: XCTestCase {
         
         dataManager.savingsGoal = expectedResult
         
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 3)
         XCTAssertEqual(result, expectedResult)
         
     }
     
     func test_changingSavingsGoalFromDataManagerToNil_trackViewSavingsGoalShouldNotChange() throws{
+        
         let expectedResult: Double = trackViewModel.savingsGoal // --> The trackViewModel.savingsGoal should not change
                 
         trackViewModel.$savingsGoal
@@ -103,11 +105,55 @@ final class TrackViewModelTests: XCTestCase {
     }
     
     func test_addingTransactionToDataManager_trackViewTransactionsShouldMatch() throws{
-        let testDataManager = CoreDataTestManager()
-//        let trackViewModel = TrackViewModel(dataManager: testDataManager)
+        
+        let expectedResult = 1
+        
+        var result = trackViewModel.transactions.count
+        
+        let expectation = self.expectation(description: "Adding Transactions")
+        
+//        dataManager.isNewUser = false
+        
+        trackViewModel.$transactions
+            .dropFirst()
+            .sink { returnedList in
+                print("\n frwgahgarg \n")
+                print("\n \(returnedList.count) \n")
+                if result != 1{
+                    result = returnedList.count
+                    expectation.fulfill()
+                }
+                
+                
+            }
+            .store(in: &cancellables)
+        
+        
+        let transaction = TransactionEntity(context: dataManager.coreDataManager.container.viewContext)
+
+        // Configure the transaction with the correct values
+        transaction.title = "TEST"
+        transaction.amount = 10.00
+        transaction.date = Date()
+        transaction.isDirectDebit = true
+        transaction.typeTitle = "car"
+        transaction.iconName = "car"
+        transaction.hexColor = "ffffff"
+        transaction.id = UUID()
+        transaction.spennyEntity = dataManager.spennyEntity
+
+        dataManager.addTransaction(transaction: transaction)
+        
+        
+        waitForExpectations(timeout: 3)
+        
+        XCTAssertEqual(expectedResult, result)
+        
+        
         
         
         
     }
 
 }
+
