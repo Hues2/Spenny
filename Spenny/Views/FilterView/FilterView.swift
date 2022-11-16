@@ -15,42 +15,114 @@ struct FilterView: View {
     
     init(filter: Binding<Filter>, showSheet: Binding<Bool>) {
         self._vm = StateObject(wrappedValue: FilterViewModel(filter: filter, showSheet: showSheet))
+        UITableView.appearance().backgroundColor = .green
     }
     
     
     var body: some View {
-        VStack(alignment: .center, spacing: 15){
+        ZStack{
             
-            //MARK: - Page Title
-            HStack{
-                Text("Select Filters:")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.accentColor)
+            Color.backgroundColor
+                .ignoresSafeArea()
+            
+            
+            VStack{
+                ZStack{
+                    
+                    Color.groupBoxBackgroundColor
+                        .ignoresSafeArea()
+                    
+                    List{
+                        // MARK: Payment occurrence
+                        section1
+                        
+                        // MARK: Pay In/Out
+                        section2
+                        
+                        // MARK: Transaction Type
+                        section3
+                    }
+                    .listStyle(.insetGrouped)
+                    .scrollContentBackground(.hidden)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .cornerRadius(10)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 20)
+                .shadow(color: .black.opacity(0.4), radius: 3, x: 0, y: 0)
+                
                 
                 Spacer()
+                
+                applyFiltersButton
+                
             }
-            .padding(.bottom, 20)
-            
-            //MARK: - Transaction Type Filter
-            transactionTypeFilter
-            Divider()
-            
-            //MARK: - Pay In/Out Filter
-            inOutTypeFilter
-            Divider()
-            
-            Spacer()
-            
-            applyFiltersButton
-            
+
         }
-        .padding()
+ 
     }
 }
 
 
 extension FilterView{
+    
+    private var section1: some View{
+        Section {
+            VStack{
+                transactionTypeFilter
+                Divider()
+            }
+        } header: {
+            Text("Payment Occurrence:")
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 15, leading: 5, bottom: 5, trailing: 5))
+    }
+    
+    private var section2: some View{
+        Section {
+            VStack{
+                inOutTypeFilter
+                Divider()
+            }
+        } header: {
+            Text("Paid In/Out:")
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+    }
+    
+    private var section3: some View{
+        Section {
+            VStack(spacing: 5){
+                HStack{
+                    Text("Select:")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+
+                    transactionTypeScrollView
+                }
+                .padding(.vertical, 5)
+
+                HStack{
+                    Text("Active:")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.accentColor)
+
+                    activeTransactionTypeScrollView
+                }
+                .padding(.vertical, 5)
+                
+                Divider()
+            }
+        } header: {
+            Text("Transaction Type:")
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+    }
     
     private var transactionTypeFilter: some View{
         
@@ -142,9 +214,50 @@ extension FilterView{
         }
     }
     
+    private var transactionTypeScrollView: some View{
+        VStack(alignment: .leading){
+            ScrollView(.horizontal ,showsIndicators: false) {
+                HStack{
+                    ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
+                        if !vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
+                            
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""), namespace: namespace)
+                                .onTapGesture {
+                                    withAnimation{
+                                        vm.pillTapped(iconName: transactionType.iconName ?? "")
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+            .cornerRadius(30)
+        }
+    }
     
+    private var activeTransactionTypeScrollView: some View{
+        VStack(alignment: .leading){
+            ScrollView(.horizontal ,showsIndicators: false) {
+                HStack{
+                    ForEach(ListOfTransactionTypes.transactionTypes){ transactionType in
+                        if vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""){
+                            
+                            FilterTransactionTypePill(typeTitle: transactionType.typeTitle, iconName: transactionType.iconName ?? "", hexColor: transactionType.hexColor, isSelected: vm.paymentReasonIsSelected(iconName: transactionType.iconName ?? ""), namespace: namespace)
+                                .onTapGesture {
+                                    withAnimation {
+                                        vm.pillTapped(iconName: transactionType.iconName ?? "")
+                                    }
+                                }
+                        }
+                        
+                    }
+                }
+            }
+            .cornerRadius(30)
+        }
+    }
     
-    
+        
     private var applyFiltersButton: some View{
         Button {
             withAnimation {

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import Charts
 
 
 class TrackViewModel: ObservableObject{
@@ -22,11 +23,11 @@ class TrackViewModel: ObservableObject{
     private var tempSelectedType: ListHeaderTitleType = .none
     @Published var isShowingSortIcon: Bool = false
     
-    @Published var filter: Filter = Filter(transactionType: .all, inOutType: .all)
+    @Published var filter: Filter = Filter(transactionType: .all, inOutType: .all, listOfPaymentReasons: [])
     @Published var filteredTransactions: [TransactionEntity] = []
     
-
-    var dataManager: DataManager
+    
+    
     
     var transactionsTotal: Double{
         let values = transactions.map({$0.amount})
@@ -36,6 +37,38 @@ class TrackViewModel: ObservableObject{
     var remainingAmount: Double{
         return (monthlyIncome) + transactionsTotal
     }
+    
+    var currentTransactionsAmount: Double {
+        let values = filteredTransactions.map({$0.amount})
+        let total = values.reduce(0, +)
+        return total
+    }
+    
+    var percentageOfSavingsSoFar: Double {
+        let percentage = (remainingAmount * 100) / savingsGoal
+        return percentage
+    }
+    
+    
+    var infoBoxCenterPercent: Double{
+        let value = transactionsTotal / monthlyIncome
+        return (value < 0 ? (value * (-1)) : value)
+    }
+    
+    
+    
+    var lineChartObjects: [ChartObject] {
+        return getLineChartData()
+    }
+    
+    var barChartObjects: [ChartObject]{
+        return getBarChartData()
+    }
+    
+    
+    
+    
+    var dataManager: DataManager
     
     
     private var cancellables = Set<AnyCancellable>()
@@ -63,7 +96,7 @@ class TrackViewModel: ObservableObject{
                     
                     self.filterTransactions(filter: self.filter)
                 }
-
+                
                 
                 if self.tempSelectedType == .none{
                     self.sortTransactions(type: .date)
@@ -113,8 +146,9 @@ class TrackViewModel: ObservableObject{
                     // If the new value is the same as the temp value, then just change the order of the sorting
                     withAnimation {
                         self.isShowingSortIcon = true
-                        self.transactions = self.transactions.reversed()
                         self.filteredTransactions = self.filteredTransactions.reversed()
+                        self.transactions = self.transactions.reversed()
+                        
                     }
                 }
             }
@@ -125,7 +159,7 @@ class TrackViewModel: ObservableObject{
         self.$filter
             .sink { [weak self] returnedFilter in
                 guard let self else { return }
-
+                
                 withAnimation {
                     /// The filtered list need to be reset before applying all of the new filters
                     self.filteredTransactions = self.transactions
@@ -133,7 +167,7 @@ class TrackViewModel: ObservableObject{
                     /// Apply the filters
                     self.filterTransactions(filter: returnedFilter)
                 }
- 
+                
             }
             .store(in: &cancellables)
         
@@ -148,7 +182,7 @@ class TrackViewModel: ObservableObject{
             break
         case .standardTransaction:
             self.filteredTransactions = self.filteredTransactions.filter({!$0.isDirectDebit})
-                
+            
         case .directDebit:
             self.filteredTransactions = self.filteredTransactions.filter({$0.isDirectDebit})
         }
@@ -167,12 +201,20 @@ class TrackViewModel: ObservableObject{
         }
         
         
+        if !filter.listOfPaymentReasons.isEmpty{
+            self.filteredTransactions = self.filteredTransactions.filter({filter.listOfPaymentReasons.contains($0.iconName ?? "")})
+        }
+        
+        
+        
+        
+        
     }
     
     
     //MARK: - Delete Transaction
     func deleteTransaction(index: IndexSet){
-
+        
         let deletedTransaction = index.map({self.filteredTransactions[$0]})
         let idOfDeletedTransaction = deletedTransaction.first?.id
         
@@ -182,6 +224,7 @@ class TrackViewModel: ObservableObject{
         dataManager.spennyEntity?.transactions = NSSet(array: transactions)
         dataManager.applyChanges()
     }
+    
     
     //MARK: - Sort Transactions
     func sortTransactions(type: ListHeaderTitleType){
@@ -216,9 +259,100 @@ class TrackViewModel: ObservableObject{
     }
     
     
+    // MARK: ListHeaderTitleType Enum
     enum ListHeaderTitleType: String{
         case category, date, title, amount, none
     }
     
+    
+    // MARK: Get Line Chart Data
+    func getLineChartData() -> [ChartObject]{
+        
+        var remaining = monthlyIncome
+        var chartObjects = [ChartObject]()
+        var tempDate: Date?
+        
+        
+        for transaction in transactions.sorted(by: { $0.date ?? Date() < $1.date ?? Date() }) {
+            
+            tempDate = transaction.date
+            remaining += transaction.amount
+            
+            
+            let dateIsInList = chartObjects.firstIndex { object in
+                // Compare the dates
+                let order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
+
+                switch order {
+                case .orderedDescending:
+                    return false
+                case .orderedAscending:
+                    return false
+                case .orderedSame:
+                    return true
+                }
+
+            }
+            
+            let objectToAdd = ChartObject(date: transaction.date ?? Date(), amountRemaining: remaining)
+            
+            guard let dateIsInList else {
+                // If the date doesn't already exist in the list, then add the object
+                chartObjects.append(objectToAdd)
+                continue
+            }
+            
+            // If there is an object with this date, then remove it and then add this updated one
+            chartObjects.remove(at: dateIsInList)
+            chartObjects.append(objectToAdd)
+        }
+        
+        return chartObjects.sorted(by: { $0.date < $1.date })
+    }
+    
+    
+    // MARK: Get Bar Chart Data
+    func getBarChartData() -> [ChartObject]{
+        var chartObjects = [ChartObject]()
+        var tempDate: Date?
+        
+        
+        for transaction in transactions.sorted(by: { $0.date ?? Date() < $1.date ?? Date() }) {
+            
+            tempDate = transaction.date
+            
+            let dateIsInList = chartObjects.firstIndex { object in
+                // Compare the dates
+                let order = Calendar.current.compare(tempDate ?? Date(), to: object.date, toGranularity: .day)
+
+                switch order {
+                case .orderedDescending:
+                    return false
+                case .orderedAscending:
+                    return false
+                case .orderedSame:
+                    return true
+                }
+
+            }
+            
+            
+            
+            guard let dateIsInList else {
+                // If the date doesn't already exist in the list, then add the object
+                let objectToAdd = ChartObject(date: transaction.date ?? Date(), amountRemaining: transaction.amount)
+                chartObjects.append(objectToAdd)
+                continue
+            }
+            
+            // If there is an object with this date, then remove it and then add this updated one
+            let objectToAdd = ChartObject(date: transaction.date ?? Date(), amountRemaining: chartObjects[dateIsInList].amountRemaining + transaction.amount)
+            chartObjects.remove(at: dateIsInList)
+            chartObjects.append(objectToAdd)
+            
+        }
+        
+        return chartObjects.sorted(by: { $0.date < $1.date })
+    }
     
 }

@@ -11,4 +11,5 @@ import Foundation
 struct Filter {
     var transactionType: FilterOptions.TransactionTypeFilter
     var inOutType: FilterOptions.InOutTypeFilter
+    var listOfPaymentReasons: [String]
 }

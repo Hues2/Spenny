@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct TrackView: View {
     
@@ -23,30 +24,59 @@ struct TrackView: View {
     /// List header title movement
     @Namespace private var namespace
     @State var shouldAnimate: Bool = false
+    
+    /// Tab View Selection
+    @State var selection: Int = 1
+    
+    @State var animateBarChart: Bool = false
         
     
+    /// Init
     init(dataManager: DataManager) {
         self._vm = StateObject(wrappedValue: TrackViewModel(dataManager: dataManager))
         UITableView.appearance().backgroundColor = UIColor.clear
         UITableViewCell.appearance().layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 7.5, right: 0)
     }
     
+    
+    /// Body
     var body: some View {
         
         VStack{
             
+            TabView(selection: $selection){
                 //MARK: - Info Box
                 infoBox
+                    .tag(1)                    
                 
-                Spacer()
+                LineChartBox(chartObjects: vm.lineChartObjects)
+                    .tag(2)
                 
+                
+                BarMarkChartBox(chartObjects: vm.barChartObjects, animate: $animateBarChart)
+                    .tag(3)
+                    .onChange(of: selection) { newValue in
+                        if selection == 3{
+                            withAnimation {
+                                animateBarChart = true
+                            }
+                        }
+                    }
+                
+                
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(maxWidth: .infinity)
+            .frame(height: 300)
+            
+                                
                 //MARK: - Transactions
                 transactions
 
         }
         .sheet(isPresented: $vm.showFiltersSheet, content: {
             FilterView(filter: $vm.filter, showSheet: $vm.showFiltersSheet)
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
         })
         .toolbar{
@@ -105,11 +135,11 @@ extension TrackView{
     private var infoBoxHeader: some View{
         HStack{
             
-            InfoBoxHeader(text: "Monthly Income:", amount: vm.monthlyIncome)
+            InfoBoxHeader(text: "Monthly Income:", amount: vm.monthlyIncome, isFooter: false, isPercent: false)
 
             Spacer()
             
-            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal)
+            InfoBoxHeader(text: "Savings Goal:", amount: vm.savingsGoal, isFooter: false, isPercent: false)
             
         }
     }
@@ -118,25 +148,22 @@ extension TrackView{
         HStack{
             Spacer()
             
-            VStack(spacing: 5){
-                Text("Remaining:")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-                Rectangle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
-                    .mask {
-                        Text(vm.remainingAmount.toFormattedString(format: "%.2f"))
-                            .font(.title)
-                            .fontWeight(.black)
-                    }
-                    .frame(maxWidth: 150, maxHeight: 50)
-            }
-            
-           
-            
-            
+            InfoBoxCenter(progress: vm.infoBoxCenterPercent, remaining: vm.remainingAmount)
+                .frame(width: 150, height: 150)
+                       
             Spacer()
+        }
+    }
+    
+    private var infoBoxFooter: some View{
+        HStack{
+            
+            InfoBoxHeader(text: "Transactions:", amount: vm.currentTransactionsAmount, isFooter: true, isPercent: false)
+
+            Spacer()
+            
+            InfoBoxHeader(text: "% of Goal:", amount: vm.percentageOfSavingsSoFar, isFooter: true, isPercent: true)
+            
         }
     }
     
@@ -146,14 +173,21 @@ extension TrackView{
                 infoBoxHeader
                 
                 infoBoxCenter
-                    .padding(.top, 10)
+                    .padding(.top, 2.5)
+                    .padding(.bottom, 2.5)
+                
+                infoBoxFooter
             }
         }
+        .clipped()
+        .shadow(color: .black.opacity(0.6), radius: 3, x: 0, y: 0)
         .frame(maxWidth: .infinity)
-        .groupBoxStyle(ColoredGroupBox())
-        .padding()
+        .frame(height: 290)
+        .groupBoxStyle(ColoredGroupBox(frameHeight: 290))
+        
+        .padding(.horizontal)
     }
-    
+     
     private var listHeaders: some View{
         HStack{
             listHeader(title: "Type", sortingType: .category)
@@ -184,7 +218,6 @@ extension TrackView{
                     .font(.caption)
                     .fontWeight(.light)
                     .foregroundColor(.gray)
-                    
                     .onTapGesture {
                         HapticFeedbackGenerator.shared.impact(style: .light)
                         withAnimation {

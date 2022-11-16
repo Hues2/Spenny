@@ -8,6 +8,7 @@ APP FUNCTIONALITY:
 - Depending on the "Savings Goal" amd the actual "savings amount", the number will be green (if saved money (+)) or red (no savings (-)) depending on the 2 values
 
 
+
 APP DESIGN:
 
 - Home page will display the remaining amount for the month at the top
@@ -18,6 +19,7 @@ APP DESIGN:
     that represents the amount over or under the goal
 
 - Second view will be a list with all of the previous months
+
 
 
 APP TODO:
@@ -47,10 +49,11 @@ APP TODO:
 
 WORKING ON NOW:
 
-    - Save the side of the floating button in user defaults, so that it appears where the user last placed it
     - Save the sorting value in user defaults too
-    - On tap of a title in the header of the transactions list, the list will sort by that value
-    - Place a rectangle under each title, and if it is the selected value, then animate the change of rectangle with matched geometry effect
     
 
-
+- Make a chart object that has two vars, the date and the total remaining at that date
+- Loop through all the transactions and have a counter that adds up the total at each step, and at each step make a new ChartObject and add it to a list
+- The transactions will be sorted, so do a check if the date of the new transaction is the saem as the one just gone, if it is, just add the number and then replace the object in the list.
+- If the date is different, add the total and then create a new object and add to the list
+- This list will then be passed down to the ChartBox view

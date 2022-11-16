@@ -15,6 +15,7 @@ struct TransactionTypePill: View {
     
     let isSelectable: Bool
     
+    
     var body: some View {
         HStack{
             if !isSelectable{
@@ -56,5 +57,39 @@ struct TransactionTypePill: View {
                 }
             }
         }
+    }
+}
+
+
+// MARK: For Filter View
+struct FilterTransactionTypePill: View {
+    let typeTitle: String
+    let iconName: String
+    let hexColor: String
+        
+    var isSelected: Bool = false
+    
+    let namespace: Namespace.ID
+    
+    var body: some View {
+        HStack{
+            Image(systemName: iconName)
+            
+            Text(typeTitle)
+                .fontWeight(.bold)
+        }
+        .font(.headline)
+        .foregroundColor(.white)
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
+        .background(
+            Color(hex: hexColor)
+        )
+        .opacity(isSelected ? 1 : 0.5)
+        .cornerRadius(30)
+        .shadow(color: (.black.opacity(0.3)), radius: 3)
+        .padding(.vertical, 2)
+        .matchedGeometryEffect(id: iconName, in: namespace)
+        
     }
 }
