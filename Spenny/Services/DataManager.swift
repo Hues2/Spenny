@@ -47,7 +47,7 @@ class DataManager: ObservableObject{
                     print("\n [DATA MANAGER] --> Error in spennyDataPubliher. Error: \(error.localizedDescription) \n")
                 }
             } receiveValue: { [weak self] returnedResult in
-                guard let self else { return }
+                guard let self else { print("\n spennyDataPublisher returned nil \n"); return }
                 
                 switch returnedResult{
                 case .failure(let error):
@@ -114,7 +114,7 @@ class DataManager: ObservableObject{
     func applyChanges(){
         coreDataManager.applyChanges()
     }
-    
+
     
     
 }

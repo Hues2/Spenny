@@ -55,6 +55,7 @@ class TrackViewModel: ObservableObject{
     }
     
     
+    
     var lineChartObjects: [ChartObject] {
         return getLineChartData()
     }
@@ -78,12 +79,16 @@ class TrackViewModel: ObservableObject{
 
     //MARK: - Add Subscribers
     private func addSubscribers(){
+        self.$transactions
+            .sink { _ in
+                print("\n HERE \n")
+            }
+            .store(in: &cancellables)
         //MARK: - DataManager Transactions Subscriber
         /// This subscriber runs when a transaction is added or deleted
         dataManager.$transactions
             .sink { [weak self] (returnedTransactions) in
                 guard let self else { return }
-                
                 /// Reset the filtered list, so that it contains the correct items
                 /// After reseting the list, apply the filter function
                 withAnimation {
@@ -212,9 +217,16 @@ class TrackViewModel: ObservableObject{
         let idOfDeletedTransaction = deletedTransaction.first?.id
         
         filteredTransactions.remove(atOffsets: index)
-        transactions.removeAll(where: {$0.id == idOfDeletedTransaction})
         
-        dataManager.spennyEntity?.transactions = NSSet(array: transactions)
+        /// This used to be here, but it is pointless updating the list of transactions here, as the method dataManager.applyChanges will change the transactions, which this view model
+        /// is subscribed to, so it will change then anyway
+        /// 
+//        transactions.removeAll(where: {$0.id == idOfDeletedTransaction})
+        
+        
+        let updatedTransactions = transactions.filter({$0.id != idOfDeletedTransaction})
+        
+        dataManager.spennyEntity?.transactions = NSSet(array: updatedTransactions)
         dataManager.applyChanges()
     }
     
@@ -240,8 +252,8 @@ class TrackViewModel: ObservableObject{
             self.filteredTransactions = filteredTransactions.sorted(by: {$0.amount > $1.amount})
             
         case .none:
-            break
-            
+            self.transactions = transactions
+            self.filteredTransactions = filteredTransactions            
         }
     }
     
