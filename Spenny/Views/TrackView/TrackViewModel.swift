@@ -55,7 +55,6 @@ class TrackViewModel: ObservableObject{
     }
     
     
-    
     var lineChartObjects: [ChartObject] {
         return getLineChartData()
     }
@@ -85,14 +84,10 @@ class TrackViewModel: ObservableObject{
             .sink { [weak self] (returnedTransactions) in
                 guard let self else { return }
                 
-//                self.transactions = returnedTransactions // --> This makes it publish once , and the sorting makes it publish again
-                
                 /// Reset the filtered list, so that it contains the correct items
                 /// After reseting the list, apply the filter function
                 withAnimation {
-                    self.filteredTransactions = returnedTransactions
-                    
-                    self.filterTransactions(filter: self.filter)
+                    self.filterTransactions(filter: self.filter, transactions: returnedTransactions)
                 }
                 
                 
@@ -163,7 +158,7 @@ class TrackViewModel: ObservableObject{
                     self.filteredTransactions = self.transactions
                     
                     /// Apply the filters
-                    self.filterTransactions(filter: returnedFilter)
+                    self.filterTransactions(filter: returnedFilter, transactions: self.filteredTransactions)
                 }
                 
             }
@@ -173,16 +168,16 @@ class TrackViewModel: ObservableObject{
     
     
     //MARK: - Filter Filtered Transactions list
-    func filterTransactions(filter: Filter){
+    func filterTransactions(filter: Filter, transactions: [TransactionEntity]){
         /// This checks if the user has selected direct debit or standard transaction
         switch filter.transactionType{
         case .all:
-            break
+            self.filteredTransactions = transactions
         case .standardTransaction:
-            self.filteredTransactions = self.filteredTransactions.filter({!$0.isDirectDebit})
+            self.filteredTransactions = transactions.filter({!$0.isDirectDebit})
             
         case .directDebit:
-            self.filteredTransactions = self.filteredTransactions.filter({$0.isDirectDebit})
+            self.filteredTransactions = transactions.filter({$0.isDirectDebit})
         }
         
         /*
