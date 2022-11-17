@@ -168,6 +168,32 @@ final class TrackViewModelTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
     
+    func test_transactions_addRandomNumberOfTransactionsWithRandomValues() throws{
+        let randomNumberOfTransactions = Int.random(in: 1...10)
+        let expectedResult = randomNumberOfTransactions
+        let expectation = self.expectation(description: "Adding random number of transactions")
+        var counter = 0
+        
+        
+        trackViewModel.$transactions
+            .dropFirst()
+            .sink { returnedTransactions in
+                counter += 1
+                if counter == randomNumberOfTransactions{
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        for _ in 0..<randomNumberOfTransactions{
+            addTransaction(amount: Double.random(in: -150...150))
+        }
+        
+        waitForExpectations(timeout: 5)
+        XCTAssertEqual(expectedResult, trackViewModel.transactions.count)
+        
+    }
+    
     // MARK: Transactions Total
     func test_transactionsTotal_shouldBe250() throws {
         let expectedResult: Double = 250
@@ -189,6 +215,37 @@ final class TrackViewModelTests: XCTestCase {
         addTransaction(amount: 100)
         addTransaction(amount: 100)
         addTransaction(amount: 50)
+        
+        waitForExpectations(timeout: 5)
+        
+        let value = trackViewModel.transactionsTotal
+        
+
+        XCTAssertEqual(value, expectedResult)
+        
+    }
+    
+    func test_transactionsTotal_shouldBeNegative500() throws {
+        let expectedResult: Double = -500
+        var counter: Int = 0
+        let expectation = self.expectation(description: "Adding Transactions")
+        
+        
+        trackViewModel.$transactions // --> Once this transactions has published 3 times, we will check the value of transactionsTotal
+            .dropFirst()
+            .sink { returnedTransactions in
+                counter += 1
+                if counter == 4{
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        
+        addTransaction(amount: 100)
+        addTransaction(amount: -500)
+        addTransaction(amount: 50)
+        addTransaction(amount: -150)
         
         waitForExpectations(timeout: 5)
         
@@ -221,6 +278,7 @@ final class TrackViewModelTests: XCTestCase {
         
     }
     
+    // MARK: Percntage Of Savings So Far
     func test_percentageOfSavingsSoFar_shouldBe90() throws {
         let expectedResult: Double = 90
         let expectation = self.expectation(description: "Calculating Percentage Of Savings Goal")
@@ -247,6 +305,59 @@ final class TrackViewModelTests: XCTestCase {
         XCTAssertEqual(expectedResult, trackViewModel.percentageOfSavingsSoFar)
     }
     
+    func test_percentageOfSavingsSoFar_shouldBe110() throws {
+        let expectedResult: Double = 110
+        let expectation = self.expectation(description: "Calculating Percentage Of Savings Goal")
+        var counter = 0
+        
+        trackViewModel.$transactions
+            .dropFirst()
+            .sink { returnedTransactions in
+                counter += 1
+                if counter == 4{
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        dataManager.monthlyIncome = 1000
+        dataManager.savingsGoal = 100
+        
+        addTransaction(amount: -900)
+        addTransaction(amount: -30)
+        addTransaction(amount: 60)
+        addTransaction(amount:-20)
+        
+        waitForExpectations(timeout: 5)
+        XCTAssertEqual(expectedResult, trackViewModel.percentageOfSavingsSoFar)
+    }
+    
+    // MARK: Info Box Center Percent
+    func test_infoBoxCenterPercent_shouldBeHalf() throws {
+        let expectedResult = 0.5
+        let expectation = self.expectation(description: "Calculating Percentage")
+        var counter = 0
+        
+        trackViewModel.$transactions
+            .dropFirst()
+            .sink { returnedTransactions in
+                counter += 1
+                if counter == 2{
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        dataManager.monthlyIncome = 1000
+        addTransaction(amount: 25)
+        addTransaction(amount: -525)
+        
+        waitForExpectations(timeout: 5)
+        XCTAssertEqual(expectedResult, trackViewModel.infoBoxCenterPercent)
+        
+    }
+    
+    
     
     
     
@@ -269,57 +380,4 @@ final class TrackViewModelTests: XCTestCase {
         dataManager.addTransaction(transaction: transaction)
     }
 
-}
-
-
-
-
-
-extension XCTestCase {
-    func awaitPublisher<T: Publisher>(
-        _ publisher: T,
-        timeout: TimeInterval = 5,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) throws -> T.Output {
-        // This time, we use Swift's Result type to keep track
-        // of the result of our Combine pipeline:
-        var result: Result<T.Output, Error>?
-        let expectation = self.expectation(description: "Awaiting publisher")
-
-        let cancellable = publisher.sink(
-            receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    result = .failure(error)
-                case .finished:
-                    break
-                }
-
-                expectation.fulfill()
-            },
-            receiveValue: { value in
-                result = .success(value)
-            }
-        )
-
-        // Just like before, we await the expectation that we
-        // created at the top of our test, and once done, we
-        // also cancel our cancellable to avoid getting any
-        // unused variable warnings:
-        waitForExpectations(timeout: timeout)
-        cancellable.cancel()
-
-        // Here we pass the original file and line number that
-        // our utility was called at, to tell XCTest to report
-        // any encountered errors at that original call site:
-        let unwrappedResult = try XCTUnwrap(
-            result,
-            "Awaited publisher did not produce any output",
-            file: file,
-            line: line
-        )
-
-        return try unwrappedResult.get()
-    }
 }
