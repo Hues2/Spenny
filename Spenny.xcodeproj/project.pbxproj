@@ -33,6 +33,8 @@
 		2E722A7728D0D65A00ADA295 /* TransactionTypePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E722A7628D0D65A00ADA295 /* TransactionTypePill.swift */; };
 		2E8683442915A89400C56175 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8683432915A89400C56175 /* CustomError.swift */; };
 		2E9EC5752925735E009FF4CF /* TrackViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EC5742925735E009FF4CF /* TrackViewModelTests.swift */; };
+		2EA3002C292623DF006CAE6F /* CoreDataTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3002B292623DF006CAE6F /* CoreDataTestManager.swift */; };
+		2EA3002E29262404006CAE6F /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3002D29262404006CAE6F /* CoreDataProtocol.swift */; };
 		2EA5A8592917F60E004CE018 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA5A8582917F60E004CE018 /* FilterView.swift */; };
 		2EA5A85F291806A7004CE018 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA5A85E291806A7004CE018 /* FilterViewModel.swift */; };
 		2EA5A8612918137D004CE018 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA5A8602918137D004CE018 /* Filter.swift */; };
@@ -95,6 +97,8 @@
 		2E8683432915A89400C56175 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		2E86834F2915C8CB00C56175 /* SpennyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpennyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9EC5742925735E009FF4CF /* TrackViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModelTests.swift; sourceTree = "<group>"; };
+		2EA3002B292623DF006CAE6F /* CoreDataTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestManager.swift; sourceTree = "<group>"; };
+		2EA3002D29262404006CAE6F /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
 		2EA5A8582917F60E004CE018 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		2EA5A85E291806A7004CE018 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		2EA5A8602918137D004CE018 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -142,7 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				2E04DE8728CFD30B0013D866 /* DataManager.swift */,
-				2E2F09D828D4B003004FDF01 /* CoreDataManager.swift */,
+				2EA3002A292623BB006CAE6F /* CoreDataManager */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -255,6 +259,16 @@
 				2E9EC5742925735E009FF4CF /* TrackViewModelTests.swift */,
 			);
 			path = SpennyTests;
+			sourceTree = "<group>";
+		};
+		2EA3002A292623BB006CAE6F /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				2E2F09D828D4B003004FDF01 /* CoreDataManager.swift */,
+				2EA3002B292623DF006CAE6F /* CoreDataTestManager.swift */,
+				2EA3002D29262404006CAE6F /* CoreDataProtocol.swift */,
+			);
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 		2EA5A8572917F5DE004CE018 /* FilterView */ = {
@@ -485,6 +499,7 @@
 				2EE505EE28CE865900809A73 /* AppView.swift in Sources */,
 				2ED8F09428D9F1FB00707D26 /* InfoBoxHeader.swift in Sources */,
 				2E3AC3EA291A54EF00C8B1BA /* InfoBoxCenter.swift in Sources */,
+				2EA3002C292623DF006CAE6F /* CoreDataTestManager.swift in Sources */,
 				2ED0CABE28D9CBAC004DB261 /* AddTransactionModal.swift in Sources */,
 				2E08DC8628D09CD500431470 /* TransactionType.swift in Sources */,
 				2E136DD628D13FEE00D07778 /* AddTransactionViewModel.swift in Sources */,
@@ -494,6 +509,7 @@
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,
 				2ED8F09628DA13B900707D26 /* Date.swift in Sources */,
 				2EB90C5728CF8696004F158E /* Color.swift in Sources */,
+				2EA3002E29262404006CAE6F /* CoreDataProtocol.swift in Sources */,
 				2E3AC3F8291AC17200C8B1BA /* BarMarkChartBox.swift in Sources */,
 				2E2F09D728D4ADEF004FDF01 /* SpennyModel.xcdatamodeld in Sources */,
 				2EE505F528CE88A500809A73 /* HomeViewModel.swift in Sources */,

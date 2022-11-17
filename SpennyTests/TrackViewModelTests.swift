@@ -107,28 +107,19 @@ final class TrackViewModelTests: XCTestCase {
     func test_addingTransactionToDataManager_trackViewTransactionsShouldMatch() throws{
         
         let expectedResult = 1
-        
         var result = trackViewModel.transactions.count
-        
         let expectation = self.expectation(description: "Adding Transactions")
-        
-//        dataManager.isNewUser = false
-        
+                
+        // Subscribe to the value that we want to test
         trackViewModel.$transactions
             .dropFirst()
             .sink { returnedList in
-                print("\n frwgahgarg \n")
-                print("\n \(returnedList.count) \n")
-                if result != 1{
-                    result = returnedList.count
-                    expectation.fulfill()
-                }
-                
-                
+                result = returnedList.count
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
-        
+        // Create a new transaction, using the test core data manager
         let transaction = TransactionEntity(context: dataManager.coreDataManager.container.viewContext)
 
         // Configure the transaction with the correct values
@@ -144,15 +135,9 @@ final class TrackViewModelTests: XCTestCase {
 
         dataManager.addTransaction(transaction: transaction)
         
-        
         waitForExpectations(timeout: 3)
         
         XCTAssertEqual(expectedResult, result)
-        
-        
-        
-        
-        
     }
 
 }

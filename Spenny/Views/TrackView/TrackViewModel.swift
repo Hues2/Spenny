@@ -79,12 +79,19 @@ class TrackViewModel: ObservableObject{
 
     //MARK: - Add Subscribers
     private func addSubscribers(){
+        
+        self.$transactions
+            .sink { _ in
+                print("\n HERE \n")
+            }
+            .store(in: &cancellables)
         //MARK: - DataManager Transactions Subscriber
         /// This subscriber runs when a transaction is added or deleted
         dataManager.$transactions
             .sink { [weak self] (returnedTransactions) in
                 guard let self else { return }
-                self.transactions = returnedTransactions
+                
+//                self.transactions = returnedTransactions // --> This makes it publish once , and the sorting makes it publish again
                 
                 /// Reset the filtered list, so that it contains the correct items
                 /// After reseting the list, apply the filter function
@@ -96,9 +103,9 @@ class TrackViewModel: ObservableObject{
                 
                 
                 if self.tempSelectedType == .none{
-                    self.sortTransactions(type: .date)
+                    self.sortTransactions(type: .date, transactions: returnedTransactions)
                 } else{
-                    self.sortTransactions(type: self.selectedSortingType)
+                    self.sortTransactions(type: self.selectedSortingType, transactions: returnedTransactions)
                 }
             }
             .store(in: &cancellables)
@@ -136,7 +143,7 @@ class TrackViewModel: ObservableObject{
                     
                     withAnimation {
                         self.isShowingSortIcon = false
-                        self.sortTransactions(type: self.tempSelectedType)
+                        self.sortTransactions(type: self.tempSelectedType, transactions: self.transactions)
                     }
                     
                 } else {
@@ -224,24 +231,24 @@ class TrackViewModel: ObservableObject{
     
     
     //MARK: - Sort Transactions
-    func sortTransactions(type: ListHeaderTitleType){
+    func sortTransactions(type: ListHeaderTitleType, transactions: [TransactionEntity]){
         switch type{
             
         case .category:
-            self.transactions = self.transactions.sorted(by: {$0.typeTitle ?? "" < $1.typeTitle ?? ""})
+            self.transactions = transactions.sorted(by: {$0.typeTitle ?? "" < $1.typeTitle ?? ""})
             self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.typeTitle ?? "" < $1.typeTitle ?? ""})
             
         case .title:
-            self.transactions = self.transactions.sorted(by: {$0.title ?? "" < $01.title ?? ""})
-            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.title ?? "" < $01.title ?? ""})
+            self.transactions = transactions.sorted(by: {$0.title ?? "" < $01.title ?? ""})
+            self.filteredTransactions = filteredTransactions.sorted(by: {$0.title ?? "" < $01.title ?? ""})
             
         case .date:
-            self.transactions = self.transactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
-            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
+            self.transactions = transactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
+            self.filteredTransactions = filteredTransactions.sorted(by: {$0.date ?? Date() > $1.date ?? Date() })
             
         case .amount:
-            self.transactions = self.transactions.sorted(by: {$0.amount > $1.amount})
-            self.filteredTransactions = self.filteredTransactions.sorted(by: {$0.amount > $1.amount})
+            self.transactions = transactions.sorted(by: {$0.amount > $1.amount})
+            self.filteredTransactions = filteredTransactions.sorted(by: {$0.amount > $1.amount})
             
         case .none:
             break
