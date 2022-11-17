@@ -79,12 +79,6 @@ class TrackViewModel: ObservableObject{
 
     //MARK: - Add Subscribers
     private func addSubscribers(){
-        
-        self.$transactions
-            .sink { _ in
-                print("\n HERE \n")
-            }
-            .store(in: &cancellables)
         //MARK: - DataManager Transactions Subscriber
         /// This subscriber runs when a transaction is added or deleted
         dataManager.$transactions
@@ -96,7 +90,7 @@ class TrackViewModel: ObservableObject{
                 /// Reset the filtered list, so that it contains the correct items
                 /// After reseting the list, apply the filter function
                 withAnimation {
-                    self.filteredTransactions = self.transactions
+                    self.filteredTransactions = returnedTransactions
                     
                     self.filterTransactions(filter: self.filter)
                 }
