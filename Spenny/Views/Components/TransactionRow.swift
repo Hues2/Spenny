@@ -50,7 +50,8 @@ struct TransactionRow: View {
                 Spacer()
                 
                 //MARK: - Transaction Amount
-                Text("\((transaction.amount < 0) ? "-" : "")\(transaction.amount.toFormattedString(format: "%.2f"))")
+//                Text("\((transaction.amount < 0) ? "-" : "")\(transaction.amount.toFormattedString(format: "%.2f"))")
+                Text("\(transaction.amount.toFormattedString(format: "%.2f"))")
                     .font(.headline)
                     .fontWeight(.medium)
                     .foregroundColor(transaction.amount == 0.0 ? .gray : (transaction.amount > 0 ? .green : .red))

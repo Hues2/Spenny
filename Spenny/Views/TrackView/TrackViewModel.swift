@@ -79,11 +79,6 @@ class TrackViewModel: ObservableObject{
 
     //MARK: - Add Subscribers
     private func addSubscribers(){
-        self.$transactions
-            .sink { _ in
-                print("\n HERE \n")
-            }
-            .store(in: &cancellables)
         //MARK: - DataManager Transactions Subscriber
         /// This subscriber runs when a transaction is added or deleted
         dataManager.$transactions

@@ -10,14 +10,36 @@ import Foundation
 
 extension Double{
     func toFormattedString(format: String) -> String{
-        return "£" + String(format: format, self).replacingOccurrences(of: "-", with: "")
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .currency
+        if let formattedNumber = formatter.string(from: self as NSNumber){
+            return formattedNumber
+        } else {
+            return String(format: format, self)
+        }
+        
     }
     
     func withPoundSign(format: String) -> String{
-        return "£" + String(format: format, self)
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .currency
+        if let formattedNumber = formatter.string(from: self as NSNumber){
+            return formattedNumber
+        } else {
+            return String(format: format, self)
+        }
     }
     
     func withPercentage(format: String) -> String{
-        return String(format: format, self) + "%"
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .percent
+        if let formattedNumber = formatter.string(from: self as NSNumber){
+            return formattedNumber
+        } else {
+            return String(format: format, self) + "%"
+        }
     }
 }
