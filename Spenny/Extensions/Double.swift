@@ -33,13 +33,6 @@ extension Double{
     }
     
     func withPercentage(format: String) -> String{
-        let formatter = NumberFormatter()
-        formatter.locale = Locale.current
-        formatter.numberStyle = .percent
-        if let formattedNumber = formatter.string(from: self as NSNumber){
-            return formattedNumber
-        } else {
-            return String(format: format, self) + "%"
-        }
+            return String(format: format, self) + "%"        
     }
 }
