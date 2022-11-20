@@ -43,6 +43,8 @@
 		2EB90C5728CF8696004F158E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB90C5628CF8696004F158E /* Color.swift */; };
 		2EBBE50728D25C6F00159FBA /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBE50628D25C6F00159FBA /* Double.swift */; };
 		2EBF174128D2207B004CD8AA /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF174028D2207B004CD8AA /* TransactionRow.swift */; };
+		2EC942D4292AADDC00E77182 /* SavedMonthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942D3292AADDC00E77182 /* SavedMonthsView.swift */; };
+		2EC942D6292AADFB00E77182 /* SavedMonthsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942D5292AADFB00E77182 /* SavedMonthsViewModel.swift */; };
 		2ECBDA3528D5E361001A40A1 /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBDA3428D5E361001A40A1 /* TrackView.swift */; };
 		2ECBDA3728D5E36F001A40A1 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBDA3628D5E36F001A40A1 /* TrackViewModel.swift */; };
 		2ED0CABB28D9CB57004DB261 /* ModalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0CABA28D9CB57004DB261 /* ModalModifier.swift */; };
@@ -107,6 +109,8 @@
 		2EB90C5628CF8696004F158E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2EBBE50628D25C6F00159FBA /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		2EBF174028D2207B004CD8AA /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
+		2EC942D3292AADDC00E77182 /* SavedMonthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedMonthsView.swift; sourceTree = "<group>"; };
+		2EC942D5292AADFB00E77182 /* SavedMonthsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedMonthsViewModel.swift; sourceTree = "<group>"; };
 		2ECBDA3428D5E361001A40A1 /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
 		2ECBDA3628D5E36F001A40A1 /* TrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModel.swift; sourceTree = "<group>"; };
 		2ED0CABA28D9CB57004DB261 /* ModalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalModifier.swift; sourceTree = "<group>"; };
@@ -280,6 +284,15 @@
 			path = FilterView;
 			sourceTree = "<group>";
 		};
+		2EC942D2292AADC900E77182 /* SavedMonths */ = {
+			isa = PBXGroup;
+			children = (
+				2EC942D3292AADDC00E77182 /* SavedMonthsView.swift */,
+				2EC942D5292AADFB00E77182 /* SavedMonthsViewModel.swift */,
+			);
+			path = SavedMonths;
+			sourceTree = "<group>";
+		};
 		2ECBDA3328D5E30E001A40A1 /* TrackView */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +364,7 @@
 		2EE505F028CE868700809A73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EC942D2292AADC900E77182 /* SavedMonths */,
 				2E04DE8C28CFDAB30013D866 /* Components */,
 				2EE505F128CE870100809A73 /* HomeView */,
 				2ECBDA3328D5E30E001A40A1 /* TrackView */,
@@ -506,6 +520,7 @@
 				2E04DE8328CFC5420013D866 /* ModalDragGesture.swift in Sources */,
 				2E6FF8B42918561F002DB533 /* FilterOptions.swift in Sources */,
 				2E04DE8E28CFE1190013D866 /* UIApplication.swift in Sources */,
+				2EC942D6292AADFB00E77182 /* SavedMonthsViewModel.swift in Sources */,
 				2EE505E028CE85DA00809A73 /* SpennyApp.swift in Sources */,
 				2ED8F09628DA13B900707D26 /* Date.swift in Sources */,
 				2EB90C5728CF8696004F158E /* Color.swift in Sources */,
@@ -518,6 +533,7 @@
 				2E4C95B728D33E540029C652 /* TextFieldHeader.swift in Sources */,
 				2E0E8A2F28CF7B2D006C0252 /* RoundedCorner.swift in Sources */,
 				2E2F09D928D4B003004FDF01 /* CoreDataManager.swift in Sources */,
+				2EC942D4292AADDC00E77182 /* SavedMonthsView.swift in Sources */,
 				2ED0CABB28D9CB57004DB261 /* ModalModifier.swift in Sources */,
 				2E04DE8528CFC6E40013D866 /* ModalModifiers.swift in Sources */,
 				2ECBDA3528D5E361001A40A1 /* TrackView.swift in Sources */,
