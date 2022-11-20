@@ -14,7 +14,7 @@ class HomeViewModel: ObservableObject{
     @Published var showInitialProgressView: Bool = true
     
     
-    let dataManager : DataManager
+    var dataManager : DataManager
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -34,7 +34,13 @@ class HomeViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
-        
+        dataManager.$spennyEntity
+            .dropFirst()
+            .sink { returnedSpennyEntity in
+                self.showInitialProgressView = true
+                self.showInitialProgressView = false
+            }
+            .store(in: &cancellables)
     }
     
     

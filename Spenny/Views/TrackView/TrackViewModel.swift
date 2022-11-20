@@ -354,5 +354,5 @@ class TrackViewModel: ObservableObject{
         
         return chartObjects.sorted(by: { $0.date < $1.date })
     }
-    
+
 }

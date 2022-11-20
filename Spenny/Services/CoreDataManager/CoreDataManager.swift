@@ -10,12 +10,12 @@ import CoreData
 import Combine
 
 
-class CoreDataManager: ObservableObject, CoreDataProtocol {
+class CoreDataManager: ObservableObject, CoreDataProtocol {    
     
-    @Published var spennyDataPublisher = PassthroughSubject<Result<SpennyEntity?, Error>, Never>()
+    var spennyDataPublisher = PassthroughSubject<Result<SpennyEntity?, Error>, Never>()
+    var savedSpennyEntitiesPublisher = PassthroughSubject<Result<[SpennyEntity?], Error>, Never>()
     
-    
-     let container: NSPersistentContainer
+    let container: NSPersistentContainer
     
     init(){
         self.container = NSPersistentContainer(name: "SpennyModel")
@@ -33,6 +33,7 @@ class CoreDataManager: ObservableObject, CoreDataProtocol {
         let request = NSFetchRequest<SpennyEntity>(entityName: "SpennyEntity")
         do {
             let result = try container.viewContext.fetch(request)
+
             
             guard !result.isEmpty else {
                 spennyDataPublisher.send(.failure(CustomError.spennyEntityWasNil))
@@ -40,13 +41,15 @@ class CoreDataManager: ObservableObject, CoreDataProtocol {
                 
             }
 
-            spennyDataPublisher.send(.success(result[0]))
+            spennyDataPublisher.send(.success(result.last))
+            savedSpennyEntitiesPublisher.send(.success(result))
             
         } catch{
             print("\n [CORE DATA MANAGER] --> Error fetching Spenny Data from core data. Error: \(error.localizedDescription) \n")
             spennyDataPublisher.send(.failure(CustomError.couldNotFetchEntity))
         }
     }
+
     
     // MARK: Save & Reload Data
     func applyChanges(){

@@ -14,6 +14,7 @@ class DataManager: ObservableObject{
     
     var spennyEntityPublisher = PassthroughSubject<Result<SpennyEntity, Error>, Never>()
     @Published var spennyEntity: SpennyEntity? = nil
+    @Published var savedSpennyEntities: [SpennyEntity?] = []
     
     @Published var monthlyIncome: Double? = nil
     @Published var savingsGoal: Double? = nil
@@ -21,6 +22,7 @@ class DataManager: ObservableObject{
     
     @Published var showModal: Bool = false
     @Published var isNewUser: Bool = true
+    var isEditingMonth: Binding<Bool>
     @Published var isLoadingOrSavingData: Bool = false
     
     
@@ -29,10 +31,11 @@ class DataManager: ObservableObject{
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(coreDataManager: CoreDataProtocol){
+    init(coreDataManager: CoreDataProtocol, isEditingMonth: Binding<Bool>){
         self.coreDataManager = coreDataManager
+        self.isEditingMonth = isEditingMonth
         addSubscribers()
-//        coreDataManager.getSpennyData()
+        //        coreDataManager.getSpennyData()
     }
     
     
@@ -60,29 +63,72 @@ class DataManager: ObservableObject{
                     }
                     
                     // The was a saved spenny entity in core data, so now it populates everything with that data
-                                    
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self else { return }
-                        
-                        withAnimation {
-                            self.spennyEntity = spennyEntity
-                            self.monthlyIncome = spennyEntity.monthlyIncome
-                            self.savingsGoal = spennyEntity.savingsGoal
+                    if self.isEditingMonth.wrappedValue{ /// This makes sure that the values don't get set from the previously completed spenny entity, on app launch
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self else { return }
                             
-                            if let transactions = spennyEntity.transactions?.allObjects as? [TransactionEntity]{
-                                self.transactions = transactions
+                            withAnimation {
+                                self.spennyEntity = spennyEntity
+                                self.monthlyIncome = spennyEntity.monthlyIncome
+                                self.savingsGoal = spennyEntity.savingsGoal
+                                
+                                if let transactions = spennyEntity.transactions?.allObjects as? [TransactionEntity]{
+                                    self.transactions = transactions
+                                }
+                                
+                                self.isNewUser = false
+                                self.showModal = false
+                                self.spennyEntityPublisher.send(.success(spennyEntity))
                             }
-                            
-                            self.isNewUser = false
-                            self.showModal = false
-                            self.spennyEntityPublisher.send(.success(spennyEntity))
                         }
+                    } else{
+                        self.spennyEntityPublisher.send(.failure(CustomError.spennyEntityWasNil))
                     }
                 }
-  
+                
             }
             .store(in: &cancellables)
-
+        
+        
+        coreDataManager.savedSpennyEntitiesPublisher
+            .sink { completion in
+                switch completion{
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("\n [DATA MANAGER] --> Error in savedSpennyEntitiesPubliher. Error: \(error.localizedDescription) \n")
+                }
+            } receiveValue: { [weak self] result in
+                guard let self else { return }
+                switch result{
+                case .failure(let error):
+                    print("\n [DATA MANAGER] --> Error in savedSpennyEntitiesPubliher. Error: \(error.localizedDescription) \n")
+                    
+                case .success(let savedSpennyEntities):
+                    DispatchQueue.main.async{
+                        withAnimation {
+                            self.savedSpennyEntities = savedSpennyEntities
+                            print("\n \(savedSpennyEntities.count) \n")
+                        }
+                    }
+                    
+                }
+            }
+            .store(in: &cancellables)
+        
+        self.$spennyEntity
+            .sink { [weak self] returnedSpennyEntity in
+                guard let self else { return }
+                guard let returnedSpennyEntity else {
+                    self.monthlyIncome = nil
+                    self.savingsGoal = nil
+                    self.transactions = []
+                    return
+                    
+                }
+            }
+            .store(in: &cancellables)
+        
     }
     
     
@@ -93,6 +139,7 @@ class DataManager: ObservableObject{
         spennyEntity.monthlyIncome = monthlyIncome
         spennyEntity.savingsGoal = savingsGoal
         spennyEntity.transactions = NSSet(array: self.transactions)
+        self.isEditingMonth.wrappedValue = true /// --> Before saving the new spenny entity, set the isEditing to true, as this will allow the data manager variables to be set
         coreDataManager.applyChanges()
     }
     
@@ -114,7 +161,14 @@ class DataManager: ObservableObject{
     func applyChanges(){
         coreDataManager.applyChanges()
     }
-
+    
+    
+    func completeAndSaveSpennyEntity(){
+        print("\n Setting spenny entity to nil \n")
+        withAnimation {
+            self.spennyEntity = nil
+        }
+    }
     
     
 }

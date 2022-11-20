@@ -11,6 +11,7 @@ import Charts
 struct TrackView: View {
     
     @StateObject var vm: TrackViewModel
+    @AppStorage("isEditingMonth") var isEditingMonth: Bool = false
     
     /// Floating button movement
     @AppStorage("buttonIsRightAlignment") private var buttonIsRightAlignment = true
@@ -29,6 +30,9 @@ struct TrackView: View {
     @State var selection: Int = 1
     
     @State var animateBarChart: Bool = false
+    
+    /// State for the save alert
+    @State var showAlert: Bool = false
         
     
     /// Init
@@ -80,6 +84,20 @@ struct TrackView: View {
                 .presentationDragIndicator(.visible)
         })
         .toolbar{
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    /// Show save month alert
+                    withAnimation {
+                        showAlert.toggle()
+                    }
+                    
+                } label: {
+                    Image(systemName: "tray.and.arrow.down.fill")
+                        .foregroundColor(.accentColor)
+                }
+
+            }
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     /// Show settings sheet
@@ -94,6 +112,23 @@ struct TrackView: View {
                 }
 
             }
+        }
+        .alert(isPresented: $showAlert){
+            Alert(
+                title: Text("Complete & Save Month"),
+                  message: Text("Do you wish to finish adding transactions and save this month?"),
+                primaryButton: .default(Text("Save"), action: {
+                    print("\n Save \n")
+                    isEditingMonth = false
+                    vm.dataManager.isNewUser = true
+                    vm.dataManager.completeAndSaveSpennyEntity()
+                    showAlert.toggle()
+                }) ,
+                secondaryButton: .destructive(Text("Cancel"), action: {
+                    print("\n Cancel \n")
+                    showAlert.toggle()
+                })
+            )
         }
         .withTrackViewModifiers()
         .overlay(alignment: alignment) {

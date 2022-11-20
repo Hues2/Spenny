@@ -11,6 +11,7 @@ import UIKit
 struct HomeView: View {
     
     @StateObject var vm: HomeViewModel
+    @AppStorage("isEditingMonth") var isEditingMonth: Bool = false
     
     
     init(dataManager: DataManager){
@@ -27,7 +28,7 @@ struct HomeView: View {
                     
                 } else{
                     
-                    if vm.dataManager.spennyEntity == nil{
+                    if vm.dataManager.spennyEntity == nil || !isEditingMonth{
                         getStarted
                     } else{
                         TrackView(dataManager: vm.dataManager)

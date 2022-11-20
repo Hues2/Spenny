@@ -12,6 +12,7 @@ import SwiftUI
 struct GetStartedModalViewModifier: ViewModifier{
     var dataManager: DataManager
     @Binding var isNewUser: Bool
+    @AppStorage("isEditingMonth") var isEditingMonth: Bool = false
     
     func body(content: Content) -> some View {
         ZStack(alignment: .bottom){
@@ -19,7 +20,7 @@ struct GetStartedModalViewModifier: ViewModifier{
                 .zIndex(0)
             
             if dataManager.showModal{
-                if isNewUser{
+                if isNewUser || !isEditingMonth{
                     GetStartedModal(dataManager: dataManager)
                         .zIndex(1)
                         .transition(.move(edge: .bottom))

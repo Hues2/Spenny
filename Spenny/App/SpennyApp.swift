@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct SpennyApp: App {
+    @AppStorage("isEditingMonth") var isEditingMonth: Bool = false
     var body: some Scene {
         WindowGroup {
-            AppView()
+            AppView(isEditingMonth: $isEditingMonth)
+                
         }
     }
 }

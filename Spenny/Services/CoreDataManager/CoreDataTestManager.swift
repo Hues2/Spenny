@@ -12,8 +12,8 @@ import Combine
 
 class CoreDataTestManager: ObservableObject, CoreDataProtocol {
     
-    @Published var spennyDataPublisher = PassthroughSubject<Result<SpennyEntity?, Error>, Never>()
-    
+    var spennyDataPublisher = PassthroughSubject<Result<SpennyEntity?, Error>, Never>()
+    var savedSpennyEntitiesPublisher = PassthroughSubject<Result<[SpennyEntity?], Error>, Never>()
     
      let container: NSPersistentContainer
     
@@ -43,12 +43,15 @@ class CoreDataTestManager: ObservableObject, CoreDataProtocol {
             }
 
             spennyDataPublisher.send(.success(result[0]))
+            savedSpennyEntitiesPublisher.send(.success(result))
             
         } catch{
             print("\n [CORE DATA MANAGER] --> Error fetching Spenny Data from core data. Error: \(error.localizedDescription) \n")
             spennyDataPublisher.send(.failure(CustomError.couldNotFetchEntity))
+            
         }
     }
+
     
     // MARK: Save & Reload Data
     func applyChanges(){

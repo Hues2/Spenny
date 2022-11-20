@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GetStartedModal: View{
     @StateObject var vm: ModalViewModel
-    
+    @AppStorage("isEditingMonth") var isEditingMonth: Bool = false
     @State private var offset = CGFloat.zero
     @State var isAddingTransaction: Bool = false
     
@@ -152,6 +152,7 @@ extension GetStartedModal{
         if !isAddingTransaction{
             Button {
                 vm.dataManager.addSpennyData()
+                isEditingMonth = true
             } label: {
                 Text("Save")
                     .fontWeight(.bold)

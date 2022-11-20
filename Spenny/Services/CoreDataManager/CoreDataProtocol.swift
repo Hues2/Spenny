@@ -13,6 +13,7 @@ import CoreData
 
 protocol CoreDataProtocol{
     var spennyDataPublisher: PassthroughSubject<Result<SpennyEntity?, Error>, Never> {get set}
+    var savedSpennyEntitiesPublisher: PassthroughSubject<Result<[SpennyEntity?], Error>, Never> {get set}
     var container: NSPersistentContainer {get}
     func getSpennyData()
     func save()
