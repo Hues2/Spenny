@@ -82,7 +82,7 @@ class DataManager: ObservableObject{
                             }
                         }
                     } else{
-                        self.spennyEntityPublisher.send(.failure(CustomError.spennyEntityWasNil))
+                        self.spennyEntityPublisher.send(.failure(CustomError.userIsNotCurrentlyEditingAMonth))
                     }
                 }
                 
@@ -111,19 +111,6 @@ class DataManager: ObservableObject{
                             print("\n \(savedSpennyEntities.count) \n")
                         }
                     }
-                    
-                }
-            }
-            .store(in: &cancellables)
-        
-        self.$spennyEntity
-            .sink { [weak self] returnedSpennyEntity in
-                guard let self else { return }
-                guard let returnedSpennyEntity else {
-                    self.monthlyIncome = nil
-                    self.savingsGoal = nil
-                    self.transactions = []
-                    return
                     
                 }
             }
@@ -162,11 +149,15 @@ class DataManager: ObservableObject{
         coreDataManager.applyChanges()
     }
     
-    
+    //MARK: - Complete and Save Month
     func completeAndSaveSpennyEntity(){
-        print("\n Setting spenny entity to nil \n")
+        self.isEditingMonth.wrappedValue = false /// This sets the user defaults value, so that the app launches the "Get Started" view if the user is not currently editing a month
+        self.isNewUser = true /// This makes all of the modal functionality work in the "Get Started view"
         withAnimation {
             self.spennyEntity = nil
+            self.monthlyIncome = nil
+            self.savingsGoal = nil
+            self.transactions = []
         }
     }
     

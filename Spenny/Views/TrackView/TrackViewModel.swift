@@ -354,5 +354,10 @@ class TrackViewModel: ObservableObject{
         
         return chartObjects.sorted(by: { $0.date < $1.date })
     }
+    
+    //MARK: - Complete and Save
+    func completeAndSave(){
+        dataManager.completeAndSaveSpennyEntity()
+    }
 
 }
