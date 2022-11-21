@@ -7,12 +7,17 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 
 
 class SavedMonthsViewModel: ObservableObject{
     
     @Published var savedSpennyEntities : [SpennyEntity?]
+    
+    var validSavedEntities: [SpennyEntity]{
+        return savedSpennyEntities.compactMap({$0})
+    }
     
     var dataManager: DataManager
     
@@ -35,4 +40,43 @@ class SavedMonthsViewModel: ObservableObject{
             .store(in: &cancellables)
     }
     
+    
+    // MARK: Get Section Header
+    func getDates(entity: SpennyEntity) -> String{
+        
+        guard let transactions = entity.transactions?.allObjects as? [TransactionEntity] else {
+            return "Dates Unknown"
+        }
+        
+        let earliestDate = transactions.sorted(by: {$0.date ?? Date() < $1.date ?? Date()}).first?.date
+        let latestDate = transactions.sorted(by: {$0.date ?? Date() < $1.date ?? Date()}).last?.date
+            
+        if let earliestDate, let latestDate{
+            return "\(earliestDate.toString()) - \(latestDate.toString())"
+        }
+        else if let earliestDate {
+            return "\(earliestDate.toString())"
+        }
+        
+        else if let latestDate{
+            return "\(latestDate.toString())"
+        }
+        
+        else{
+            return "Unknown Dates"
+        }
+    }
+
+    
+    func getAmountSaved(entity: SpennyEntity) -> Double{
+        guard let transactions = entity.transactions?.allObjects as? [TransactionEntity] else {
+            return 0
+        }
+        
+        let values = transactions.map({$0.amount})
+        let total = values.reduce(0, +)
+        let amountLeft = entity.monthlyIncome + total
+        return amountLeft
+        
+    }
 }
