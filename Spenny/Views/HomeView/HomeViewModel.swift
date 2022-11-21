@@ -30,10 +30,13 @@ class HomeViewModel: ObservableObject{
         
         dataManager.spennyEntityPublisher
             .sink { [weak self] _ in
-                self?.showInitialProgressView = false
+                DispatchQueue.main.async {
+                    self?.showInitialProgressView = false
+                }                
             }
             .store(in: &cancellables)
         
+        /// This is for when the spenny entity gets set to nil, when the customer clicks on the save button in the Track View
         dataManager.$spennyEntity
             .dropFirst()
             .sink { returnedSpennyEntity in

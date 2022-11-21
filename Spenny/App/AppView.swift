@@ -12,19 +12,18 @@ struct AppView: View {
     
     init(isEditingMonth: Binding<Bool>){
         self._dataManager = StateObject(wrappedValue: DataManager(coreDataManager: CoreDataManager(), isEditingMonth: isEditingMonth))
+        
         // correct the transparency bug for Tab bars
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = UIColor(Color.backgroundColor)
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        // correct the transparency bug for Navigation bars
-//        let navigationBarAppearance = UINavigationBarAppearance()
-//        navigationBarAppearance.configureWithOpaqueBackground()
-//        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+
     }
     
     var body: some View {
         TabView {
+            // MARK: Home View
             HomeView(dataManager: dataManager)
                 .tabItem {
                     Label {
@@ -33,6 +32,16 @@ struct AppView: View {
                         Image(systemName: "dollarsign.square.fill")
                     }
                     
+                }
+            
+            // MARK: Saved Months
+            SavedMonthsView(dataManager: dataManager)
+                .tabItem {
+                    Label{
+                        Text("Saved")
+                    } icon: {
+                        Image(systemName: "list.dash")
+                    }
                 }
         }
         .background(

@@ -12,7 +12,7 @@ import Combine
 
 class SavedMonthsViewModel: ObservableObject{
     
-    @Published var savedSpennyEntities = [SpennyEntity]()
+    @Published var savedSpennyEntities : [SpennyEntity?]
     
     var dataManager: DataManager
     
@@ -21,27 +21,18 @@ class SavedMonthsViewModel: ObservableObject{
     
     init(dataManager: DataManager) {
         self.dataManager = dataManager
+        self.savedSpennyEntities = dataManager.savedSpennyEntities
         addSubscribers()
     }
     
     //MARK: - Add Subscribers
     private func addSubscribers(){
         self.dataManager.$savedSpennyEntities
-            .sink { completion in
-                switch completion{
-                case .failure(let error):
-                    print("\n \(error.localizedDescription) \n")
-                    
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] returnedSavedSpennyEntities in
+            .sink { [weak self] returnedSavedSpennyEntities in
                 guard let self else { return }
-                guard let returnedSavedSpennyEntities else { return }
-                
-                
+                self.savedSpennyEntities = returnedSavedSpennyEntities
             }
-
+            .store(in: &cancellables)
     }
     
 }

@@ -9,7 +9,16 @@ import SwiftUI
 
 
 struct SavedMonthsView: View {
+    
+    @StateObject private var vm: SavedMonthsViewModel
+    
+    init(dataManager: DataManager){
+        self._vm = StateObject(wrappedValue: SavedMonthsViewModel(dataManager: dataManager))
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("\(vm.savedSpennyEntities.count)")
+        }
     }
 }
