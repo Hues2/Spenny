@@ -13,7 +13,6 @@ class HomeViewModel: ObservableObject{
     
     @Published var showInitialProgressView: Bool = true
     
-    
     var dataManager : DataManager
     
     private var cancellables = Set<AnyCancellable>()

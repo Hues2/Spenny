@@ -134,7 +134,7 @@ struct TrackView: View {
             } label: {
                 ZStack{
                     Circle()
-                        .fill(Color.accentColor)
+                        .fill(SpennyColour.shared.accentColour)
                         .frame(width: 50, height: 50)
                         .padding(10)
                         .shadow(color: .black.opacity(0.5), radius: 5)

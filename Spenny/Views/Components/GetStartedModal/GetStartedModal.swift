@@ -72,7 +72,7 @@ extension GetStartedModal{
                 vm.dismissModal()
             } label: {
                 Circle()
-                    .fill(RadialGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), center: .center, startRadius: 5, endRadius: 15))
+                    .fill(RadialGradient(gradient: SpennyGradient.shared.gradient, center: .center, startRadius: 5, endRadius: 15))
                     .frame(width: 25, height: 25)
                     .mask {
                         Image(systemName: "x.circle.fill")

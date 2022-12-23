@@ -44,7 +44,7 @@ struct InfoBoxCenter: View {
             
         }
         .overlay(alignment: .center) {
-            Text(remaining.toFormattedString(format: "%.2f"))
+            Text("\(remaining.toFormattedString(format: "%.2f"))")
                 .foregroundColor(color)
                 .font(.title2)
                 .fontWeight(.black)

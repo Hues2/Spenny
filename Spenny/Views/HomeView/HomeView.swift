@@ -81,7 +81,7 @@ extension HomeView{
     
     private var logo: some View{
         Rectangle()
-            .fill(LinearGradient(gradient: Gradient(colors: [.mint, .teal, .cyan, .blue]), startPoint: .leading, endPoint: .trailing))
+            .fill(LinearGradient(gradient: SpennyGradient.shared.gradient , startPoint: .leading, endPoint: .trailing))
             .frame(height: 75)
             .frame(maxWidth: .infinity)
             .mask {
